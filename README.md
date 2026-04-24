@@ -2,7 +2,7 @@
 
 Welcome to the source code of my personal technical portfolio. This site serves as a central hub for documenting my infrastructure projects, homelab architectures, and continuous learning journey in Systems Administration and DevOps.
 
-> **Live Site:** [https://pablorosi.dev]
+> **Live Site:** [pablorosi.dev](https://pablorosi.dev)
 
 ## 🛠️ Tech Stack
 
@@ -19,9 +19,14 @@ Inside this project, you'll see the following key directories:
 
 ```text
 /
-├── public/           # Static assets (Favicon, profile pictures)
+├── public/               # Static assets (favicon, profile photo)
 ├── src/
-│   ├── assets/       # Optimized images and dynamic SVG logos
-│   ├── content/      # Technical documentation and project pages (.mdx)
-│   └── styles/       # Custom CSS and theming
-└── astro.config.mjs  # Starlight and Astro configuration
+│   ├── assets/           # Optimized images and dynamic SVG logos
+│   ├── components/       # Custom Astro/React UI components
+│   ├── content/docs/     # Technical documentation and project pages (.mdx)
+│   ├── styles/           # Custom CSS and theming
+│   └── content.config.ts # Schema validation for Markdown frontmatter
+├── astro.config.mjs      # Starlight and Astro configuration
+├── package.json          # Project metadata and scripts
+└── pnpm-lock.yaml        # Deterministic dependency lockfile
+````
