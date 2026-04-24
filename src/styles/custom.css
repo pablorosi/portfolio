@@ -1,0 +1,76 @@
+/* Dark mode colors. */
+:root {
+	--sl-color-accent-low: #1c213e;
+	--sl-color-accent: #4f5cc8;
+	--sl-color-accent-high: #bdc7ed;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e8eef8;
+	--sl-color-gray-2: #bbc3ce;
+	--sl-color-gray-3: #7d8da3;
+	--sl-color-gray-4: #4b596d;
+	--sl-color-gray-5: #2c394c;
+	--sl-color-gray-6: #1b2739;
+	--sl-color-black: #131921;
+}
+/* Light mode colors. */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #ced6f3;
+	--sl-color-accent: #515eca;
+	--sl-color-accent-high: #262d5c;
+	--sl-color-white: #131921;
+	--sl-color-gray-1: #1b2739;
+	--sl-color-gray-2: #2c394c;
+	--sl-color-gray-3: #4b596d;
+	--sl-color-gray-4: #7d8da3;
+	--sl-color-gray-5: #bbc3ce;
+	--sl-color-gray-6: #e8eef8;
+	--sl-color-gray-7: #f3f7fb;
+	--sl-color-black: #ffffff;
+}
+
+body {
+	font-family: 'Inter Variable', sans-serif !important;
+}
+
+.flex-heading {
+  display: flex;
+  align-items: center; /* This aligns them vertically */
+  gap: 0.7rem;          /* Space between icon and text */
+}
+
+.skills svg {
+  transform: translateY(9px);
+  width: auto;
+  height: 1.8rem;
+}
+
+.certs svg {
+    transform: translateY(22px);
+    width: auto;
+    height: 1.8rem;
+}
+
+.projects svg {
+    transform: translateY(9px);
+    width: auto;
+    height: 1.8rem;
+}
+
+.contact svg {
+    transform: translateY(26px);
+    width: auto;
+    height: 1.8rem;
+}
+
+/* Target the Starlight header container */
+.header {
+  /* Use a semi-transparent version of your background color */
+  /* rgba(Red, Green, Blue, Alpha) where 0.7 is 70% opacity */
+  background-color: rgba(var(--sl-color-bg-nav-rgb), 0.7) !important;
+  
+  /* The blur effect makes it look like frosted glass */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* For Safari support */
+  
+  /* Optional: a subtle border to define the edge */
+}

@@ -1,21 +1,44 @@
-# build output
-dist/
-# generated types
-.astro/
+# =============================================================================
+# REPOSITORY: Starlight Portfolio Frontend
+# DESCRIPTION: Standard Git ignore rules for Astro/Starlight projects.
+# =============================================================================
 
-# dependencies
+# --- Dependency Directories ---
+# These folders contain external libraries managed by npm. 
+# They are never committed as they are reconstructed during deployment.
 node_modules/
 
-# logs
+# --- Build Artifacts & Caches ---
+# The 'dist' folder contains the production-ready static site.
+# '.astro' is the framework's internal cache for performance.
+dist/
+.astro/
+
+# --- Environment Variables & Secrets ---
+# CRITICAL: Prevent sensitive data leaks (API keys, credentials).
+# We ignore all .env files but allow '.env.example' as a template.
+.env
+.env.*
+!.env.example
+
+# --- System Generated Files ---
+# Ignore OS-specific metadata files that clutter the repository.
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+Thumbs.db
+desktop.ini
+
+# --- Development Logs ---
+# Logs generated during debugging or runtime errors.
+*.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
-
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
-.DS_Store
+# --- Editor / IDE Configurations ---
+# Ignore local IDE settings.
+.vscode/
+.idea/

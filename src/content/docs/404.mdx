@@ -1,0 +1,32 @@
+---
+title: '404 | Packet Dropped'
+template: splash
+editUrl: false
+---
+
+<style>{`
+  /* This safely hides the duplicate title injected by Starlight */
+  h1#_top { 
+    display: none !important; 
+  }
+`}</style>
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 65vh; text-align: center; gap: 1.5rem;">
+  
+  <h1 style="font-size: clamp(6rem, 15vw, 10rem); margin: 0; line-height: 1; font-family: monospace; color: var(--sl-color-accent); font-weight: 900;">
+    404
+  </h1>
+  
+  <h2 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin: 0; font-weight: 700;">
+    Destination Host Unreachable
+  </h2>
+  
+  <p style="font-size: 1.2rem; color: var(--sl-color-gray-3); max-width: 55ch; line-height: 1.6; margin: 0;">
+    The packet was routed successfully, but the requested resource does not exist on this server. Check the URL or try using the search bar.
+  </p>
+  
+  <a href="/" style="background-color: var(--sl-color-accent); color: var(--sl-color-black); padding: 0.8rem 2.2rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1.1rem; margin-top: 1rem;">
+    Return to Main Page
+  </a>
+
+</div>

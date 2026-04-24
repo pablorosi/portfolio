@@ -1,40 +1,83 @@
 ---
-title: Welcome to Starlight
+title: Hi, I'm Pablo Rosi
 description: Get started building your docs site with Starlight.
 template: splash # Remove or comment out this line to display the site sidebar on this page.
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Student and Infrastructure Enthusiast documentating my journey in Networking and Linux.
   image:
-    file: ../../assets/houston.webp
+    file: /Users/pablorosi/dev/pablorosi-portfolio/Photo.png
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: View my homelab
+      link: /guides/examplq
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: Let's Connect
+      link: mailto:me@pablorosi.com
       icon: external
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
 
-## Next steps
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+<h2 class="flex-heading projects">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu-icon lucide-cpu"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+Technical Projects
+</h2>
+
+<CardGrid>
+  <LinkCard
+    title="Secure Cloud Infrastructure & P2P Routing"
+    description="Geo-compliant P2P stack deployed on a Hetzner VPS using Docker, Gluetun (AirVPN sidecar), and Nginx Proxy Manager."
+    href="/projects/cloud-infrastructure/"
+    badge={{ text: 'Cloud Ops & Security', variant: 'danger' }}
+  />
+  
+  <LinkCard
+    title="Enterprise Local Datacenter"
+    description="High-availability RHEL deployment on an HP t740 node featuring Link Aggregation (LACP), VLAN segmentation, and Grafana."
+    href="/projects/local-datacenter/"
+    badge={{ text: 'Networking & Linux', variant: 'tip' }}
+  />
+
+  <LinkCard
+    title="Relational Database Architecture & DBA"
+    description="Complex SQL schema optimization, Role-Based Access Control (RBAC), and automated backup strategies for relational systems."
+    href="/projects/database-architecture/"
+    badge={{ text: 'Data & SQL', variant: 'caution' }}
+  />
+
+  <LinkCard
+    title="Technical Portfolio Site"
+    description="Professional infrastructure documentation platform built with Astro, Starlight, and responsive CSS architectures."
+    href="/projects/portfolio-web/"
+    badge={{ text: 'Web Engineering', variant: 'note' }}
+  />
 </CardGrid>
+
+<h2 class="flex-heading skills">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+Technical Skills
+</h2>
+
+Me especializo en la administración de infraestructuras críticas y redes seguras.
+
+<Badge text="RHEL/Debian" variant="note" />
+<Badge text="Cisco IOS" variant="tip" />
+<Badge text="Docker & Containers" variant="success" />
+<Badge text="SQL Databases" variant="caution" />
+
+<h2 class="flex-heading certs">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap-icon lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+## Certifications
+</h2>
+- **CCNA** (En curso) - Cisco
+- **RHCSA** (Objetivo 2026) - Red Hat
+
+<h2 class="flex-heading contact">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-icon lucide-circle-user"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>
+## Contact
+</h2>
+
+Si quieres colaborar en un proyecto o tienes alguna pregunta técnica, puedes encontrarme aquí:
+
+[GitHub](https://github.com/tu-usuario) | [LinkedIn](https://linkedin.com/in/tu-perfil)
