@@ -13,6 +13,9 @@
 	--sl-color-black: #131921;
 	--hero-image-size: clamp(200px, 26vw, 320px);
 	--hero-image-frame-color: var(--sl-color-gray-2);
+	--page-background:
+		radial-gradient(circle at 14% 18%, rgba(79, 92, 200, 0.2), transparent 44%),
+		linear-gradient(160deg, #0f1723 0%, #111c2b 48%, #162335 100%);
 }
 /* Light mode colors. */
 :root[data-theme='light'] {
@@ -29,10 +32,14 @@
 	--sl-color-gray-7: #f3f7fb;
 	--sl-color-black: #ffffff;
 	--hero-image-frame-color: var(--sl-color-gray-3);
+	--page-background:
+		radial-gradient(circle at 12% 16%, rgba(81, 94, 202, 0.14), transparent 46%),
+		linear-gradient(90deg, #f3f7fc 0%, #dfe8f4 52%, #cbd9ec 100%);
 }
 
 body {
 	font-family: 'Inter Variable', sans-serif !important;
+	background: var(--page-background);
 }
 
 .flex-heading {
