@@ -33,44 +33,28 @@ body {
 }
 
 .flex-heading {
-  display: flex;
-  align-items: center; /* This aligns them vertically */
-  gap: 0.7rem;          /* Space between icon and text */
+	display: flex;
+	align-items: center; /* This aligns them vertically */
+  	gap: 0.7rem;          /* Space between icon and text */
+  	margin-top: 0;
+  	margin-bottom: 1rem;
 }
 
-.skills svg {
-  transform: translateY(9px);
-  width: auto;
-  height: 1.8rem;
+.home-section + .home-section {
+	margin-top: 4rem;
 }
 
-.certs svg {
-    transform: translateY(22px);
-    width: auto;
-    height: 1.8rem;
+.flex-heading svg {
+	transform: translateY(9px);
+	width: auto;
+	height: 1.8rem;
 }
 
-.projects svg {
-    transform: translateY(9px);
-    width: auto;
-    height: 1.8rem;
-}
 
-.contact svg {
-    transform: translateY(26px);
-    width: auto;
-    height: 1.8rem;
-}
-
-/* Target the Starlight header container */
 .header {
-  /* Use a semi-transparent version of your background color */
-  /* rgba(Red, Green, Blue, Alpha) where 0.7 is 70% opacity */
   background-color: rgba(var(--sl-color-bg-nav-rgb), 0.7) !important;
   
-  /* The blur effect makes it look like frosted glass */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px); /* For Safari support */
-  
-  /* Optional: a subtle border to define the edge */
+
 }
