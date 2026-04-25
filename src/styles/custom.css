@@ -63,10 +63,10 @@ body {
 
 .header {
   background-color: rgba(var(--sl-color-bg-nav-rgb), 0.7) !important;
-  
+	border-bottom: 0 !important;
+	box-shadow: none !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px); /* For Safari support */
-
 }
 
 .hero img {
