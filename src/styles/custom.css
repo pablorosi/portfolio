@@ -11,6 +11,8 @@
 	--sl-color-gray-5: #2c394c;
 	--sl-color-gray-6: #1b2739;
 	--sl-color-black: #131921;
+	--hero-image-size: clamp(200px, 26vw, 320px);
+	--hero-image-frame-color: var(--sl-color-gray-2);
 }
 /* Light mode colors. */
 :root[data-theme='light'] {
@@ -26,6 +28,7 @@
 	--sl-color-gray-6: #e8eef8;
 	--sl-color-gray-7: #f3f7fb;
 	--sl-color-black: #ffffff;
+	--hero-image-frame-color: var(--sl-color-gray-3);
 }
 
 body {
@@ -57,4 +60,15 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px); /* For Safari support */
 
+}
+
+.hero img {
+	width: var(--hero-image-size);
+	height: var(--hero-image-size);
+	object-fit: cover;
+	border: 3px solid var(--hero-image-frame-color);
+	border-radius: 50%;
+	padding: 0.35rem;
+	background: var(--sl-color-black);
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
 }
