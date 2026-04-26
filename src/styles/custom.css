@@ -39,13 +39,38 @@
 
 html {
 	background: var(--page-background);
+	background-color: var(--sl-color-black);
 	overscroll-behavior-y: none;
+	min-height: 100%;
+	min-height: 100dvh;
 }
 
 body {
 	font-family: 'Inter Variable', sans-serif !important;
 	background: var(--page-background);
 	min-height: 100%;
+	min-height: 100dvh;
+}
+
+/* iOS Safari can miscalculate viewport height with browser UI shown/hidden. */
+@supports (-webkit-touch-callout: none) {
+	html {
+		min-height: -webkit-fill-available;
+	}
+
+	body {
+		min-height: -webkit-fill-available;
+	}
+}
+
+/* Keep content/background inside notch & home-indicator only on iPhone-sized iOS Safari. */
+@supports (-webkit-touch-callout: none) {
+	@media (max-width: 820px) {
+		body {
+			padding-top: max(0px, env(safe-area-inset-top));
+			padding-bottom: max(0px, env(safe-area-inset-bottom));
+		}
+	}
 }
 
 .flex-heading {
@@ -141,11 +166,11 @@ body {
 .skill-badges .sl-badge {
 	border-radius: 999px;
 	padding: 0.25rem 0.72rem;
-	filter: saturate(0.72) brightness(0.9);
+	filter: saturate(0.62) brightness(0.92);
 }
 
 :root[data-theme='light'] .skill-badges .sl-badge {
-	filter: saturate(0.78) brightness(0.96);
+	filter: saturate(0.4) brightness(1.03) contrast(0.92);
 }
 
 .certs-intro {

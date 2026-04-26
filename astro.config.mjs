@@ -8,6 +8,15 @@ export default defineConfig({
 		starlight({
 			title: 'Pablo Rosi - Portfolio',
 			favicon: '/favicon.svg',
+			head: [
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'viewport',
+						content: 'width=device-width, initial-scale=1, viewport-fit=cover',
+					},
+				},
+			],
 			components: {
         SiteTitle: './src/components/CustomTitle.astro',
       },
