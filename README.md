@@ -19,14 +19,20 @@ Inside this project, you'll see the following key directories:
 
 ```text
 /
-├── public/               # Static assets (favicon, profile photo)
+├── .github/workflows/    # CI/CD pipelines for automated deployment
+├── assets/               # Additional project assets
+├── nginx/                # Web server routing and caching configuration
+│   └── default.conf
+├── public/               # Static assets served at the root
 ├── src/
-│   ├── assets/           # Optimized images and dynamic SVG logos
-│   ├── components/       # Custom Astro/React UI components
-│   ├── content/docs/     # Technical documentation and project pages (.mdx)
-│   ├── styles/           # Custom CSS and theming
-│   └── content.config.ts # Schema validation for Markdown frontmatter
-├── astro.config.mjs      # Starlight and Astro configuration
-├── package.json          # Project metadata and scripts
-└── pnpm-lock.yaml        # Deterministic dependency lockfile
+│   ├── assets/           # Site assets used by Astro
+│   ├── components/       # Custom Astro UI components
+│   ├── content/
+│   │   └── docs/         # Core documentation and project write-ups
+│   ├── styles/           # Global CSS and Starlight theme overrides
+│   └── content.config.ts # Content collections schema
+├── astro.config.mjs      # Starlight framework configuration
+├── package.json          # Project metadata and npm scripts
+├── pnpm-lock.yaml        # Deterministic dependency lockfile
+└── tsconfig.json         # TypeScript configuration
 ````
