@@ -160,26 +160,33 @@ body {
 }
 
 .certs-lane {
-	border: 1px solid color-mix(in srgb, var(--sl-color-hairline) 82%, transparent);
-	border-radius: 0.65rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
 	padding: 0.9rem;
-	background: color-mix(in srgb, var(--sl-color-bg) 90%, transparent);
+	background:
+		linear-gradient(180deg, color-mix(in srgb, var(--sl-color-accent) 6%, transparent), transparent 42%),
+		transparent;
+	box-shadow: var(--sl-shadow-sm);
 	min-height: 15rem;
 	display: flex;
 	flex-direction: column;
-	transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+	transition: border-color 180ms ease;
 }
 
 .certs-lane:hover {
-	transform: translateY(-2px);
-	border-color: color-mix(in srgb, var(--sl-color-accent) 32%, var(--sl-color-hairline));
-	box-shadow: 0 8px 20px color-mix(in srgb, var(--sl-color-accent) 12%, transparent);
+	border-color: var(--sl-color-gray-5);
 }
 
 .certs-lane h3 {
-	margin: 0 0 0.7rem;
-	font-size: 0.95rem;
+	margin: 0 0 0.9rem;
+	padding-bottom: 0.55rem;
+	border-bottom: 1px solid color-mix(in srgb, var(--sl-color-hairline) 88%, transparent);
+	font-size: 0.76rem;
 	line-height: 1.2;
+	font-weight: 650;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
 }
 
 .cert-entry {
@@ -299,4 +306,56 @@ footer.sl-flex {
     display: none !important;
     margin: 0 !important;
     padding: 0 !important;
+}
+/* Forces the 3 buttons to sit side-by-side evenly */
+.contact-links-container {
+  display: grid;
+	grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* The button styling */
+.contact-link-item {
+  display: flex !important;
+  align-items: center;
+  justify-content: center; /* Centers everything inside the button */
+  gap: 0.75rem;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	background: transparent;
+  border: 1px solid var(--sl-color-gray-5);
+	box-shadow: var(--sl-shadow-sm);
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  color: var(--sl-color-white) !important;
+}
+
+.contact-link-item:hover {
+	background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+	border-color: var(--sl-color-gray-2);
+}
+
+/* Simplified Icon */
+.icon-simple {
+  display: flex;
+  align-items: center;
+	color: var(--sl-color-gray-3);
+}
+
+.contact-link-item:hover .icon-simple {
+	color: var(--sl-color-white);
+}
+
+/* The Text */
+.contact-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Stacks them neatly on mobile phones */
+@media (max-width: 768px) {
+  .contact-links-container {
+    grid-template-columns: 1fr;
+  }
 }
