@@ -78,9 +78,9 @@ body {
 	left: 0.6rem;
 	top: 0.5rem;
 	bottom: 0.5rem;
-	width: 2px;
-	background: linear-gradient(180deg, var(--sl-color-accent), var(--sl-color-gray-4));
-	opacity: 0.5;
+	width: 2.5px;
+	background: linear-gradient(180deg, var(--sl-color-accent), var(--sl-color-gray-3));
+	opacity: 0.72;
 }
 
 .skill-milestone {
@@ -102,7 +102,7 @@ body {
 
 .milestone-content {
 	padding: 0.1rem 0 0.95rem;
-	border-bottom: 1px solid color-mix(in srgb, var(--sl-color-hairline) 70%, transparent);
+	border-bottom: 1px solid color-mix(in srgb, var(--sl-color-hairline) 88%, transparent);
 }
 
 .skill-milestone:last-child .milestone-content {
@@ -174,7 +174,52 @@ body {
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
 }
 
+.home-footer {
+	margin-top: 4rem;
+	padding-top: 0.75rem;
+	border-top: 1.5px solid color-mix(in srgb, var(--sl-color-hairline) 88%, transparent);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	font-size: 0.9rem;
+	line-height: 1.4;
+	color: var(--sl-color-gray-3);
+}
+
+.home-footer p {
+	margin: 0;
+}
+
+.home-footer-left {
+	text-align: left;
+}
+
+.home-footer-right {
+	text-align: right;
+}
+
+@media (max-width: 42rem) {
+	.home-footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.35rem;
+	}
+
+	.home-footer-right {
+		text-align: left;
+	}
+}
+
 :root {
     /* This overrides Starlight's default vertical padding variable */
     --sl-content-pad-y: 0rem !important;
+}
+
+/* If the space is coming from the hidden pagination/footer area */
+.pagination-links,
+footer.sl-flex {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
