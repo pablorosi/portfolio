@@ -148,6 +148,75 @@ body {
 	filter: saturate(0.78) brightness(0.96);
 }
 
+.certs-intro {
+	margin: 0 0 1rem;
+	max-width: 70ch;
+}
+
+.certs-roadmap {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.9rem;
+}
+
+.certs-lane {
+	border: 1px solid color-mix(in srgb, var(--sl-color-hairline) 82%, transparent);
+	border-radius: 0.65rem;
+	padding: 0.9rem;
+	background: color-mix(in srgb, var(--sl-color-bg) 90%, transparent);
+	min-height: 15rem;
+	display: flex;
+	flex-direction: column;
+	transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.certs-lane:hover {
+	transform: translateY(-2px);
+	border-color: color-mix(in srgb, var(--sl-color-accent) 32%, var(--sl-color-hairline));
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--sl-color-accent) 12%, transparent);
+}
+
+.certs-lane h3 {
+	margin: 0 0 0.7rem;
+	font-size: 0.95rem;
+	line-height: 1.2;
+}
+
+.cert-entry {
+	display: grid;
+	gap: 0.45rem;
+}
+
+.cert-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.6rem;
+}
+
+.cert-meta {
+	margin: 0;
+	color: var(--sl-color-gray-3);
+	font-size: 0.9rem;
+}
+
+.cert-progress {
+	height: 0.4rem;
+	width: 100%;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--sl-color-hairline) 78%, transparent);
+	overflow: hidden;
+}
+
+.cert-progress-bar {
+	display: block;
+	height: 100%;
+	width: var(--progress, 0%);
+	border-radius: inherit;
+	background: linear-gradient(90deg, var(--sl-color-accent), color-mix(in srgb, var(--sl-color-accent) 55%, var(--sl-color-white)));
+	transition: width 240ms ease;
+}
+
 .flex-heading svg {
 	transform: translateY(9px);
 	width: auto;
@@ -200,6 +269,14 @@ body {
 }
 
 @media (max-width: 42rem) {
+	.certs-roadmap {
+		grid-template-columns: 1fr;
+	}
+
+	.certs-lane {
+		min-height: 0;
+	}
+
 	.home-footer {
 		flex-direction: column;
 		align-items: flex-start;
