@@ -54,6 +54,94 @@ body {
 	margin-top: 4rem;
 }
 
+.skills-intro {
+	margin: 0 0 1.25rem;
+	max-width: 70ch;
+}
+
+.skills-timeline {
+	position: relative;
+	display: grid;
+	gap: 1rem;
+	padding-left: 2rem;
+}
+
+.skills-timeline::before {
+	content: "";
+	position: absolute;
+	left: 0.6rem;
+	top: 0.5rem;
+	bottom: 0.5rem;
+	width: 2px;
+	background: linear-gradient(180deg, var(--sl-color-accent), var(--sl-color-gray-4));
+	opacity: 0.5;
+}
+
+.skill-milestone {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 0.9rem;
+	align-items: start;
+}
+
+.milestone-dot {
+	margin-top: 0.2rem;
+	width: 0.8rem;
+	height: 0.8rem;
+	border-radius: 999px;
+	background: var(--sl-color-accent);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--sl-color-accent) 20%, transparent);
+}
+
+.milestone-content {
+	padding: 0.1rem 0 0.95rem;
+	border-bottom: 1px solid color-mix(in srgb, var(--sl-color-hairline) 70%, transparent);
+}
+
+.skill-milestone:last-child .milestone-content {
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+
+.milestone-content h3 {
+	margin: 0 0 0.65rem;
+	font-size: 1rem;
+	line-height: 1.2;
+	font-weight: 650;
+}
+
+@media (max-width: 42rem) {
+	.skills-timeline {
+		padding-left: 1.4rem;
+	}
+
+	.skills-timeline::before {
+		left: 0.35rem;
+	}
+
+	.milestone-dot {
+		width: 0.7rem;
+		height: 0.7rem;
+	}
+}
+
+.skill-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.skill-badges .sl-badge {
+	border-radius: 999px;
+	padding: 0.25rem 0.72rem;
+	filter: saturate(0.72) brightness(0.9);
+}
+
+:root[data-theme='light'] .skill-badges .sl-badge {
+	filter: saturate(0.78) brightness(0.96);
+}
+
 .flex-heading svg {
 	transform: translateY(9px);
 	width: auto;
