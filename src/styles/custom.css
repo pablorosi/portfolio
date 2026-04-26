@@ -37,9 +37,15 @@
 		linear-gradient(90deg, #f3f7fc 0%, #dfe8f4 52%, #cbd9ec 100%);
 }
 
+html {
+	background: var(--page-background);
+	overscroll-behavior-y: none;
+}
+
 body {
 	font-family: 'Inter Variable', sans-serif !important;
 	background: var(--page-background);
+	min-height: 100%;
 }
 
 .flex-heading {
@@ -166,4 +172,9 @@ body {
 	padding: 0.35rem;
 	background: var(--sl-color-black);
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+:root {
+    /* This overrides Starlight's default vertical padding variable */
+    --sl-content-pad-y: 0rem !important;
 }
