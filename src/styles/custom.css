@@ -81,6 +81,13 @@ body {
   	margin-bottom: 1rem;
 }
 
+.home-section:first-of-type {
+	margin-top: -2rem;
+}
+.home-section:first-of-type {
+	margin-top: -2rem;
+}
+
 .home-section + .home-section {
 	margin-top: 4rem;
 }
@@ -384,3 +391,4 @@ footer.sl-flex {
     grid-template-columns: 1fr;
   }
 }
+

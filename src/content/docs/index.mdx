@@ -17,6 +17,12 @@ hero:
 ---
 
 import { CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+import Terminal from '../../components/Terminal.astro';
+import { Card } from '@astrojs/starlight/components';
+import InterfaceSwitch from '../../components/InterfaceSwitch.astro';
+
+<InterfaceSwitch>
+
 
 <section class="home-section">
 <h2 class="flex-heading projects">
@@ -185,8 +191,11 @@ Certifications
     </a>
   </div>
 </section>
+</InterfaceSwitch>
 
 <footer class="home-footer" aria-label="Site footer">
   <p class="home-footer-left">© 2026 Pablo Rosi. All rights reserved.</p>
   <p class="home-footer-right">Made with <span aria-hidden="true">&hearts;</span> and lots of coffee.</p>
 </footer>
+
+  

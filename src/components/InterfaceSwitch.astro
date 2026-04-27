@@ -1,0 +1,68 @@
+---
+import Terminal from './Terminal.astro';
+---
+
+<div class="interface-wrapper">
+  <div class="switch-ui">
+    <span class="mode-text">GUI</span>
+    <label class="toggle-track">
+      <input type="checkbox" id="mode-selector">
+      <span class="toggle-slider"></span>
+    </label>
+    <span class="mode-text">CLI</span>
+  </div>
+
+  <div class="view-container">
+    <div id="gui-view" class="active">
+      <slot /> </div>
+    <div id="cli-view" class="hidden">
+      <Terminal />
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<style>
+  .interface-wrapper { margin: 2rem 0; }
+  .switch-ui { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: 2rem; }
+  .mode-text { font-family: var(--sl-font-mono); font-size: 0.8rem; font-weight: bold; color: var(--sl-color-gray-3); }
+  
+  /* The Toggle Switch */
+  .toggle-track { position: relative; display: inline-block; width: 44px; height: 22px; }
+  .toggle-track input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .3s; border-radius: 34px; }
+  .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+  input:checked + .toggle-slider { background-color: var(--sl-color-text-accent); }
+  input:checked + .toggle-slider:before { transform: translateX(22px); }
+
+  /* Visibility Logic */
+  .active { display: block; animation: fadeIn 0.4s ease; }
+  .hidden { display: none; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('mode-selector') as HTMLInputElement;
+  const gui = document.getElementById('gui-view');
+  const cli = document.getElementById('cli-view');
+
+  toggle?.addEventListener('change', () => {
+    if (toggle.checked) {
+      gui?.classList.replace('active', 'hidden');
+      cli?.classList.replace('hidden', 'active');
+      // Focus the terminal input automatically
+      const terminalInput = document.getElementById('terminal-input');
+      terminalInput?.focus();
+    } else {
+      cli?.classList.replace('active', 'hidden');
+      gui?.classList.replace('hidden', 'active');
+    }
+  });
+</script>

@@ -1,0 +1,174 @@
+---
+// src/components/Terminal.astro
+---
+
+<div class="terminal-wrapper">
+  <div class="terminal-header">
+    <div class="terminal-buttons">
+      <span class="btn close"></span>
+      <span class="btn minimize"></span>
+      <span class="btn maximize"></span>
+    </div>
+    <div class="terminal-title">admin@pablorosi: ~</div>
+  </div>
+  
+  <div class="terminal-window" id="terminal-window">
+    <div id="terminal-history">
+      <p class="sys-msg">Session started: {new Date().toLocaleDateString()}</p>
+      <p class="sys-msg">Type <span class="highlight">help</span> to explore my profile.</p>
+    </div>
+    
+    <div class="input-line">
+      <span class="prompt" id="current-path">admin@pablorosi:~$</span>
+      <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus />
+    </div>
+  </div>
+</div>
+
+<style>
+  /* 1. Increase the width here */
+  .terminal-wrapper {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    border: 1px solid #333;
+    font-family: var(--sl-font-mono), monospace;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 900px; /* Changed from 800px */
+    margin: 0 auto;
+  }
+
+  /* 2. Increase the height here */
+    .terminal-window { 
+    padding: 1.5rem; 
+    min-height: 500px !important; /* Forces the box to stretch */
+    overflow-y: auto; 
+    color: #e6e6e6; 
+    font-size: 0.9rem; 
+  }
+  .terminal-header { background-color: #2d2d2d; padding: 0.5rem 1rem; display: flex; align-items: center; border-bottom: 1px solid #111; }
+  .terminal-buttons { display: flex; gap: 6px; }
+  .btn { width: 12px; height: 12px; border-radius: 50%; }
+  .close { background-color: #ff5f56; }
+  .minimize { background-color: #ffbd2e; }
+  .maximize { background-color: #27c93f; }
+  .terminal-title { color: #999; font-size: 0.8rem; margin: 0 auto; padding-right: 40px; }
+  .terminal-window { padding: 1.5rem; height: 400px; overflow-y: auto; color: #e6e6e6; font-size: 0.9rem; }
+  .sys-msg { margin: 0 0 0.5rem 0; color: #888; }
+  .highlight { color: #27c93f; font-weight: bold; }
+  .folder { color: #5da9f6; font-weight: bold; }
+  .error { color: #ff5f56; }
+  .input-line { display: flex; align-items: center; margin-top: 0.5rem; }
+  .prompt { color: #27c93f; margin-right: 0.5rem; white-space: nowrap; }
+  #terminal-input { background: transparent; border: none; color: #fff; font-family: inherit; font-size: inherit; flex-grow: 1; outline: none; }
+</style>
+
+<script>
+  // TypeScript Interfaces for the Virtual File System
+  interface Directory {
+    [fileName: string]: string;
+  }
+
+  interface FileSystem {
+    [dirName: string]: Directory;
+  }
+
+  const fileSystem: FileSystem = {
+    root: {
+      'about.txt': 'I am a SysAdmin/DevOps engineer focused on infrastructure automation.',
+      'skills.txt': 'Linux, Cisco, Docker, Kubernetes, Ansible.',
+      'projects': 'DIR'
+    },
+    projects: {
+      'vlan-automation.sh': '/docs/projects/vlan',
+      'homelab-config.sh': '/docs/projects/homelab',
+      'readme.md': 'Execute scripts using ./filename.sh'
+    }
+  };
+
+  let currentDir = 'root';
+  const input = document.getElementById('terminal-input') as HTMLInputElement;
+  const history = document.getElementById('terminal-history');
+  const windowNode = document.getElementById('terminal-window');
+  const pathLabel = document.getElementById('current-path');
+
+  input?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const fullCommand = input.value.trim();
+      input.value = '';
+      if (!fullCommand) return;
+
+      const pathDisplay = currentDir === 'root' ? '~' : '~/projects';
+      printLine(`<span class="prompt">admin@pablorosi:${pathDisplay}$</span> ${fullCommand}`);
+
+      const [cmd, ...args] = fullCommand.split(' ');
+      const target = args[0];
+
+      switch (cmd.toLowerCase()) {
+        case 'help':
+          printLine('<br><span class="highlight">Available commands:</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">ls</span> <span style="color:#aaa;">List directory contents</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">cd [dir]</span> <span style="color:#aaa;">Change the current directory</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">cat [file]</span> <span style="color:#aaa;">Read the contents of a text file</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">./[script]</span> <span style="color:#aaa;">Execute a project script to view docs</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">clear</span> <span style="color:#aaa;">Clear the terminal screen</span>');
+          printLine('<br>');
+          break;
+                case 'ls':
+          const items = Object.keys(fileSystem[currentDir]).map(item => 
+            fileSystem[currentDir][item] === 'DIR' ? `<span class="folder">${item}/</span>` : item
+          );
+          // Injecting 8 Non-Breaking Spaces between each item
+          printLine(items.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
+          break;
+          printLine(items.join('    ')); break;
+        case 'cd':
+          if (target === 'projects' && currentDir === 'root') {
+            currentDir = 'projects';
+            if (pathLabel) pathLabel.innerText = 'admin@pablorosi:~/projects$';
+          } else if (target === '..' || target === '~' || !target) {
+            currentDir = 'root';
+            if (pathLabel) pathLabel.innerText = 'admin@pablorosi:~$';
+          } else {
+            printLine(`<span class="error">cd: ${target}: No such directory</span>`);
+          }
+          break;
+        case 'cat':
+          if (fileSystem[currentDir][target] && fileSystem[currentDir][target] !== 'DIR') {
+            printLine(fileSystem[currentDir][target]);
+          } else {
+            printLine(`<span class="error">cat: ${target}: No such file</span>`);
+          }
+          break;
+        case 'clear':
+          if (history) history.innerHTML = '';
+          break;
+        default:
+          // Handle Execution Logic (./script.sh)
+          if (cmd.startsWith('./')) {
+            const scriptName = cmd.replace('./', '');
+            if (currentDir === 'projects' && fileSystem['projects'][scriptName]) {
+              printLine(`Running ${scriptName}... Redirecting to documentation.`);
+              setTimeout(() => {
+                window.location.href = fileSystem['projects'][scriptName];
+              }, 1000);
+            } else {
+              printLine(`<span class="error">bash: ${cmd}: permission denied or file not found</span>`);
+            }
+          } else {
+            printLine(`<span class="error">${cmd}: command not found</span>`);
+          }
+      }
+      if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+    }
+  });
+
+  function printLine(text: string) {
+    if (history) {
+      const p = document.createElement('p');
+      p.style.margin = '0.2rem 0';
+      p.innerHTML = text;
+      history.appendChild(p);
+    }
+  }
+</script>

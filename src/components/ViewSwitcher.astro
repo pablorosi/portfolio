@@ -1,0 +1,104 @@
+---
+import Terminal from './Terminal.astro';
+---
+
+<div class="interface-container">
+  <div class="switcher-header">
+    <span class="switcher-label">INTERFACE MODE:</span>
+    <div class="switcher-buttons">
+      <button id="gui-toggle" class="switch-btn active">GUI</button>
+      <button id="cli-toggle" class="switch-btn">CLI</button>
+    </div>
+  </div>
+
+  <div id="gui-view" class="view-content">
+    <slot /> </div>
+
+  <div id="cli-view" class="view-content hidden">
+    <Terminal />
+  </div>
+</div>
+
+<style>
+  .interface-container {
+    margin: 2rem 0;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+  }
+
+  .switcher-header {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  .switcher-label {
+    font-family: var(--sl-font-mono);
+    font-size: 0.7rem;
+    color: var(--sl-color-gray-3);
+    letter-spacing: 0.1em;
+  }
+
+  .switcher-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .switch-btn {
+    background: transparent;
+    border: 1px solid var(--sl-color-gray-4);
+    color: var(--sl-color-gray-3);
+    padding: 0.2rem 0.8rem;
+    border-radius: 4px;
+    font-family: var(--sl-font-mono);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .switch-btn.active {
+    background: var(--sl-color-text-accent);
+    color: black;
+    border-color: var(--sl-color-text-accent);
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(var(--sl-color-text-accent-rgb), 0.3);
+  }
+
+  .view-content {
+    padding: 1.5rem;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script>
+  const guiBtn = document.getElementById('gui-toggle');
+  const cliBtn = document.getElementById('cli-toggle');
+  const guiView = document.getElementById('gui-view');
+  const cliView = document.getElementById('cli-view');
+
+  function setView(mode: 'gui' | 'cli') {
+    if (mode === 'gui') {
+      guiView?.classList.remove('hidden');
+      cliView?.classList.add('hidden');
+      guiBtn?.classList.add('active');
+      cliBtn?.classList.remove('active');
+    } else {
+      guiView?.classList.add('hidden');
+      cliView?.classList.remove('hidden');
+      guiBtn?.classList.remove('active');
+      cliBtn?.classList.add('active');
+    }
+  }
+
+  guiBtn?.addEventListener('click', () => setView('gui'));
+  cliBtn?.addEventListener('click', () => setView('cli'));
+</script>
