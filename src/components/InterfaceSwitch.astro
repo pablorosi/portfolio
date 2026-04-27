@@ -53,16 +53,25 @@ import Terminal from './Terminal.astro';
   const gui = document.getElementById('gui-view');
   const cli = document.getElementById('cli-view');
 
-  toggle?.addEventListener('change', () => {
-    if (toggle.checked) {
+  function applyMode(isCli: boolean) {
+    if (isCli) {
       gui?.classList.replace('active', 'hidden');
       cli?.classList.replace('hidden', 'active');
-      // Focus the terminal input automatically
       const terminalInput = document.getElementById('terminal-input');
       terminalInput?.focus();
     } else {
       cli?.classList.replace('active', 'hidden');
       gui?.classList.replace('hidden', 'active');
     }
+  }
+
+  // Force GUI as default after refresh and keep UI in sync.
+  if (toggle) {
+    toggle.checked = false;
+    applyMode(false);
+  }
+
+  toggle?.addEventListener('change', () => {
+    applyMode(toggle.checked);
   });
 </script>

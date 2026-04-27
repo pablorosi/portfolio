@@ -26,41 +26,57 @@
 </div>
 
 <style>
-  /* 1. Increase the width here */
   .terminal-wrapper {
-    background-color: #1e1e1e;
+    --terminal-bg: #1e1e1e;
+    --terminal-header-bg: #2d2d2d;
+    --terminal-border: #333;
+    --terminal-text: #e6e6e6;
+    --terminal-title: #999;
+    --terminal-muted: #888;
+    --terminal-input: #fff;
+    background-color: var(--terminal-bg);
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid var(--terminal-border);
     font-family: var(--sl-font-mono), monospace;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 900px; /* Changed from 800px */
+    max-width: 900px;
     margin: 0 auto;
   }
 
-  /* 2. Increase the height here */
-    .terminal-window { 
+  :global(:root[data-theme='light']) .terminal-wrapper {
+    --terminal-bg: #f8fafc;
+    --terminal-header-bg: #e9edf3;
+    --terminal-border: #c4cfdb;
+    --terminal-text: #1b2739;
+    --terminal-title: #5e6d84;
+    --terminal-muted: #5e6d84;
+    --terminal-input: #131921;
+    box-shadow: 0 8px 24px rgba(27, 39, 57, 0.14);
+  }
+
+  .terminal-window {
     padding: 1.5rem; 
-    min-height: 500px !important; /* Forces the box to stretch */
+    min-height: 500px !important;
     overflow-y: auto; 
-    color: #e6e6e6; 
+    color: var(--terminal-text);
     font-size: 0.9rem; 
   }
-  .terminal-header { background-color: #2d2d2d; padding: 0.5rem 1rem; display: flex; align-items: center; border-bottom: 1px solid #111; }
+  .terminal-header { background-color: var(--terminal-header-bg); padding: 0.5rem 1rem; display: flex; align-items: center; border-bottom: 1px solid var(--terminal-border); }
   .terminal-buttons { display: flex; gap: 6px; }
   .btn { width: 12px; height: 12px; border-radius: 50%; }
   .close { background-color: #ff5f56; }
   .minimize { background-color: #ffbd2e; }
   .maximize { background-color: #27c93f; }
-  .terminal-title { color: #999; font-size: 0.8rem; margin: 0 auto; padding-right: 40px; }
-  .terminal-window { padding: 1.5rem; height: 400px; overflow-y: auto; color: #e6e6e6; font-size: 0.9rem; }
-  .sys-msg { margin: 0 0 0.5rem 0; color: #888; }
+  .terminal-title { color: var(--terminal-title); font-size: 0.8rem; margin: 0 auto; padding-right: 40px; }
+  .terminal-window { padding: 1.5rem; height: 400px; overflow-y: auto; color: var(--terminal-text); font-size: 0.9rem; }
+  .sys-msg { margin: 0 0 0.5rem 0; color: var(--terminal-muted); }
   .highlight { color: #27c93f; font-weight: bold; }
   .folder { color: #5da9f6; font-weight: bold; }
   .error { color: #ff5f56; }
   .input-line { display: flex; align-items: center; margin-top: 0.5rem; }
   .prompt { color: #27c93f; margin-right: 0.5rem; white-space: nowrap; }
-  #terminal-input { background: transparent; border: none; color: #fff; font-family: inherit; font-size: inherit; flex-grow: 1; outline: none; }
+  #terminal-input { background: transparent; border: none; color: var(--terminal-input); font-family: inherit; font-size: inherit; flex-grow: 1; outline: none; }
 </style>
 
 <script>
@@ -75,22 +91,93 @@
 
   const fileSystem: FileSystem = {
     root: {
-      'about.txt': 'I am a SysAdmin/DevOps engineer focused on infrastructure automation.',
-      'skills.txt': 'Linux, Cisco, Docker, Kubernetes, Ansible.',
-      'projects': 'DIR'
+      'certs.txt': [
+'<span style="color: #e6e6e6; font-size: 1.2rem; font-weight: bold;">🎓 Certifications</span>',
+        '<span style="color: #aaa;">Professional certification roadmap focused on networking and Linux systems administration.</span>',
+        '<br>',
+        '<span style="color: #e6e6e6; font-weight: bold;">ACTIVE CERTIFICATION TRACKS</span>',
+        '<span style="color: #555;">--------------------------------------------------</span>',
+        '<span style="color: #27c93f; font-weight: bold;">CCNA</span> <span style="color: #888;">(Cisco &middot; Target: 2026)</span>',
+        'Status:   <span style="color: #bd93f9; border: 1px solid #bd93f9; padding: 0 4px; border-radius: 3px; font-size: 0.8rem;">In Progress</span>',
+        'Progress: <span style="color: #5da9f6;">[████████████░░░░░░░░]</span> ~60%',
+        '<br>',
+        '<span style="color: #27c93f; font-weight: bold;">RHCSA</span> <span style="color: #888;">(Red Hat &middot; Target: 2026)</span>',
+        'Status:   <span style="color: #bd93f9; border: 1px solid #bd93f9; padding: 0 4px; border-radius: 3px; font-size: 0.8rem;">In Progress</span>',
+        'Progress: <span style="color: #5da9f6;">[████░░░░░░░░░░░░░░░░]</span> ~20%',
+        '<span style="color: #555;">--------------------------------------------------</span>'
+      ].join('<br>'),
+                  'skills.txt': [
+        '<span style="color: #e6e6e6; font-size: 1.1rem; font-weight: bold;">&lt;&gt; Skills &amp; Expertise</span>',
+        '<span style="color: #aaa; font-size: 0.85rem;">Practical infrastructure and security skills built through homelab operations, remote hosting, and production-like self-hosted services.</span>',
+        '<br>',
+        '<span style="color: #5da9f6;">◉</span> <span style="color: #e6e6e6; font-weight: bold;">Linux Administration</span>',
+        '&nbsp;&nbsp;&nbsp;<span style="color: #a5b4fc; border: 1px solid #3b426e; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">RHEL</span> <span style="color: #a5b4fc; border: 1px solid #3b426e; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Debian</span> <span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">System Hardening</span> <span style="color: #a5b4fc; border: 1px solid #3b426e; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Systemd</span> <span style="color: #a5b4fc; border: 1px solid #3b426e; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">User &amp; Permission Management</span>',
+        '<span style="color: #5da9f6;">◉</span> <span style="color: #e6e6e6; font-weight: bold;">Networking</span>',
+        '&nbsp;&nbsp;&nbsp;<span style="color: #d8b4fe; border: 1px solid #6b21a8; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Cisco IOS</span> <span style="color: #d8b4fe; border: 1px solid #6b21a8; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">VLANs</span> <span style="color: #d8b4fe; border: 1px solid #6b21a8; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">LACP</span> <span style="color: #d8b4fe; border: 1px solid #6b21a8; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Subnetting</span> <span style="color: #d8b4fe; border: 1px solid #6b21a8; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Access Control Lists (ACLs)</span>',
+        '<span style="color: #5da9f6;">◉</span> <span style="color: #e6e6e6; font-weight: bold;">Infrastructure &amp; Hosting</span>',
+        '&nbsp;&nbsp;&nbsp;<span style="color: #86efac; border: 1px solid #14532d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Docker</span> <span style="color: #86efac; border: 1px solid #14532d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Nginx (Reverse Proxy)</span> <span style="color: #86efac; border: 1px solid #14532d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">VPS Management</span> <span style="color: #fde047; border: 1px solid #713f12; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">TLS/SSL</span> <span style="color: #fde047; border: 1px solid #713f12; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">DNS Configuration</span>',
+        '<span style="color: #5da9f6;">◉</span> <span style="color: #e6e6e6; font-weight: bold;">Security &amp; Routing</span>',
+        '&nbsp;&nbsp;&nbsp;<span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">VPN Tunnels (Gluetun/WireGuard)</span> <span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Network Traffic Isolation</span> <span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Containerized Routing</span> <span style="color: #fde047; border: 1px solid #713f12; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Homelab Architecture</span>',
+        '<br>',
+      ].join('<br>'),
+      'projects': 'DIR',
+      'contact': 'DIR'
     },
     projects: {
       'vlan-automation.sh': '/docs/projects/vlan',
       'homelab-config.sh': '/docs/projects/homelab',
       'readme.md': 'Execute scripts using ./filename.sh'
-    }
+    },
+    contact: {
+      'Email.sh': 'mailto:me@pablorosi.com',
+      'Linkedin.sh': 'https://www.linkedin.com/in/pablorosi/',
+      'GitHub.sh': 'https://github.com/pablorosi'
+    },
   };
 
   let currentDir = 'root';
+  let meltdownInProgress = false;
   const input = document.getElementById('terminal-input') as HTMLInputElement;
   const history = document.getElementById('terminal-history');
   const windowNode = document.getElementById('terminal-window');
   const pathLabel = document.getElementById('current-path');
+
+  function isMassDirectoryDeleteCommand(command: string): boolean {
+    const normalized = command.trim().replace(/\s+/g, ' ').toLowerCase();
+    return /^rm\s+-[a-z]*r[a-z]*\s+.*(\/\*|\*|\*\/|\/)\s*$/.test(normalized);
+  }
+  function runFakeMeltdown() {
+    if (meltdownInProgress) {
+      printLine('<span style="color: #ffbd2e; font-weight: bold;">[WARN]</span> <span style="color: #e6e6e6;">meltdown already in progress... hold on to your keyboard.</span>');
+      if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+      return;
+    }
+
+    meltdownInProgress = true;
+    
+    // Immediate lines (Red)
+    printLine('<span style="color: #ff5f56; font-weight: bold;">[CRITICAL]</span> <span style="color: #e6e6e6;">kernel panic: /dev/reality not found</span>');
+    printLine('<span style="color: #ff5f56; font-weight: bold;">[CRITICAL]</span> <span style="color: #e6e6e6;">filesystem corruption detected</span>');
+
+    // The sequence with dynamic colors
+    const sequence = [
+      { prefix: '[EMERGENCY]', text: ' shutting down all services in 3...', color: '#ffbd2e' },
+      { prefix: '[EMERGENCY]', text: ' 2...', color: '#ffbd2e' },
+      { prefix: '[EMERGENCY]', text: ' 1...', color: '#ffbd2e' },
+      { prefix: '[FATAL]', text: ' coffee daemon crashed. rollback unavailable.', color: '#ff5f56' },
+      { prefix: '[SYSTEM]', text: ' just kidding. this terminal is immortal. Nice Try! :)', color: '#27c93f' }
+    ];
+
+    sequence.forEach((line, index) => {
+      setTimeout(() => {
+        // Formats the prefix in bold color, and the text in standard gray
+        printLine(`<span style="color: ${line.color}; font-weight: bold;">${line.prefix}</span><span style="color: #e6e6e6;">${line.text}</span>`);
+        
+        if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+        if (index === sequence.length - 1) meltdownInProgress = false;
+      }, 450 * (index + 1));
+    });
+  }
 
   input?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -98,11 +185,23 @@
       input.value = '';
       if (!fullCommand) return;
 
-      const pathDisplay = currentDir === 'root' ? '~' : '~/projects';
+      if (meltdownInProgress) {
+        printLine('<span class="error">[LOCKED] command ignored while system meltdown is active...</span>');
+        if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+        return;
+      }
+
+      const pathDisplay = currentDir === 'root' ? '~' : `~/${currentDir}`;
       printLine(`<span class="prompt">admin@pablorosi:${pathDisplay}$</span> ${fullCommand}`);
+
+      if (isMassDirectoryDeleteCommand(fullCommand)) {
+        runFakeMeltdown();
+        return;
+      }
 
       const [cmd, ...args] = fullCommand.split(' ');
       const target = args[0];
+      const normalizedTarget = target?.replace(/\/+$/g, '');
 
       switch (cmd.toLowerCase()) {
         case 'help':
@@ -115,20 +214,34 @@
           printLine('<br>');
           break;
                 case 'ls':
-          const items = Object.keys(fileSystem[currentDir]).map(item => 
-            fileSystem[currentDir][item] === 'DIR' ? `<span class="folder">${item}/</span>` : item
-          );
-          // Injecting 8 Non-Breaking Spaces between each item
-          printLine(items.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
-          break;
-          printLine(items.join('    ')); break;
+                      if (normalizedTarget) {
+                      if (normalizedTarget.startsWith('-')) {
+                        const items = Object.keys(fileSystem[currentDir]).map((item) =>
+                        fileSystem[currentDir][item] === 'DIR' ? `<span class="folder">${item}/</span>` : item
+                        );
+                        printLine(items.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
+                      } else if (fileSystem[currentDir][normalizedTarget] === 'DIR' && fileSystem[normalizedTarget]) {
+                        const subItems = Object.keys(fileSystem[normalizedTarget]).map((item) =>
+                        fileSystem[normalizedTarget][item] === 'DIR' ? `<span class="folder">${item}/</span>` : item
+                        );
+                        printLine(subItems.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
+                      } else {
+                        printLine(`<span class="error">ls: cannot access '${target}': No such directory</span>`);
+                      }
+                      } else {
+                      const items = Object.keys(fileSystem[currentDir]).map((item) =>
+                        fileSystem[currentDir][item] === 'DIR' ? `<span class="folder">${item}/</span>` : item
+                      );
+                      printLine(items.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
+                      }
+                      break;
         case 'cd':
-          if (target === 'projects' && currentDir === 'root') {
-            currentDir = 'projects';
-            if (pathLabel) pathLabel.innerText = 'admin@pablorosi:~/projects$';
-          } else if (target === '..' || target === '~' || !target) {
+          if (normalizedTarget === '..' || normalizedTarget === '~' || !normalizedTarget) {
             currentDir = 'root';
             if (pathLabel) pathLabel.innerText = 'admin@pablorosi:~$';
+          } else if (currentDir === 'root' && fileSystem.root[normalizedTarget] === 'DIR') {
+            currentDir = normalizedTarget;
+            if (pathLabel) pathLabel.innerText = `admin@pablorosi:~/${currentDir}$`;
           } else {
             printLine(`<span class="error">cd: ${target}: No such directory</span>`);
           }
@@ -152,6 +265,15 @@
               setTimeout(() => {
                 window.location.href = fileSystem['projects'][scriptName];
               }, 1000);
+            } else if (currentDir === 'contact' && fileSystem['contact'][scriptName]) {
+              const targetLink = fileSystem['contact'][scriptName];
+              if (targetLink.startsWith('mailto:')) {
+                printLine(`Running ${scriptName}... Opening email client.`);
+                window.location.href = targetLink;
+              } else {
+                printLine(`Running ${scriptName}... Opening link in a new tab.`);
+                window.open(targetLink, '_blank', 'noopener,noreferrer');
+              }
             } else {
               printLine(`<span class="error">bash: ${cmd}: permission denied or file not found</span>`);
             }
