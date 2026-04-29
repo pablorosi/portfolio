@@ -219,7 +219,7 @@ body {
   letter-spacing: 0.05em;
   border: 1px solid var(--color-accent);
   background: transparent;
-  color: var(--color-accent);
+  color: #ffffff;
 }
 .hero-section {
   position: relative;
@@ -247,14 +247,13 @@ body {
 
 .hero-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   line-height: 1.1;
   white-space: nowrap;
 }
 
 .hero-tagline {
-  margin: 0 0 1.75rem;
-  max-width: 32rem;
+  margin: 0 0 2rem;
   color: var(--color-gray-3);
 }
 
@@ -381,6 +380,7 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
+  color: #ffffff;
 }
 
 .skills-timeline .badge {
@@ -388,21 +388,23 @@ body {
   font-size: 0.8rem;
 }
 
-.badge-note { background-color: #1e3a8a; color: #bfdbfe; }
-.badge-danger { background-color: #7f1d1d; color: #fecaca; }
-.badge-tip { background-color: #14532d; color: #bbf7d0; }
-.badge-caution { background-color: #78350f; color: #fef3c7; }
-.badge-success { background-color: #064e3b; color: #a7f3d0; }
+.badge-note { background-color: #1e3a8a; color: #ffffff; }
+.badge-danger { background-color: #7f1d1d; color: #ffffff; }
+.badge-tip { background-color: #14532d; color: #ffffff; }
+.badge-caution { background-color: #78350f; color: #ffffff; }
+.badge-success { background-color: #064e3b; color: #ffffff; }
 
 .skills-timeline .badge {
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
+  background-color: var(--color-accent);
+  color: #ffffff;
 }
 
-.skills-timeline .badge-note { background-color: #1e3a8a; color: #bfdbfe; }
-.skills-timeline .badge-danger { background-color: #7f1d1d; color: #fecaca; }
-.skills-timeline .badge-tip { background-color: #14532d; color: #bbf7d0; }
-.skills-timeline .badge-caution { background-color: #78350f; color: #fef3c7; }
-.skills-timeline .badge-success { background-color: #064e3b; color: #a7f3d0; }
+.card-grid .badge {
+  border: 1px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
 
 /* Cert Progress Replacements */
 .cert-entry {
