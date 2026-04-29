@@ -1,38 +1,46 @@
-# 🚀 Technical Portfolio & Documentation Hub
+# Astro Starter Kit: Basics
 
-Welcome to the source code of my personal technical portfolio. This site serves as a central hub for documenting my infrastructure projects, homelab architectures, and continuous learning journey in Systems Administration and DevOps.
+```sh
+pnpm create astro@latest -- --template basics
+```
 
-> **Live Site:** [pablorosi.dev](https://pablorosi.dev)
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## 🛠️ Tech Stack
+## 🚀 Project Structure
 
-This project is built using modern web technologies focused on performance and developer experience:
-
-* **[Astro](https://astro.build/):** The web framework for building fast, content-focused websites.
-* **[Starlight](https://starlight.astro.build/):** The premium documentation theme built on top of Astro.
-* **Markdown / MDX:** Used for writing all technical project documentation.
-* **Custom CSS:** Leveraging CSS Layers and conditional media queries (`prefers-color-scheme`) for a seamless Light/Dark mode experience.
-
-## 📂 Project Structure
-
-Inside this project, you'll see the following key directories:
+Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
-├── .github/workflows/    # CI/CD pipelines for automated deployment
-├── assets/               # Additional project assets
-├── nginx/                # Web server routing and caching configuration
-│   └── default.conf
-├── public/               # Static assets served at the root
-├── src/
-│   ├── assets/           # Site assets used by Astro
-│   ├── components/       # Custom Astro UI components
-│   ├── content/
-│   │   └── docs/         # Core documentation and project write-ups
-│   ├── styles/           # Global CSS and Starlight theme overrides
-│   └── content.config.ts # Content collections schema
-├── astro.config.mjs      # Starlight framework configuration
-├── package.json          # Project metadata and npm scripts
-├── pnpm-lock.yaml        # Deterministic dependency lockfile
-└── tsconfig.json         # TypeScript configuration
-````
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets
+│   │   └── astro.svg
+│   ├── components
+│   │   └── Welcome.astro
+│   ├── layouts
+│   │   └── Layout.astro
+│   └── pages
+│       └── index.astro
+└── package.json
+```
+
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `pnpm install`             | Installs dependencies                            |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm build`           | Build your production site to `./dist/`          |
+| `pnpm preview`         | Preview your build locally, before deploying     |
+| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

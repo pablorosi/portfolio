@@ -1,15 +1,33 @@
 ---
-title: '404 | Packet Dropped'
-template: splash
-editUrl: false
+import '../styles/main.css';
+import TopBar from '../components/TopBar.astro';
+const title = "404 | Packet Dropped";
 ---
 
-<style>{`
-  /* This safely hides the duplicate title injected by Starlight */
-  h1#_top { 
-    display: none !important; 
-  }
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-black">
+    <TopBar />
+    <div class="nf-wrapper">
+      <h1 class="nf-code">404</h1>
+      <h2 class="nf-title">Destination Host Unreachable</h2>
+      <p class="nf-description">
+        The packet was routed successfully, but the requested resource does not exist on this server.
+      </p>
+      <br />
+      <a href="/" class="nf-cta">
+        Return to Main Page
+      </a>
+    </div>
+  </body>
+</html>
 
+<style>
+  /* Use the exact styles you already had, but now they are clean Astro styles */
   :root {
     --nf-title-color: #b9c5ff;
     --nf-subtitle-color: #e8eef8;
@@ -20,6 +38,8 @@ editUrl: false
     --nf-cta-bg-hover: #c7d1ff;
   }
 
+  /* Note: Astro handles themes differently, but this will work 
+     if your InterfaceSwitch still sets data-theme='light' on the HTML tag */
   :root[data-theme='light'] {
     --nf-title-color: #2f3e95;
     --nf-subtitle-color: #1f2d42;
@@ -35,9 +55,10 @@ editUrl: false
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 65vh;
+    min-height: 100vh; /* Changed from 65vh to 100vh to center it on the full page */
     text-align: center;
     gap: 1.5rem;
+    font-family: sans-serif;
   }
 
   .nf-code {
@@ -81,24 +102,4 @@ editUrl: false
     background-color: var(--nf-cta-bg-hover);
     transform: translateY(-1px);
   }
-`}</style>
-
-<div class="nf-wrapper">
-  
-  <h1 class="nf-code">
-    404
-  </h1>
-  
-  <h2 class="nf-title">
-    Destination Host Unreachable
-  </h2>
-  
-  <p class="nf-description">
-    The packet was routed successfully, but the requested resource does not exist on this server. Check the URL or try using the search bar.
-  </p>
-  
-  <a href="/" class="nf-cta">
-    Return to Main Page
-  </a>
-
-</div>
+</style>

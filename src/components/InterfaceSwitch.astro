@@ -27,7 +27,15 @@ import Terminal from './Terminal.astro';
 
 <style>
   .interface-wrapper { margin: 2rem 0; }
-  .switch-ui { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: 2rem; }
+  .switch-ui {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+  }
   .mode-text { font-family: var(--sl-font-mono); font-size: 0.8rem; font-weight: bold; color: var(--sl-color-gray-3); }
   
   /* The Toggle Switch */
@@ -58,7 +66,6 @@ import Terminal from './Terminal.astro';
       gui?.classList.replace('active', 'hidden');
       cli?.classList.replace('hidden', 'active');
       const terminalInput = document.getElementById('terminal-input');
-      terminalInput?.focus();
     } else {
       cli?.classList.replace('active', 'hidden');
       gui?.classList.replace('hidden', 'active');

@@ -1,0 +1,234 @@
+---
+// Import your custom components
+import Terminal from '../components/Terminal.astro';
+import InterfaceSwitch from '../components/InterfaceSwitch.astro';
+import TopBar from '../components/TopBar.astro';
+import Photo from '../assets/Photo.png';
+// Import global CSS
+import '../styles/main.css';
+
+const title = "Pablo Rosi | SysAdmin & DevOps Portfolio";
+const description = "Student and infrastructure enthusiast documenting my journey in networking and Linux.";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="bg-black text-white">
+	<TopBar />
+      <header class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">Hi, I'm Pablo Rosi</h1>
+          <p class="hero-tagline">{description}</p>
+          <div class="hero-actions">
+            <a href="/projects/cloud-infrastructure/" class="btn btn-primary">
+              View my homelab <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="mailto:me@pablorosi.com" class="btn btn-minimal">
+              Let's Connect
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 3h6v6" />
+                <path d="M10 14L21 3" />
+                <path d="M21 14v7H3V3h7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src={Photo.src} alt="Pablo Rosi" />
+        </div>
+		</div>
+      </header>
+
+	<InterfaceSwitch class="main-interface"> 
+
+      <section class="home-section">
+        <h2 class="flex-heading projects">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+          Technical Projects
+        </h2>
+
+        <div class="card-grid">
+          <a href="/projects/cloud-infrastructure/" class="link-card">
+            <h3>Secure Cloud Infrastructure & P2P Routing</h3>
+            <p>Geo-compliant P2P stack deployed on a Hetzner VPS using Docker, Gluetun (AirVPN sidecar), and Nginx Proxy Manager.</p>
+            <span class="badge badge-danger">Cloud Ops & Security</span>
+          </a>
+          
+          <a href="/projects/local-datacenter/" class="link-card">
+            <h3>Enterprise Local Datacenter</h3>
+            <p>High-availability RHEL deployment on an HP t740 node featuring Link Aggregation (LACP), VLAN segmentation, and Grafana.</p>
+            <span class="badge badge-tip">Networking & Linux</span>
+          </a>
+
+          <a href="/projects/database-architecture/" class="link-card">
+            <h3>Relational Database Architecture & DBA</h3>
+            <p>Complex SQL schema optimization, Role-Based Access Control (RBAC), and automated backup strategies for relational systems.</p>
+            <span class="badge badge-caution">Data & SQL</span>
+          </a>
+
+          <!-- <a href="/projects/portfolio-web/" class="link-card">
+            <h3>Technical Portfolio Site</h3>
+            <p>Professional infrastructure documentation platform built with Astro, Starlight, and responsive CSS architectures.</p>
+            <span class="badge badge-note">Web Engineering</span>
+          </a> -->
+        </div>
+      </section>
+
+      <section class="home-section">
+        <h2 class="flex-heading">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+          Skills & Expertise
+        </h2>
+        <p class="skills-intro">Practical infrastructure and security skills built through homelab operations, remote hosting, and production-like self-hosted services.</p>
+
+        <div class="skills-timeline">
+          <div class="skill-milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-content">
+              <h3>Linux Administration</h3>
+              <div class="skill-badges">
+                <span class="badge badge-note">RHEL</span>
+                <span class="badge badge-note">Debian</span>
+                <span class="badge badge-danger">System Hardening</span>
+                <span class="badge badge-note">Systemd</span>
+                <span class="badge badge-note">User & Permission Management</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-content">
+              <h3>Networking</h3>
+              <div class="skill-badges">
+                <span class="badge badge-tip">Cisco IOS</span>
+                <span class="badge badge-tip">VLANs</span>
+                <span class="badge badge-tip">LACP</span>
+                <span class="badge badge-tip">Subnetting</span>
+                <span class="badge badge-tip">Access Control Lists (ACLs)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-content">
+              <h3>Infrastructure & Hosting</h3>
+              <div class="skill-badges">
+                <span class="badge badge-success">Docker</span>
+                <span class="badge badge-success">Nginx (Reverse Proxy)</span>
+                <span class="badge badge-success">VPS Management</span>
+                <span class="badge badge-caution">TLS/SSL</span>
+                <span class="badge badge-caution">DNS Configuration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-content">
+              <h3>Security & Routing</h3>
+              <div class="skill-badges">
+                <span class="badge badge-danger">VPN Tunnels (Gluetun/WireGuard)</span>
+                <span class="badge badge-danger">Network Traffic Isolation</span>
+                <span class="badge badge-danger">Containerized Routing</span>
+                <span class="badge badge-caution">Homelab Architecture</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+<section class="home-section cert-section">
+  <h2 class="flex-heading">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+    Certifications
+  </h2>
+  
+  <p class="certs-intro">Professional certification roadmap focused on networking and Linux systems administration.</p>
+
+  <article class="cert-card">
+    <header class="cert-card-header">
+      <h3>Active Certification Tracks</h3>
+    </header>
+    
+    <div class="cert-list">
+      <div class="cert-item">
+        <div class="cert-top-row">
+          <strong class="cert-name">CCNA</strong>
+          <span class="cert-issuer">Cisco Certified Network Associate</span>
+        </div>
+
+        <div class="cert-progress-row">
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 70%"></div>
+          </div>
+          <span class="badge badge-tip">In Progress</span>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-top-row">
+          <strong class="cert-name">RHCSA</strong>
+          <span class="cert-issuer">Red Hat Certified System Administrator</span>
+        </div>
+
+        <div class="cert-progress-row">
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 20%"></div>
+          </div>
+          <span class="badge badge-tip">In Progress</span>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+	<section class="home-section">
+        <h2 class="flex-heading">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          Get in Touch
+        </h2>
+        <div class="contact-links-container">
+          <a href="mailto:me@pablorosi.com" class="contact-link-item">
+            <div class="icon-simple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <span class="contact-name">Email</span>
+          </a>
+          <a href="https://linkedin.com/in/pablorosi" target="_blank" class="contact-link-item">
+            <div class="icon-simple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <span class="contact-name">LinkedIn</span>
+          </a>
+          <a href="https://github.com/pablorosi" target="_blank" class="contact-link-item">
+            <div class="icon-simple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            </div>
+            <span class="contact-name">GitHub</span>
+          </a>
+        </div>
+      </section>
+
+    </InterfaceSwitch>
+
+	
+
+    <footer class="home-footer" aria-label="Site footer">
+      <p class="home-footer-left">© 2026 Pablo Rosi. All rights reserved.</p>
+      <p class="home-footer-right">Made with <span aria-hidden="true">&hearts;</span> and lots of coffee.</p>
+    </footer>
+
+  </body>
+</html>
+
+<style>
+
+
+</style>

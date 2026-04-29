@@ -1,0 +1,155 @@
+<nav class="top-bar">
+  <div class="container bar-content">
+    <a href="/" class="logo">
+      <span class="bracket">&lt;</span>
+      Pablo Rosi
+      <span class="bracket">/&gt;</span>
+    </a>
+
+    <div class="nav-actions">
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="/docs">Docs</a></li>
+      </ul>
+      
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .top-bar {
+    width: 100%;
+    height: 55px; 
+    background: rgba(var(--color-black-rgb), 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* 2. Añadimos un padding horizontal para que no toque los bordes */
+    padding: 1.9rem 1.5rem 1.3rem;
+  }
+
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.25rem; /* Logo un poco más pequeño */
+    text-decoration: none;
+    color: var(--color-white);
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .bracket {
+    color: var(--color-accent);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--color-gray-3);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.1);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--color-gray-5);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0.35rem;
+    color: var(--color-gray-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.1);
+  }
+
+  /* Lógica visual de iconos según el tema */
+  :root[data-theme='light'] .sun { display: none; }
+  :root[data-theme='dark'] .moon { display: none; }
+  
+  @media (max-width: 600px) {
+    .nav-links { display: none; } 
+  }
+
+   /* FIXED: Global state selection for SVGs */
+  /* 1. Default Dark Mode state */
+  .moon { display: none; }
+  .sun { display: block; }
+  
+  /* 2. Light Mode state */
+  :global([data-theme='light']) .sun { display: none !important; }
+  :global([data-theme='light']) .moon { display: block !important; }
+</style>
+<script is:inline>
+  // 1. Determine the initial theme (Local storage or system preference)
+  const getTheme = () => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  };
+
+  // 2. Function to inject the state into the DOM
+  const setTheme = (theme) => {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme'); // Your CSS defaults to dark
+    }
+    window.localStorage.setItem('theme', theme);
+  };
+
+  // 3. Initialize the theme on page load
+  let currentTheme = getTheme();
+  setTheme(currentTheme);
+
+  // 4. Attach the event listener to your toggle button
+  const themeToggleButton = document.getElementById('theme-toggle');
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(currentTheme);
+    });
+  }
+</script>
