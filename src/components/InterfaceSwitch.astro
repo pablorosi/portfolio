@@ -26,7 +26,10 @@ import Terminal from './Terminal.astro';
 
 
 <style>
-  .interface-wrapper { margin: 2rem 0; }
+  .interface-wrapper { 
+    margin: 2rem 0; 
+  }
+  
   .switch-ui {
     display: flex;
     align-items: center;
@@ -36,19 +39,77 @@ import Terminal from './Terminal.astro';
     margin: 0 auto 2rem;
     padding: 0 2rem;
   }
-  .mode-text { font-family: var(--sl-font-mono); font-size: 0.8rem; font-weight: bold; color: var(--sl-color-gray-3); }
+  
+  /* FIXED: Removed Starlight variables and used your custom ones */
+  .mode-text { 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 0.8rem; 
+    font-weight: bold; 
+    color: var(--color-gray-3); 
+  }
   
   /* The Toggle Switch */
-  .toggle-track { position: relative; display: inline-block; width: 44px; height: 22px; }
-  .toggle-track input { opacity: 0; width: 0; height: 0; }
-  .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .3s; border-radius: 34px; }
-  .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
-  input:checked + .toggle-slider { background-color: var(--sl-color-text-accent); }
-  input:checked + .toggle-slider:before { transform: translateX(22px); }
+  .toggle-track { 
+    position: relative; 
+    display: inline-block; 
+    width: 44px; 
+    height: 22px; 
+  }
+  
+  .toggle-track input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+  }
+  
+  .toggle-slider { 
+    position: absolute; 
+    cursor: pointer; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background-color: var(--color-gray-5); 
+    transition: .3s; 
+    border-radius: 34px; 
+  }
+  
+  .toggle-slider:before { 
+    position: absolute; 
+    content: ""; 
+    height: 16px; 
+    width: 16px; 
+    left: 3px; 
+    bottom: 3px; 
+    background-color: var(--color-white); 
+    transition: .3s; 
+    border-radius: 50%; 
+  }
+  
+  /* FIXED: Replaced Starlight accent color */
+  input:checked + .toggle-slider { 
+    background-color: var(--color-accent); 
+  }
+  
+  input:checked + .toggle-slider:before { 
+    transform: translateX(22px); 
+  }
+
+  /* FIXED: Added a minimum height so the background doesn't collapse */
+  .view-container {
+    min-height: 85vh; /* Matches your Hero section height */
+    width: 100%;
+  }
 
   /* Visibility Logic */
-  .active { display: block; animation: fadeIn 0.4s ease; }
-  .hidden { display: none; }
+  .active { 
+    display: block; 
+    animation: fadeIn 0.4s ease; 
+  }
+  
+  .hidden { 
+    display: none; 
+  }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

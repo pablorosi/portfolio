@@ -249,6 +249,19 @@ body {
   font-size: clamp(2.5rem, 5vw, 4rem);
   margin-bottom: 1rem;
   line-height: 1.1;
+  white-space: nowrap;
+}
+
+.hero-tagline {
+  margin: 0 0 1.75rem;
+  max-width: 32rem;
+  color: var(--color-gray-3);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .hero-image {
@@ -284,6 +297,10 @@ body {
   
   .hero-image {
     justify-content: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 7.5vw, 3rem);
   }
 }
 
