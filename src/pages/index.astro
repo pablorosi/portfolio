@@ -9,7 +9,7 @@ import Photo from '../assets/ Photo.png';
 // Import global CSS
 import '../styles/main.css';
 
-const title = "Pablo Rosi | SysAdmin & DevOps Portfolio";
+const title = "Pablo Rosi";
 const description = "Student and infrastructure enthusiast documenting my journey in networking and Linux.";
 ---
 
@@ -27,7 +27,7 @@ const description = "Student and infrastructure enthusiast documenting my journe
           <h1 class="hero-title">Hi, I'm Pablo Rosi</h1>
           <p class="hero-tagline">{description}</p>
           <div class="hero-actions">
-            <a href="/projects/cloud-infrastructure/" class="btn btn-primary">
+            <a href="https://docs.pablorosi.dev" class="btn btn-primary">
               View my homelab <span aria-hidden="true">&rarr;</span>
             </a>
             <a href="mailto:me@pablorosi.com" class="btn btn-minimal">
@@ -55,22 +55,28 @@ const description = "Student and infrastructure enthusiast documenting my journe
         </h2>
 
         <div class="card-grid">
-          <a href="/projects/cloud-infrastructure/" class="link-card">
+          <a href="https://docs.pablorosi.dev/secure-cloud-routing/overview/" class="link-card">
             <h3>Secure Cloud Infrastructure & P2P Routing</h3>
             <p>Geo-compliant P2P stack deployed on a Hetzner VPS using Docker, Gluetun (AirVPN sidecar), and Nginx Proxy Manager.</p>
-            <span class="badge badge-danger">Cloud Ops & Security</span>
+            <div class="card-labels">
+              <span class="skill-card-label label-platform">Platform</span>
+              <span class="skill-card-label label-isolation">Isolation</span>
+            </div>
           </a>
           
-          <a href="/projects/local-datacenter/" class="link-card">
+          <a href="https://docs.pablorosi.dev/enterprise-homelab/overview/" class="link-card">
             <h3>Enterprise Local Datacenter</h3>
             <p>High-availability RHEL deployment on an HP t740 node featuring Link Aggregation (LACP), VLAN segmentation, and Grafana.</p>
-            <span class="badge badge-tip">Networking & Linux</span>
+            <div class="card-labels">
+              <span class="skill-card-label label-core-ops">Core Ops</span>
+              <span class="skill-card-label label-routing">Routing</span>
+            </div>
           </a>
 
-          <a href="/projects/database-architecture/" class="link-card">
+          <a href="https://docs.pablorosi.dev/db-administration/overview/" class="link-card">
             <h3>Relational Database Architecture & DBA</h3>
             <p>Complex SQL schema optimization, Role-Based Access Control (RBAC), and automated backup strategies for relational systems.</p>
-            <span class="badge badge-caution">Data & SQL</span>
+            <span class="skill-card-label" style="--skill-accent: #10b981;">Data & SQL</span>
           </a>
 
           <!-- <a href="/projects/portfolio-web/" class="link-card">
@@ -88,61 +94,58 @@ const description = "Student and infrastructure enthusiast documenting my journe
         </h2>
         <p class="skills-intro">Practical infrastructure and security skills built through homelab operations, remote hosting, and production-like self-hosted services.</p>
 
-        <div class="skills-timeline">
-          <div class="skill-milestone">
-            <span class="milestone-dot" aria-hidden="true"></span>
-            <div class="milestone-content">
+        <div class="skills-grid">
+          <article class="skill-card skill-card-linux">
+            <div class="skill-card-header">
               <h3>Linux Administration</h3>
-              <div class="skill-badges">
-                <span class="badge badge-note">RHEL</span>
-                <span class="badge badge-note">Debian</span>
-                <span class="badge badge-danger">System Hardening</span>
-                <span class="badge badge-note">Systemd</span>
-                <span class="badge badge-note">User & Permission Management</span>
-              </div>
+              <span class="skill-card-label">Core Ops</span>
             </div>
-          </div>
+            <p>Hands-on work with RHEL and Debian, service management, hardening, and permission control.</p>
+            <ul class="skill-list">
+              <li>RHEL / Debian</li>
+              <li>Systemd and users</li>
+              <li>Hardening and maintenance</li>
+            </ul>
+          </article>
 
-          <div class="skill-milestone">
-            <span class="milestone-dot" aria-hidden="true"></span>
-            <div class="milestone-content">
-              <h3>Networking</h3>
-              <div class="skill-badges">
-                <span class="badge badge-tip">Cisco IOS</span>
-                <span class="badge badge-tip">VLANs</span>
-                <span class="badge badge-tip">LACP</span>
-                <span class="badge badge-tip">Subnetting</span>
-                <span class="badge badge-tip">Access Control Lists (ACLs)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-milestone">
-            <span class="milestone-dot" aria-hidden="true"></span>
-            <div class="milestone-content">
+          <article class="skill-card skill-card-networking">
+            <div class="skill-card-header">
               <h3>Infrastructure & Hosting</h3>
-              <div class="skill-badges">
-                <span class="badge badge-success">Docker</span>
-                <span class="badge badge-success">Nginx (Reverse Proxy)</span>
-                <span class="badge badge-success">VPS Management</span>
-                <span class="badge badge-caution">TLS/SSL</span>
-                <span class="badge badge-caution">DNS Configuration</span>
-              </div>
+              <span class="skill-card-label">Platform</span>
             </div>
-          </div>
+            <p>Self-hosting workflows focused on containers, reverse proxies, and reliable remote services.</p>
+            <ul class="skill-list">
+              <li>Docker and VPS management</li>
+              <li>Nginx reverse proxy</li>
+              <li>TLS, SSL, and DNS</li>
+            </ul>
+          </article>
 
-          <div class="skill-milestone">
-            <span class="milestone-dot" aria-hidden="true"></span>
-            <div class="milestone-content">
-              <h3>Security & Routing</h3>
-              <div class="skill-badges">
-                <span class="badge badge-danger">VPN Tunnels (Gluetun/WireGuard)</span>
-                <span class="badge badge-danger">Network Traffic Isolation</span>
-                <span class="badge badge-danger">Containerized Routing</span>
-                <span class="badge badge-caution">Homelab Architecture</span>
-              </div>
+          <article class="skill-card skill-card-infra">
+            <div class="skill-card-header">
+              <h3>Networking</h3>
+              <span class="skill-card-label">Routing</span>
             </div>
-          </div>
+            <p>Infrastructure built around segmentation, switching, and addressing fundamentals.</p>
+            <ul class="skill-list">
+              <li>Cisco IOS</li>
+              <li>VLANs and LACP</li>
+              <li>Subnetting and ACLs</li>
+            </ul>
+          </article>
+
+          <article class="skill-card skill-card-security">
+            <div class="skill-card-header">
+              <h3>Security & Routing</h3>
+              <span class="skill-card-label">Isolation</span>
+            </div>
+            <p>Traffic separation and VPN-based routing for a safer, more controlled homelab stack.</p>
+            <ul class="skill-list">
+              <li>Gluetun / WireGuard</li>
+              <li>Network isolation</li>
+              <li>Containerized routing</li>
+            </ul>
+          </article>
         </div>
       </section>
 

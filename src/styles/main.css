@@ -39,48 +39,170 @@ body {
     color: var(--color-accent);
 }
 
-/* Skills Timeline */
-.skills-timeline {
-	position: relative;
-	display: grid;
-	gap: 1.5rem;
-	padding-left: 2rem;
+/* Skills Grid */
+.skills-intro {
+  max-width: 72ch;
+  margin: 0 0 1.5rem;
+  color: var(--color-gray-3);
 }
 
-.skills-timeline::before {
-	content: "";
-	position: absolute;
-	left: 0.6rem;
-	top: 0.5rem;
-	bottom: 0.5rem;
-	width: 2.5px;
-	background: linear-gradient(180deg, var(--color-accent), var(--color-gray-3));
-	opacity: 0.7;
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-.skill-milestone {
-	position: relative;
-	display: grid;
-	grid-template-columns: auto 1fr;
-	column-gap: 1rem;
-  align-items: center;
+/* Desktop: two larger cards on the left, two smaller on the right */
+@media (min-width: 720px) {
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem; /* keep the same spacing */
+    grid-auto-rows: minmax(0, auto);
+    align-items: start;
+    align-content: start;
+  }
+
+  /* Left column: larger cards stacked (Linux, Infra) */
+  .skill-card-linux {
+    grid-column: 1 / 5; /* spans 4 of 6 columns */
+    grid-row: 1;
+  }
+
+  .skill-card-infra {
+    grid-column: 1 / 5; /* spans 4 of 6 columns (swapped) */
+    grid-row: 2;
+  }
+
+  /* Right column: smaller cards stacked (Networking, Security) */
+  .skill-card-networking {
+    grid-column: 5 / 7; /* spans 2 of 6 columns (swapped) */
+    grid-row: 2;
+  }
+
+  .skill-card-security {
+    grid-column: 5 / 7; /* spans 2 of 6 columns */
+    grid-row: 1;
+  }
 }
 
-.milestone-dot {
-	margin-top: 0;
-  transform: translateY(-14px);
-	width: 0.8rem;
-	height: 0.8rem;
-	border-radius: 50%;
-	background: var(--color-accent);
-	box-shadow: 0 0 0 4px rgba(79, 92, 200, 0.2);
+.skill-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-gray-5);
+  border-radius: 16px;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+
+  /* Ensure all cards have similar visual height without forcing overflow */
+  min-height: 14rem;
+  box-sizing: border-box;
+  align-self: stretch;
 }
 
-.skill-badges {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	margin-top: 0.5rem;
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  background: var(--skill-accent, var(--color-accent));
+}
+
+.skill-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.2rem;
+}
+
+.skill-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.skill-card p {
+  margin: 0;
+  color: var(--color-gray-3);
+  line-height: 1.6;
+}
+
+.skill-card-label {
+  flex: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, transparent);
+  color: var(--skill-accent, var(--color-accent-high));
+  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 10%, transparent);
+}
+
+.skill-list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-list li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--color-white);
+}
+
+.skill-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--skill-accent, var(--color-accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--skill-accent, var(--color-accent)) 18%, transparent);
+}
+
+.skill-card-linux {
+  --skill-accent: #4f5cc8;
+}
+
+.skill-card-networking {
+  --skill-accent: #3b82f6;
+}
+
+.skill-card-infra {
+  --skill-accent: #10b981;
+}
+
+.skill-card-security {
+  --skill-accent: #f97316;
+}
+
+/* Utility label classes to reuse skill colors outside skill cards */
+.label-core-ops {
+  --skill-accent: #4f5cc8;
+}
+
+.label-platform {
+  --skill-accent: #3b82f6;
+}
+
+.label-routing {
+  --skill-accent: #10b981;
+}
+
+.label-isolation {
+  --skill-accent: #f97316;
 }
 
 /* Cards & Buttons */
@@ -221,6 +343,11 @@ body {
   background: transparent;
   color: #ffffff;
 }
+
+/* Remove visible border for badges inside the Certifications section */
+.cert-section .badge-tip {
+  border: none;
+}
 .hero-section {
   position: relative;
   /* Mantenemos el Full-screen height */
@@ -281,25 +408,43 @@ body {
 }
 
 /* --- Responsive Design (Media Queries) --- */
-@media (max-width: 768px) {
-  .hero-section {
-    /* En móviles volvemos al stack vertical */
-    flex-direction: column-reverse; 
-    text-align: center;
-    justify-content: center;
-    padding-top: 2rem;
-  }
-  
-  .hero-content {
-    text-align: center;
-  }
-  
-  .hero-image {
-    justify-content: center;
+/* Desktop: Asymmetric Bento Grid layout */
+@media (min-width: 720px) {
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem; 
+    grid-auto-rows: minmax(0, auto);
+    align-items: start;
+    align-content: start;
   }
 
-  .hero-title {
-    font-size: clamp(2rem, 7.5vw, 3rem);
+  /* --- FILA 1: Diseño 4 + 2 --- */
+  
+  /* Linux: Ancha a la izquierda */
+  .skill-card-linux {
+    grid-column: 1 / 5; /* Ocupa 4 de 6 columnas */
+    grid-row: 1;
+  }
+
+  /* Security: Estrecha a la derecha */
+  .skill-card-security {
+    grid-column: 5 / 7; /* Ocupa 2 de 6 columnas */
+    grid-row: 1;
+  }
+
+  /* --- FILA 2: Diseño 2 + 4 (Para romper la simetría) --- */
+  
+  /* Networking: Estrecha a la izquierda */
+  .skill-card-infra { 
+    grid-column: 1 / 3; /* Ocupa 2 de 6 columnas */
+    grid-row: 2;
+  }
+
+  /* Infra & Hosting: Ancha a la derecha */
+  .skill-card-networking { 
+    grid-column: 3 / 7; /* Ocupa 4 de 6 columnas */
+    grid-row: 2;
   }
 }
 
@@ -404,6 +549,12 @@ body {
   border: 1px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
   background-color: var(--color-accent);
   color: #ffffff;
+}
+
+.card-labels {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 /* Cert Progress Replacements */

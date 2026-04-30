@@ -95,8 +95,12 @@ import Terminal from './Terminal.astro';
     transform: translateX(22px); 
   }
 
-  /* FIXED: Added a minimum height so the background doesn't collapse */
+  /* GUI only minimum height so CLI doesn't leave blank space */
   .view-container {
+    width: 100%;
+  }
+
+  #gui-view.active {
     min-height: 85vh; /* Matches your Hero section height */
     width: 100%;
   }
