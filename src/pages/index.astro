@@ -5,7 +5,7 @@ import InterfaceSwitch from '../components/InterfaceSwitch.astro';
 import TopBar from '../components/TopBar.astro';
 // 1. Import the Image component from Astro
 import { Image } from 'astro:assets';
-import Photo from '../assets/ Photo.png';
+import Photo from '../assets/Photo.jpg';
 // Import global CSS
 import '../styles/main.css';
 
@@ -43,7 +43,13 @@ const description = "Student and infrastructure enthusiast documenting my journe
           </div>
         </div>
         <div class="hero-image">
-          <Image src={Photo} alt="Pablo Rosi" />
+          <Image src={Photo} 
+          alt="Pablo Rosi" 
+          loading="eager" 
+          fetchpriority="high"
+          width={640}  
+          height={640}
+          />
         </div>
 		</div>
       </header>
