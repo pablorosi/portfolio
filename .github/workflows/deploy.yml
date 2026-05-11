@@ -36,11 +36,21 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Deploy to Hetzner via rsync
-        uses: easingthemes/ssh-deploy@main
+      - name: Copy files to Server via SCP
+        uses: appleboy/scp-action@v0.1.7
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SERVER_IP }}
-          REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-          SOURCE: "dist/"
-          TARGET: "/root/my-server/portfolio" 
+          host: ${{ secrets.SERVER_IP }} 
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "dist/,docker-compose.yml"
+          target: "/root/my-server/portfolio"
+
+      - name: Restart Docker Container via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }} 
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /root/my-server/portfolio
+            docker compose up -d
