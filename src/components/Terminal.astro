@@ -104,8 +104,13 @@
 
 <script>
   // TypeScript Interfaces for the Virtual File System
+  type FileEntry = {
+    kind: 'html' | 'text' | 'link';
+    value: string;
+  };
+
   interface Directory {
-    [fileName: string]: string;
+    [fileName: string]: FileEntry | 'DIR';
   }
 
   interface FileSystem {
@@ -114,7 +119,9 @@
 
   const fileSystem: FileSystem = {
     root: {
-      'certs.txt': [
+      'certs.txt': {
+        kind: 'html',
+        value: [
 '<span style="color: #e6e6e6; font-size: 1.2rem; font-weight: bold;">🎓 Certifications</span>',
         '<span style="color: #aaa;">Professional certification roadmap focused on networking and Linux systems administration.</span>',
         '<br>',
@@ -128,8 +135,11 @@
         'Status:   <span style="color: #bd93f9; border: 1px solid #bd93f9; padding: 0 4px; border-radius: 3px; font-size: 0.8rem;">In Progress</span>',
         'Progress: <span style="color: #5da9f6;">[████░░░░░░░░░░░░░░░░]</span> ~20%',
         '<span style="color: #555;">--------------------------------------------------</span>'
-      ].join('<br>'),
-                  'skills.txt': [
+      ].join('<br>')
+      },
+      'skills.txt': {
+        kind: 'html',
+        value: [
         '<span style="color: #e6e6e6; font-size: 1.1rem; font-weight: bold;">&lt;&gt; Skills &amp; Expertise</span>',
         '<span style="color: #aaa; font-size: 0.85rem;">Practical infrastructure and security skills built through homelab operations, remote hosting, and production-like self-hosted services.</span>',
         '<br>',
@@ -142,19 +152,20 @@
         '<span style="color: #5da9f6;">◉</span> <span style="color: #e6e6e6; font-weight: bold;">Security &amp; Routing</span>',
         '&nbsp;&nbsp;&nbsp;<span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">VPN Tunnels (Gluetun/WireGuard)</span> <span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Network Traffic Isolation</span> <span style="color: #fca5a5; border: 1px solid #7f1d1d; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Containerized Routing</span> <span style="color: #fde047; border: 1px solid #713f12; padding: 1px 6px; border-radius: 8px; font-size: 0.75rem;">Homelab Architecture</span>',
         '<br>',
-      ].join('<br>'),
+      ].join('<br>')
+      },
       'projects': 'DIR',
       'contact': 'DIR'
     },
     projects: {
-      'vlan-automation.sh': '/docs/projects/vlan',
-      'homelab-config.sh': '/docs/projects/homelab',
-      'readme.md': 'Execute scripts using ./filename.sh'
+      'vlan-automation.sh': { kind: 'link', value: '/docs/projects/vlan' },
+      'homelab-config.sh': { kind: 'link', value: '/docs/projects/homelab' },
+      'readme.md': { kind: 'text', value: 'Execute scripts using ./filename.sh' }
     },
     contact: {
-      'Email.sh': 'mailto:me@pablorosi.com',
-      'Linkedin.sh': 'https://www.linkedin.com/in/pablorosi/',
-      'GitHub.sh': 'https://github.com/pablorosi'
+      'Email.sh': { kind: 'link', value: 'mailto:me@pablorosi.com' },
+      'Linkedin.sh': { kind: 'link', value: 'https://www.linkedin.com/in/pablorosi/' },
+      'GitHub.sh': { kind: 'link', value: 'https://github.com/pablorosi' }
     },
   };
 
@@ -167,6 +178,42 @@
 
   function scrollToBottom() {
     if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+  }
+  
+// @warning: Only use this for internal/hardcoded safe HTML. Avoid using with untrusted content to prevent XSS vulnerabilities.
+  function printLine(html: string) {
+    if (history) {
+      const p = document.createElement('p');
+      p.style.margin = '0.2rem 0';
+      p.innerHTML = html;
+      history.appendChild(p);
+      scrollToBottom();
+    }
+  }
+
+  function printTextLine(text: string, className?: string) {
+    if (history) {
+      const p = document.createElement('p');
+      p.style.margin = '0.2rem 0';
+      if (className) p.className = className;
+      p.textContent = text;
+      history.appendChild(p);
+      scrollToBottom();
+    }
+  }
+
+  function printCommandLine(promptText: string, commandText: string) {
+    if (history) {
+      const p = document.createElement('p');
+      p.style.margin = '0.2rem 0';
+      const promptSpan = document.createElement('span');
+      promptSpan.className = 'prompt';
+      promptSpan.textContent = promptText;
+      p.appendChild(promptSpan);
+      p.appendChild(document.createTextNode(` ${commandText}`));
+      history.appendChild(p);
+      scrollToBottom();
+    }
   }
 
   function isMassDirectoryDeleteCommand(command: string): boolean {
@@ -213,13 +260,13 @@
       if (!fullCommand) return;
 
       if (meltdownInProgress) {
-        printLine('<span class="error">[LOCKED] command ignored while system meltdown is active...</span>');
+        printTextLine('[LOCKED] command ignored while system meltdown is active...', 'error');
         scrollToBottom();
         return;
       }
 
       const pathDisplay = currentDir === 'root' ? '~' : `~/${currentDir}`;
-      printLine(`<span class="prompt">admin@pablorosi:${pathDisplay}$</span> ${fullCommand}`);
+      printCommandLine(`admin@pablorosi:${pathDisplay}$`, fullCommand);
 
       if (isMassDirectoryDeleteCommand(fullCommand)) {
         runFakeMeltdown();
@@ -253,7 +300,7 @@
                         );
                         printLine(subItems.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
                       } else {
-                        printLine(`<span class="error">ls: cannot access '${target}': No such directory</span>`);
+                        printTextLine(`ls: cannot access '${target}': No such directory`, 'error');
                       }
                       } else {
                       const items = Object.keys(fileSystem[currentDir]).map((item) =>
@@ -270,14 +317,19 @@
             currentDir = normalizedTarget;
             if (pathLabel) pathLabel.innerText = `admin@pablorosi:~/${currentDir}$`;
           } else {
-            printLine(`<span class="error">cd: ${target}: No such directory</span>`);
+            printTextLine(`cd: ${target}: No such directory`, 'error');
           }
           break;
         case 'cat':
           if (fileSystem[currentDir][target] && fileSystem[currentDir][target] !== 'DIR') {
-            printLine(fileSystem[currentDir][target]);
+            const entry = fileSystem[currentDir][target] as FileEntry;
+            if (entry.kind === 'html') {
+              printLine(entry.value);
+            } else {
+              printTextLine(entry.value);
+            }
           } else {
-            printLine(`<span class="error">cat: ${target}: No such file</span>`);
+            printTextLine(`cat: ${target}: No such file`, 'error');
           }
           break;
         case 'clear':
@@ -289,37 +341,29 @@
           if (cmd.startsWith('./')) {
             const scriptName = cmd.replace('./', '');
             if (currentDir === 'projects' && fileSystem['projects'][scriptName]) {
-              printLine(`Running ${scriptName}... Redirecting to documentation.`);
+              const entry = fileSystem['projects'][scriptName] as FileEntry;
+              printTextLine(`Running ${scriptName}... Redirecting to documentation.`);
               setTimeout(() => {
-                window.location.href = fileSystem['projects'][scriptName];
+                if (entry.kind === 'link') window.location.href = entry.value;
               }, 1000);
             } else if (currentDir === 'contact' && fileSystem['contact'][scriptName]) {
-              const targetLink = fileSystem['contact'][scriptName];
+              const entry = fileSystem['contact'][scriptName] as FileEntry;
+              const targetLink = entry.kind === 'link' ? entry.value : '';
               if (targetLink.startsWith('mailto:')) {
-                printLine(`Running ${scriptName}... Opening email client.`);
+                printTextLine(`Running ${scriptName}... Opening email client.`);
                 window.location.href = targetLink;
               } else {
-                printLine(`Running ${scriptName}... Opening link in a new tab.`);
+                printTextLine(`Running ${scriptName}... Opening link in a new tab.`);
                 window.open(targetLink, '_blank', 'noopener,noreferrer');
               }
             } else {
-              printLine(`<span class="error">bash: ${cmd}: permission denied or file not found</span>`);
+              printTextLine(`bash: ${cmd}: permission denied or file not found`, 'error');
             }
           } else {
-            printLine(`<span class="error">${cmd}: command not found</span>`);
+            printTextLine(`${cmd}: command not found`, 'error');
           }
       }
       scrollToBottom();
     }
   });
-
-  function printLine(text: string) {
-    if (history) {
-      const p = document.createElement('p');
-      p.style.margin = '0.2rem 0';
-      p.innerHTML = text;
-      history.appendChild(p);
-      scrollToBottom();
-    }
-  }
 </script>
