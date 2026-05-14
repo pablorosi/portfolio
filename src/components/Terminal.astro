@@ -57,10 +57,34 @@
 
   .terminal-window {
     padding: 1.5rem; 
-    min-height: 500px !important;
+    min-height: 500px;
+    max-height: 500px;
     overflow-y: auto; 
     color: var(--terminal-text);
     font-size: 0.9rem; 
+    scrollbar-width: thin;
+    scrollbar-color: #3a5f3a #0f1410;
+  }
+
+  .terminal-window::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .terminal-window::-webkit-scrollbar-track {
+    background: #0f1410;
+    border-left: 1px solid #1a241b;
+    box-shadow: inset 0 0 0 1px #0a0f0a;
+  }
+
+  .terminal-window::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #4a7a4a 0%, #2f5a2f 100%);
+    border-radius: 2px;
+    border: 1px solid #0f1410;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+  }
+
+  .terminal-window::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #5a8f5a 0%, #3a6b3a 100%);
   }
   .terminal-header { background-color: var(--terminal-header-bg); padding: 0.5rem 1rem; display: flex; align-items: center; border-bottom: 1px solid var(--terminal-border); }
   .terminal-buttons { display: flex; gap: 6px; }
@@ -141,6 +165,10 @@
   const windowNode = document.getElementById('terminal-window');
   const pathLabel = document.getElementById('current-path');
 
+  function scrollToBottom() {
+    if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+  }
+
   function isMassDirectoryDeleteCommand(command: string): boolean {
     const normalized = command.trim().replace(/\s+/g, ' ').toLowerCase();
     return /^rm\s+-[a-z]*r[a-z]*\s+.*(\/\*|\*|\*\/|\/)\s*$/.test(normalized);
@@ -148,7 +176,7 @@
   function runFakeMeltdown() {
     if (meltdownInProgress) {
       printLine('<span style="color: #ffbd2e; font-weight: bold;">[WARN]</span> <span style="color: #e6e6e6;">meltdown already in progress... hold on to your keyboard.</span>');
-      if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+      scrollToBottom();
       return;
     }
 
@@ -172,7 +200,7 @@
         // Formats the prefix in bold color, and the text in standard gray
         printLine(`<span style="color: ${line.color}; font-weight: bold;">${line.prefix}</span><span style="color: #e6e6e6;">${line.text}</span>`);
         
-        if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+        scrollToBottom();
         if (index === sequence.length - 1) meltdownInProgress = false;
       }, 450 * (index + 1));
     });
@@ -186,7 +214,7 @@
 
       if (meltdownInProgress) {
         printLine('<span class="error">[LOCKED] command ignored while system meltdown is active...</span>');
-        if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+        scrollToBottom();
         return;
       }
 
@@ -254,6 +282,7 @@
           break;
         case 'clear':
           if (history) history.innerHTML = '';
+          scrollToBottom();
           break;
         default:
           // Handle Execution Logic (./script.sh)
@@ -280,7 +309,7 @@
             printLine(`<span class="error">${cmd}: command not found</span>`);
           }
       }
-      if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+      scrollToBottom();
     }
   });
 
@@ -290,6 +319,7 @@
       p.style.margin = '0.2rem 0';
       p.innerHTML = text;
       history.appendChild(p);
+      scrollToBottom();
     }
   }
 </script>
