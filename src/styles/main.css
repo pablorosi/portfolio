@@ -434,7 +434,7 @@ html[data-theme='light'] body::after {
 .hero-image {
   flex: 1;
   display: flex;
-  justify-content: flex-end; /* Empuja la imagen totalmente a la derecha */
+  justify-content: flex-end; 
 }
 
 .hero-image img {
@@ -442,6 +442,8 @@ html[data-theme='light'] body::after {
   height: var(--hero-image-size);
   border-radius: 50%;
   object-fit: cover;
+  transform: scale(1.1);
+  transform-origin: center;
   box-shadow:
     0 0 0 6px color-mix(in srgb, var(--color-accent) 40%, transparent),
     0 0 0 12px color-mix(in srgb, var(--color-gray-6) 70%, transparent),
