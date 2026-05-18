@@ -30,17 +30,24 @@
 </nav>
 
 <style>
-  .top-bar {
-    width: 100%;
-    height: 55px; 
-    background: rgba(var(--color-black-rgb), 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
+.top-bar {
+    width: 100%; 
+    min-height: 55px; 
+    height: auto;
+    
+
+    position: relative;
     z-index: 1000;
     display: flex;
     align-items: center;
+
+
+    background: rgba(22, 35, 53, 0.7); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    
+    padding-top: env(safe-area-inset-top, 0px);
   }
 
   .bar-content {
@@ -48,18 +55,34 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    /* 2. Añadimos un padding horizontal para que no toque los bordes */
-    padding: 1.9rem 1.5rem 1.3rem;
+    padding: 0.8rem 1.5rem 0.8rem;
   }
+
 
   .logo {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    font-size: 1.25rem; /* Logo un poco más pequeño */
+    font-size: 1.25rem;
     text-decoration: none;
-    color: var(--color-white);
+    color: #FFFFFF;
     display: flex;
     gap: 0.2rem;
+  }
+
+
+
+  :global([data-theme='light']) .top-bar {
+    background: rgba(229, 237, 247, 0.7); 
+  }
+
+
+  :global([data-theme='light']) .logo {
+    color: #162335; 
+  }
+
+ 
+  :global([data-theme='light']) .nav-links a {
+    color: #162335;
   }
 
   .bracket {
@@ -128,7 +151,6 @@
     background: rgba(var(--color-accent-rgb), 0.1);
   }
 
-  /* Lógica visual de iconos según el tema */
   :root[data-theme='light'] .sun { display: none; }
   :root[data-theme='dark'] .moon { display: none; }
   
@@ -136,16 +158,39 @@
     .nav-links { display: none; } 
   }
 
-   /* FIXED: Global state selection for SVGs */
-  /* 1. Default Dark Mode state */
+  @media (max-width: 720px) {
+    .bar-content {
+      padding: 1.25rem 1rem 1rem;
+    }
+
+    .logo {
+      font-size: 1.05rem;
+    }
+
+    .nav-actions {
+      gap: 1rem;
+    }
+  }
+
+@media (min-width: 768px) {
+  .top-bar {
+
+    position: sticky;
+    top: 0;
+    
+    padding-top: 0; 
+  }
+}
+
   .moon { display: none; }
   .sun { display: block; }
   
-  /* 2. Light Mode state */
+
   :global([data-theme='light']) .sun { display: none !important; }
   :global([data-theme='light']) .moon { display: block !important; }
 </style>
 <script is:inline>
+
   // 1. Determine the initial theme (Local storage or system preference)
   const getTheme = () => {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -154,12 +199,18 @@
     return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   };
 
-  // 2. Function to inject the state into the DOM
+  // 2. Function to inject the state into the DOM and the Hardware Status Bar
   const setTheme = (theme) => {
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    
     if (theme === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
+      // Tell iOS/Android to paint the notch area light
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#E5EDF7'); 
     } else {
       document.documentElement.removeAttribute('data-theme'); // Your CSS defaults to dark
+      // Tell iOS/Android to paint the notch area dark
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#162335'); 
     }
     window.localStorage.setItem('theme', theme);
   };

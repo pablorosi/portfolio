@@ -39,6 +39,19 @@ import Terminal from './Terminal.astro';
     margin: 0 auto 2rem;
     padding: 0 2rem;
   }
+
+  @media (max-width: 720px) {
+    .switch-ui {
+      justify-content: center;
+      padding: 0 1.25rem;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .switch-ui {
+      display: none;
+    }
+  }
   
   /* FIXED: Removed Starlight variables and used your custom ones */
   .mode-text { 

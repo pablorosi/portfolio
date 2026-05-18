@@ -7,17 +7,41 @@ html {
 	min-height: 100%;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-	font-family: 'Inter', sans-serif; /* Asegúrate de importar la fuente o usar una del sistema */
-	background: var(--page-background);
-	color: var(--color-white);
-	margin: 0;
-	min-height: 100dvh;
+  font-family: 'Inter', sans-serif;
+  background-color: #162335; /* Matches the HTML background */
+  color: var(--color-white);
+  margin: 0;
+  min-height: 100svh;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  position: relative;
+}
+
+/* 2. Fixed Light Mode Selectors */
+/* We target the html tag directly when it has the data-theme attribute */
+html[data-theme='light'] {
+  background-color: #E5EDF7; /* This fixes the bottom scroll gap in light mode */
+}
+
+html[data-theme='light'] body {
+  background-color: #E5EDF7;
+}
+
+/* 3. The ::after hack (Optional) */
+/* If you still want to keep your safe-area hack, here is the corrected selector */
+html[data-theme='light'] body::after {
+  background-color: #E5EDF7;
 }
 
 /* Hero & General Layout */
 .home-section {
-	max-width: 1000px;
+  max-width: 1120px;
 	margin: 4rem auto;
 	padding: 0 2rem;
 }
@@ -235,14 +259,33 @@ body {
 /* Footer */
 .home-footer {
 	margin-top: 3rem;
-  max-width: 1000px;
+  max-width: 1120px;
   margin-left: auto;
   margin-right: auto;
-	border-top: 1px solid var(--color-hairline);
+  position: relative;
+  padding: 1.5rem 2rem 1.75rem;
 	display: flex;
 	justify-content: space-between;
+  align-items: center;
 	color: var(--color-gray-3);
 	font-size: 0.9rem;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.home-footer::before {
+  content: "";
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  top: 0;
+  height: 1px;
+  background: var(--color-hairline);
+}
+
+.home-footer p {
+  margin: 0;
+  white-space: nowrap;
 }
 
 /* Contenedor de la sección para dar aire */
@@ -260,12 +303,12 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--color-gray-5);
   border-radius: 12px;
-  padding: 2rem; /* Más espacio interno */
+  padding: 2rem; 
   box-shadow: var(--shadow-sm);
 }
 
 .cert-card-header {
-  margin-bottom: 1.5rem; /* Espacio reducido en el encabezado */
+  margin-bottom: 1.5rem; 
   border-bottom: 1px solid var(--color-hairline);
   padding-bottom: 0.5rem;
 }
@@ -278,18 +321,18 @@ body {
   margin: 0;
 }
 
-/* Lista de certificaciones */
+
 .cert-list {
   display: flex;
   flex-direction: column;
-  gap: 3.5rem; /* Mucho más espacio entre bloques de certificación */
+  gap: 3.5rem; 
   margin-top: 2rem;
 }
 
 .cert-item {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem; /* Más espacio entre el nombre y la barra */
+  gap: 1.2rem;
 }
 
 .cert-top-row {
@@ -312,15 +355,16 @@ body {
   font-weight: 400;
 }
 
-/* Fila de progreso y estado */
+
 .cert-progress-row {
   display: flex;
-  align-items: center;
-  gap: 1.5rem; /* Espacio entre barra y el badge de 'In Progress' */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem; 
 }
 
 .progress-track {
-  flex-grow: 1; /* La barra ocupa todo el espacio sobrante */
+  width: 100%;
   height: 8px;
   background: var(--color-gray-6);
   border-radius: 20px;
@@ -333,7 +377,7 @@ body {
   border-radius: 20px;
 }
 
-/* Badge de estado al final */
+
 .badge-tip {
   white-space: nowrap;
   padding: 0.3rem 0.8rem;
@@ -350,25 +394,22 @@ body {
 }
 .hero-section {
   position: relative;
-  /* Mantenemos el Full-screen height */
   min-height: calc(85dvh - 55px); 
   
   display: flex;
-  /* Cambiamos a row para poner los elementos en horizontal */
   flex-direction: row; 
   align-items: center;
   justify-content: space-between;
   
   gap: 4rem;
   padding: 0 2rem;
-  max-width: 1000px; /* Un poco más ancho para el split layout */
+  max-width: 1120px; 
   margin: 0 auto;
   
 }
 
 .hero-content {
   flex: 1;
-  /* Alineamos el texto a la izquierda para un look más técnico */
   text-align: left; 
 }
 
@@ -407,6 +448,115 @@ body {
     0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+@media (max-width: 980px) {
+  .hero-section {
+    flex-direction: column;    
+  }
+
+  .hero-title {
+    white-space: normal;
+  }
+
+  .hero-image {
+    order: -1;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1024px) {
+  .hero-section {
+    padding: 2.25rem 2rem 1.5rem;
+  }
+
+  .hero-image img {
+    width: clamp(220px, 36vw, 300px);
+    height: clamp(220px, 36vw, 300px);
+  }
+}
+
+@media (max-width: 720px) {
+  .home-section {
+    margin: 3rem auto;
+    padding: 0 1.25rem;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: auto;
+    padding: 2.5rem 1.25rem 1.5rem;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-image {
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: clamp(180px, 52vw, 280px);
+    height: clamp(180px, 52vw, 280px);
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-links-container {
+    grid-template-columns: 1fr;
+  }
+
+  .cert-progress-row {
+    align-items: flex-start;
+  }
+
+  .home-footer {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+
+  .btn-primary {
+    padding: 0.85rem 1.6rem;
+    font-size: 0.95rem;
+  }
+
+  .link-card {
+    padding: 1.25rem;
+  }
+
+  .cert-card {
+    padding: 1.5rem;
+  }
+}
+
 /* --- Responsive Design (Media Queries) --- */
 /* Desktop: Asymmetric Bento Grid layout */
 @media (min-width: 720px) {
@@ -419,31 +569,29 @@ body {
     align-content: start;
   }
 
-  /* --- FILA 1: Diseño 4 + 2 --- */
+
   
-  /* Linux: Ancha a la izquierda */
   .skill-card-linux {
-    grid-column: 1 / 5; /* Ocupa 4 de 6 columnas */
+    grid-column: 1 / 5; 
     grid-row: 1;
   }
 
-  /* Security: Estrecha a la derecha */
+
   .skill-card-security {
-    grid-column: 5 / 7; /* Ocupa 2 de 6 columnas */
+    grid-column: 5 / 7;
     grid-row: 1;
   }
 
-  /* --- FILA 2: Diseño 2 + 4 (Para romper la simetría) --- */
-  
-  /* Networking: Estrecha a la izquierda */
+
+
   .skill-card-infra { 
-    grid-column: 1 / 3; /* Ocupa 2 de 6 columnas */
+    grid-column: 1 / 3; 
     grid-row: 2;
   }
 
-  /* Infra & Hosting: Ancha a la derecha */
+
   .skill-card-networking { 
-    grid-column: 3 / 7; /* Ocupa 4 de 6 columnas */
+    grid-column: 3 / 7; 
     grid-row: 2;
   }
 }
