@@ -23,6 +23,24 @@ body {
   position: relative;
 }
 
+::view-transition-group(root) {
+  animation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  clip-path: inset(0 0 100% 0);
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
 /* 2. Fixed Light Mode Selectors */
 /* We target the html tag directly when it has the data-theme attribute */
 html[data-theme='light'] {

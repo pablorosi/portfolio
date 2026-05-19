@@ -219,12 +219,37 @@
   let currentTheme = getTheme();
   setTheme(currentTheme);
 
+  const supportsViewTransition = 'startViewTransition' in document;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // 4. Attach the event listener to your toggle button
   const themeToggleButton = document.getElementById('theme-toggle');
   if (themeToggleButton) {
     themeToggleButton.addEventListener('click', () => {
-      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(currentTheme);
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      if (!supportsViewTransition || prefersReducedMotion) {
+        currentTheme = nextTheme;
+        setTheme(currentTheme);
+        return;
+      }
+
+      const transition = document.startViewTransition(() => {
+        currentTheme = nextTheme;
+        setTheme(currentTheme);
+      });
+
+      transition.ready.then(() => {
+        document.documentElement.animate(
+          { clipPath: ['inset(0 0 100% 0)', 'inset(0)'] },
+          {
+            duration: 900,
+            easing: 'ease',
+            fill: 'both',
+            pseudoElement: '::view-transition-new(root)'
+          }
+        );
+      });
     });
   }
 </script>
