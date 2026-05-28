@@ -182,10 +182,16 @@ html[data-theme='light'] body::after {
   border-radius: 999px;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
+  font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, transparent);
-  color: var(--skill-accent, var(--color-accent-high));
-  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 80%, var(--color-black) 20%);
+  color: #ffffff;
+  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, var(--color-black) 45%);
+}
+
+:root[data-theme='light'] .skill-card-label {
+  color: #ffffff;
+  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, var(--color-black) 45%);
 }
 
 .skill-list {
@@ -232,7 +238,7 @@ html[data-theme='light'] body::after {
 
 /* Utility label classes to reuse skill colors outside skill cards */
 .label-core-ops {
-  --skill-accent: #4f5cc8;
+  --skill-accent: #2f3e95;
 }
 
 .label-platform {
@@ -628,15 +634,15 @@ html[data-theme='light'] body::after {
 }
 
 .btn-primary {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: var(--color-accent-high);
+  color: var(--color-black);
   padding: 1rem 2.25rem;
   border-radius: 999px;
   font-size: 1rem;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent);
+  filter: brightness(1.04);
 }
 
 .btn-minimal {

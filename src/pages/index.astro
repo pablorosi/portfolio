@@ -24,6 +24,7 @@ const description = "Student and infrastructure enthusiast documenting my journe
   </head>
   <body class="bg-black text-white">
 	<TopBar />
+    <main id="main-content">
       <header class="hero-section">
         <div class="hero-content">
           <h1 class="hero-title">Hi, I'm Pablo Rosi</h1>
@@ -49,6 +50,8 @@ const description = "Student and infrastructure enthusiast documenting my journe
           fetchpriority="high"
           width={640}  
           height={640}
+          widths={[180, 220, 280, 300, 375, 480, 640]}
+          sizes="(max-width: 720px) min(280px, 52vw), (max-width: 1024px) min(300px, 36vw), min(280px, 22vw)"
           />
         </div>
 		</div>
@@ -225,6 +228,8 @@ const description = "Student and infrastructure enthusiast documenting my journe
       <p class="home-footer-left">© 2026 Pablo Rosi.</p>
       <p class="home-footer-right">Made with <span aria-hidden="true">&hearts;</span> and lots of coffee.</p>
     </footer>
+
+    </main>
 
   </body>
 </html>
