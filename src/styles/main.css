@@ -456,14 +456,30 @@ html[data-theme='light'] body::after {
   gap: 1rem;
 }
 
+.hero-image {
+  flex: 0 0 auto;
+  width: fit-content;
+  max-width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+
+.hero-image picture {
+  display: block;
+  max-width: 100%;
+}
+
 
 
 .hero-image img {
+  display: block;
+  max-width: 100%;
   width: var(--hero-image-size);
   height: var(--hero-image-size);
   border-radius: 50%;
   object-fit: cover;
-  transform: scale(1.1);
+  transform: scale(1);
   transform-origin: center;
   box-shadow:
     0 0 0 6px color-mix(in srgb, var(--color-accent) 40%, transparent),
@@ -474,6 +490,7 @@ html[data-theme='light'] body::after {
 @media (max-width: 980px) {
   .hero-section {
     flex-direction: column;    
+    gap: 2rem;
   }
 
   .hero-title {
@@ -482,6 +499,7 @@ html[data-theme='light'] body::after {
 
   .hero-image {
     order: -1;
+    margin: 0 auto;
   }
 
   .hero-content {
@@ -516,7 +534,8 @@ html[data-theme='light'] body::after {
     justify-content: center;
     text-align: center;
     min-height: auto;
-    padding: 2.5rem 1.25rem 1.5rem;
+    gap: 1.25rem;
+    padding: 2rem 1.25rem 1.25rem;
   }
 
   .hero-content {
@@ -529,6 +548,7 @@ html[data-theme='light'] body::after {
 
   .hero-image {
     justify-content: center;
+    padding: 8px;
   }
 
   .hero-image img {
