@@ -456,11 +456,7 @@ html[data-theme='light'] body::after {
   gap: 1rem;
 }
 
-.hero-image {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end; 
-}
+
 
 .hero-image img {
   width: var(--hero-image-size);
