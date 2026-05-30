@@ -4,8 +4,8 @@ import Terminal from '../components/Terminal.astro';
 import InterfaceSwitch from '../components/InterfaceSwitch.astro';
 import TopBar from '../components/TopBar.astro';
 // 1. Import the Image component from Astro
-import { Image } from 'astro:assets';
 import Photo from '../assets/Photo.jpg';
+import { Picture } from 'astro:assets';
 // Import global CSS
 import '../styles/main.css';
 
@@ -44,14 +44,15 @@ const description = "Student and infrastructure enthusiast documenting my journe
           </div>
         </div>
         <div class="hero-image">
-          <Image src={Photo} 
-          alt="Pablo Rosi" 
-          loading="eager" 
-          fetchpriority="high"
-          width={640}  
-          height={640}
-          widths={[180, 220, 280, 300, 375, 480, 640]}
-          sizes="(max-width: 720px) min(280px, 52vw), (max-width: 1024px) min(300px, 36vw), min(280px, 22vw)"
+          <Picture 
+            src={Photo} 
+            alt="Pablo Rosi" 
+            loading="eager" 
+            fetchpriority="high"
+            width={640}  
+            height={640}
+            sizes="(max-width: 720px) min(280px, 52vw), (max-width: 1024px) min(300px, 36vw), min(280px, 22vw)"
+            formats={['avif', 'webp']} 
           />
         </div>
 		</div>
