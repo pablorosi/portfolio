@@ -184,14 +184,9 @@ html[data-theme='light'] body::after {
   letter-spacing: 0.08em;
   font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 80%, var(--color-black) 20%);
+  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 80%, #1a1f26 20%);
   color: #ffffff;
-  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, var(--color-black) 45%);
-}
-
-:root[data-theme='light'] .skill-card-label {
-  color: #ffffff;
-  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, var(--color-black) 45%);
+  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, #1a1f26 45%);
 }
 
 .skill-list {
@@ -434,8 +429,9 @@ html[data-theme='light'] body::after {
 }
 
 .hero-content {
+  position: relative;
   flex: 1;
-  text-align: left; 
+  text-align: left;
 }
 
 .hero-title {
@@ -443,6 +439,29 @@ html[data-theme='light'] body::after {
   margin-bottom: 1.5rem;
   line-height: 1.1;
   white-space: nowrap;
+  letter-spacing: -0.03em;
+}
+
+.hero-name {
+  display: inline-block;
+  color: var(--color-white);
+  background: linear-gradient(90deg, var(--color-white), var(--color-accent-high) 65%, var(--color-white));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 26%, transparent);
+  transition: text-shadow 220ms ease;
+}
+
+html.dark .hero-name {
+  background: linear-gradient(90deg, var(--color-gray-1), var(--color-accent-high) 65%, var(--color-gray-2));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name {
+    transition: none;
+  }
 }
 
 .hero-tagline {
@@ -470,8 +489,6 @@ html[data-theme='light'] body::after {
   max-width: 100%;
 }
 
-
-
 .hero-image img {
   display: block;
   max-width: 100%;
@@ -482,7 +499,7 @@ html[data-theme='light'] body::after {
   transform: scale(1);
   transform-origin: center;
   box-shadow:
-    0 0 0 6px color-mix(in srgb, var(--color-accent) 40%, transparent),
+    0 0 0 6px color-mix(in srgb, var(--hero-image-frame-color) 55%, transparent),
     0 0 0 12px color-mix(in srgb, var(--color-gray-6) 70%, transparent),
     0 20px 40px rgba(0, 0, 0, 0.3);
 }
@@ -504,6 +521,7 @@ html[data-theme='light'] body::after {
 
   .hero-content {
     text-align: center;
+    padding-left: 0;
   }
 
   .hero-actions {
@@ -540,6 +558,13 @@ html[data-theme='light'] body::after {
 
   .hero-content {
     text-align: center;
+    padding-left: 0;
+  }
+
+  .hero-content::before {
+    left: 50%;
+    transform: translateX(-50%);
+    height: 48%;
   }
 
   .hero-actions {
