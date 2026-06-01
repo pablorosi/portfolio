@@ -6,7 +6,7 @@
     --switch-background-checked: var(--color-accent);
     --switch-handle: white;
 
-    --color-black: #1a1f26;
+    --color-black: #0f1724; /* Slate base */
     --color-white: #ffffff;
     
     --color-gray-1: #e6e9ee;
@@ -23,8 +23,8 @@
     --color-hairline: rgba(255, 255, 255, 0.1);
     
     --page-background:
-        radial-gradient(circle at 12% 16%, rgba(120, 130, 145, 0.18), transparent 46%),
-        linear-gradient(160deg, #0e1013 0%, #13171c 52%, #1a1f26 100%);
+        radial-gradient(circle at 12% 16%, rgba(100, 116, 139, 0.10), transparent 46%),
+        linear-gradient(160deg, #0b1220 0%, #0f1724 40%, #111827 100%);
         
     --hero-image-size: clamp(170px, 22vw, 280px);
     --hero-image-frame-color: var(--color-accent-high);
