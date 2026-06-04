@@ -259,7 +259,7 @@ body {
 .contact-link-item:hover {
     border-color: var(--color-accent);
     color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.1);
+    background: color-mix(in srgb, var(--color-accent) 12%, var(--card-bg));
 }
 
 /* Footer */
@@ -466,6 +466,7 @@ body {
 .hero-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   line-height: 1.1;
   white-space: nowrap;
   letter-spacing: -0.03em;
@@ -726,8 +727,8 @@ html.dark .hero-name {
 }
 
 .link-card:hover {
-  border-color: var(--color-gray-4);
-  background-color: rgba(125, 141, 163, 0.04);
+  border-color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, var(--card-bg));
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.45);
   transform: translateY(-4px);
 }
