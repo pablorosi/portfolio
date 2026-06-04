@@ -1,8 +1,8 @@
 @import "./variables.css";
+@import "./animations.css";
 
 html {
 	background: var(--page-background);
-	background-color: var(--color-black);
 	overscroll-behavior-y: none;
 	min-height: 100%;
 }
@@ -15,7 +15,7 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--color-black);
+  background: transparent;
   color: var(--color-white);
   margin: 0;
   min-height: 100svh;
@@ -41,21 +41,7 @@ body {
   isolation: isolate;
 }
 
-/* 2. Fixed Light Mode Selectors */
-/* We target the html tag directly when it has the data-theme attribute */
-html[data-theme='light'] {
-  background-color: #E5EDF7; /* This fixes the bottom scroll gap in light mode */
-}
 
-html[data-theme='light'] body {
-  background-color: #E5EDF7;
-}
-
-/* 3. The ::after hack (Optional) */
-/* If you still want to keep your safe-area hack, here is the corrected selector */
-html[data-theme='light'] body::after {
-  background-color: #E5EDF7;
-}
 
 /* Hero & General Layout */
 .home-section {
@@ -137,7 +123,9 @@ html[data-theme='light'] body::after {
   padding: 1.5rem;
   border: 1px solid var(--color-gray-5);
   border-radius: 16px;
-  background: transparent;
+  background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   box-shadow: none;
   overflow: hidden;
 
@@ -266,6 +254,9 @@ html[data-theme='light'] body::after {
     border: 1px solid var(--color-gray-5);
     text-decoration: none;
     color: var(--color-white);
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     transition: all 0.2s ease;
 }
 
@@ -319,70 +310,6 @@ html[data-theme='light'] body::after {
   color: var(--color-gray-3);
 }
 
-.cert-card {
-  background: var(--card-bg);
-  border: 1px solid var(--color-gray-5);
-  border-radius: 12px;
-  padding: 2rem; 
-  box-shadow: var(--shadow-sm);
-}
-
-.cert-card-header {
-  margin-bottom: 1.5rem; 
-  border-bottom: 1px solid var(--color-hairline);
-  padding-bottom: 0.5rem;
-}
-
-.cert-card-header h3 {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-gray-3);
-  margin: 0;
-}
-
-
-.cert-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem; 
-  margin-top: 2rem;
-}
-
-.cert-item {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.cert-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.cert-name {
-  font-size: 1.4rem;
-  color: var(--color-white);
-  letter-spacing: -0.02em;
-}
-
-.cert-issuer {
-  font-size: 0.95rem;
-  color: var(--color-gray-3);
-  font-weight: 400;
-}
-
-
-.cert-progress-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.75rem; 
-}
-
 .progress-track {
   width: 100%;
   height: 8px;
@@ -395,6 +322,114 @@ html[data-theme='light'] body::after {
   height: 100%;
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-high));
   border-radius: 20px;
+}
+
+/* Certification Timeline */
+.cert-timeline {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-accent), var(--color-gray-5));
+  transform: translateX(-50%);
+}
+
+.timeline-node {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-node:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--node-color, var(--color-accent));
+  transform: translateX(-50%);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--node-color, var(--color-accent)) 20%, transparent),
+    0 0 12px color-mix(in srgb, var(--node-color, var(--color-accent)) 30%, transparent);
+  z-index: 1;
+}
+
+.timeline-content {
+  width: calc(50% - 2rem);
+  margin-left: auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-gray-5);
+  border-radius: 12px;
+  background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: border-color 0.2s ease;
+}
+
+.timeline-node:nth-child(odd) .timeline-content {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.timeline-content:hover {
+  border-color: var(--color-gray-4);
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+}
+
+.timeline-sub {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--color-gray-3);
+}
+
+.timeline-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.timeline-progress .progress-track {
+  flex: 1;
+}
+
+.timeline-progress .progress-label {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* Remove visible border for badges inside the Certifications section */
+.cert-section .badge-tip {
+  border: none;
 }
 
 
@@ -593,8 +628,28 @@ html.dark .hero-name {
     grid-template-columns: 1fr;
   }
 
-  .cert-progress-row {
-    align-items: flex-start;
+  .cert-timeline {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-line {
+    left: 0;
+    transform: none;
+  }
+
+  .timeline-dot {
+    left: 0;
+    transform: translateX(-50%);
+  }
+
+  .timeline-content {
+    width: calc(100% - 1.5rem);
+    margin-left: 1.5rem !important;
+    margin-right: 0 !important;
+  }
+
+  .timeline-node:nth-child(odd) .timeline-content {
+    margin-left: 1.5rem !important;
   }
 
   .home-footer {
@@ -622,45 +677,6 @@ html.dark .hero-name {
 
   .cert-card {
     padding: 1.5rem;
-  }
-}
-
-/* --- Responsive Design (Media Queries) --- */
-/* Desktop: Asymmetric Bento Grid layout */
-@media (min-width: 720px) {
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1rem; 
-    grid-auto-rows: minmax(0, auto);
-    align-items: start;
-    align-content: start;
-  }
-
-
-  
-  .skill-card-linux {
-    grid-column: 1 / 5; 
-    grid-row: 1;
-  }
-
-
-  .skill-card-security {
-    grid-column: 5 / 7;
-    grid-row: 1;
-  }
-
-
-
-  .skill-card-infra { 
-    grid-column: 1 / 3; 
-    grid-row: 2;
-  }
-
-
-  .skill-card-networking { 
-    grid-column: 3 / 7; 
-    grid-row: 2;
   }
 }
 
@@ -706,6 +722,8 @@ html.dark .hero-name {
   align-items: flex-start;
   padding: 1.5rem;
   background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--color-gray-5);
   border-radius: 12px;
   text-decoration: none;
