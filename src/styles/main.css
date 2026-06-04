@@ -48,8 +48,9 @@ body {
 /* Hero & General Layout */
 .home-section {
   max-width: 1120px;
-	margin: 4rem auto;
+	margin: 5rem auto;
 	padding: 0 2rem;
+	scroll-margin-top: 5rem;
 }
 
 .home-section:first-of-type {
@@ -175,9 +176,9 @@ body {
   letter-spacing: 0.08em;
   font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 80%, #0b0d14 20%);
+  border: 1px solid color-mix(in srgb, var(--skill-accent, var(--color-accent)) 80%, #1a1a1a 20%);
   color: #ffffff;
-  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, #0b0d14 45%);
+  background: color-mix(in srgb, var(--skill-accent, var(--color-accent)) 55%, #1a1a1a 45%);
 }
 
 .skill-list {
@@ -301,8 +302,6 @@ body {
 
 /* Contenedor de la sección para dar aire */
 .cert-section {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   width: 100%;
 }
 
@@ -827,7 +826,7 @@ html.dark .hero-name {
 
 .cert-progress {
   width: 100%;
-  background-color: #1a1c24;
+  background-color: var(--color-gray-6);
   border-radius: 9999px;
   height: 0.5rem;
   margin: 0 0 0.4rem;
@@ -837,7 +836,7 @@ html.dark .hero-name {
 .cert-progress-bar {
   display: block;
   height: 100%;
-  background-color: #3478eb;
+  background-color: var(--color-accent);
 }
 
 

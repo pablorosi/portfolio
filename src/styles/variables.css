@@ -6,31 +6,27 @@
     --switch-background-checked: var(--color-accent);
     --switch-handle: white;
 
-    --color-black: #06070d;
+    --color-black: #181818;
     --color-white: #ffffff;
     
-    --color-gray-1: #e4e6ec;
-    --color-gray-2: #b4b9c7;
-    --color-gray-3: #7d8698;
-    --color-gray-4: #545b6c;
-    --color-gray-5: #2c303b;
-    --color-gray-6: #171a23;
+    --color-gray-1: #c8c8c8;
+    --color-gray-2: #9a9a9a;
+    --color-gray-3: #7a7a7a;
+    --color-gray-4: #555555;
+    --color-gray-5: #333333;
+    --color-gray-6: #282828;
     
-    --color-accent-low: #1c2144;
-    --color-accent: #7b8cf5;
-    --color-accent-high: #a8b5ff;
+    --color-accent-low: #1e3a5f;
+    --color-accent: #3b82f6;
+    --color-accent-high: #60a5fa;
     
-    --color-hairline: rgba(255, 255, 255, 0.06);
-    
-    --page-background:
-        radial-gradient(circle at 12% 16%, rgba(123, 140, 245, 0.10), transparent 50%),
-        radial-gradient(circle at 88% 80%, rgba(100, 116, 139, 0.04), transparent 45%),
-        linear-gradient(160deg, #030408 0%, #06080e 35%, #0b0d18 60%, #06080e 100%);
+    --color-hairline: rgba(255, 255, 255, 0.08);
         
     --hero-image-size: clamp(170px, 22vw, 280px);
     --hero-image-frame-color: var(--color-accent-high);
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --card-bg: #0d0f19;
+    --card-bg: #1c1c1c;
+    --page-background: #181818;
 }
 
 html.dark {
@@ -38,7 +34,8 @@ html.dark {
     --theme-text: var(--color-white);
     --switch-background: #555;
     --switch-background-checked: var(--color-accent);
-    --card-bg: #0d0f19;
+    --card-bg: #1c1c1c;
+    --page-background: #181818;
 }
 
 :root[data-theme='light'] {
@@ -52,9 +49,9 @@ html.dark {
     --color-gray-5: #bbc3ce;
     --color-gray-6: #e8eef8;
 
-    --color-accent-low: #ced6f3;
-    --color-accent: #4a57c0;
-    --color-accent-high: #22284f;
+    --color-accent-low: #dbeafe;
+    --color-accent: #2563eb;
+    --color-accent-high: #1e3a5f;
 
     --color-hairline: rgba(0, 0, 0, 0.1);
     
