@@ -123,9 +123,18 @@
     start();
   }
 
+  let resizeTimeout;
   window.addEventListener('resize', () => {
-    resize();
-    createNodes();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const oldW = window.innerWidth;
+      const oldH = window.innerHeight;
+      resize();
+      for (const n of nodes) {
+        n.x = (n.x / oldW) * window.innerWidth;
+        n.y = (n.y / oldH) * window.innerHeight;
+      }
+    }, 200);
   });
 
   document.addEventListener('visibilitychange', () => {
