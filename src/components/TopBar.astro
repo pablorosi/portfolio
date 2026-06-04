@@ -1,5 +1,5 @@
 <nav class="top-bar">
-  <div class="container bar-content">
+  <div class="bar-content">
     <a href="/" class="logo">
       <span class="bracket">&lt;</span>
       Pablo Rosi
@@ -42,7 +42,7 @@
     align-items: center;
 
 
-    background: var(--color-black);
+    background: transparent;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
@@ -72,7 +72,7 @@
 
 
   :global([data-theme='light']) .top-bar {
-    background: #E5EDF7;
+    background: transparent;
   }
 
 
@@ -206,11 +206,11 @@
     if (theme === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
       // Tell iOS/Android to paint the notch area light
-      if (metaThemeColor) metaThemeColor.setAttribute('content', '#E5EDF7'); 
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#f0f4fe'); 
     } else {
       document.documentElement.removeAttribute('data-theme'); // Your CSS defaults to dark
       // Tell iOS/Android to paint the notch area dark
-      if (metaThemeColor) metaThemeColor.setAttribute('content', '#111418');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#181818');
     }
     window.localStorage.setItem('theme', theme);
   };

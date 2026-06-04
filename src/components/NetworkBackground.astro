@@ -1,0 +1,152 @@
+<canvas id="network-bg" aria-hidden="true"></canvas>
+
+<style>
+  #network-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  :root[data-theme='light'] #network-bg {
+    opacity: 0.35;
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('network-bg');
+  const ctx = canvas.getContext('2d');
+  let nodes = [];
+  let animationId = null;
+  let isVisible = true;
+
+  const CONFIG = {
+    nodeCount: 45,
+    connectionDistance: 150,
+    nodeRadius: 2,
+    driftSpeed: 0.25,
+    lineWidth: 0.5,
+  };
+
+  function getAccentColor() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    return isLight ? '37, 99, 235' : '59, 130, 246';
+  }
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.scale(dpr, dpr);
+  }
+
+  function createNodes() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    nodes = [];
+    for (let i = 0; i < CONFIG.nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * CONFIG.driftSpeed,
+        vy: (Math.random() - 0.5) * CONFIG.driftSpeed,
+        r: CONFIG.nodeRadius + Math.random() * 1.5,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    const accent = getAccentColor();
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      n.x += n.vx;
+      n.y += n.vy;
+
+      if (n.x < 0 || n.x > w) n.vx *= -1;
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+
+      n.x = Math.max(0, Math.min(w, n.x));
+      n.y = Math.max(0, Math.min(h, n.y));
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${accent}, 0.6)`;
+      ctx.fill();
+    }
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < CONFIG.connectionDistance) {
+          const alpha = (1 - dist / CONFIG.connectionDistance) * 0.25;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(${accent}, ${alpha})`;
+          ctx.lineWidth = CONFIG.lineWidth;
+          ctx.stroke();
+        }
+      }
+    }
+
+    animationId = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    if (animationId) return;
+    resize();
+    createNodes();
+    draw();
+  }
+
+  function stop() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) {
+    start();
+  }
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const oldW = window.innerWidth;
+      const oldH = window.innerHeight;
+      resize();
+      for (const n of nodes) {
+        n.x = (n.x / oldW) * window.innerWidth;
+        n.y = (n.y / oldH) * window.innerHeight;
+      }
+    }, 200);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { stop(); }
+    else { start(); }
+  });
+
+  const themeObserver = new MutationObserver(() => {
+    if (!prefersReducedMotion) {
+      stop();
+      start();
+    }
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>

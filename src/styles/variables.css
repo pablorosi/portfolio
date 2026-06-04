@@ -6,29 +6,27 @@
     --switch-background-checked: var(--color-accent);
     --switch-handle: white;
 
-    --color-black: #0f1724; /* Slate base */
+    --color-black: #181818;
     --color-white: #ffffff;
     
-    --color-gray-1: #e6e9ee;
-    --color-gray-2: #b8c0cb;
-    --color-gray-3: #7e8897;
-    --color-gray-4: #525b68;
-    --color-gray-5: #2f343d;
-    --color-gray-6: #1f242b;
+    --color-gray-1: #c8c8c8;
+    --color-gray-2: #9a9a9a;
+    --color-gray-3: #7a7a7a;
+    --color-gray-4: #555555;
+    --color-gray-5: #333333;
+    --color-gray-6: #282828;
     
-    --color-accent-low: #262d5c;  
-    --color-accent: #8292fa;       
-    --color-accent-high: #b5c0ff;  
+    --color-accent-low: #1e3a5f;
+    --color-accent: #3b82f6;
+    --color-accent-high: #60a5fa;
     
-    --color-hairline: rgba(255, 255, 255, 0.1);
-    
-    --page-background:
-        radial-gradient(circle at 12% 16%, rgba(100, 116, 139, 0.10), transparent 46%),
-        linear-gradient(160deg, #0b1220 0%, #0f1724 40%, #111827 100%);
+    --color-hairline: rgba(255, 255, 255, 0.08);
         
     --hero-image-size: clamp(170px, 22vw, 280px);
     --hero-image-frame-color: var(--color-accent-high);
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --card-bg: #1c1c1c;
+    --page-background: #181818;
 }
 
 html.dark {
@@ -36,6 +34,8 @@ html.dark {
     --theme-text: var(--color-white);
     --switch-background: #555;
     --switch-background-checked: var(--color-accent);
+    --card-bg: #1c1c1c;
+    --page-background: #181818;
 }
 
 :root[data-theme='light'] {
@@ -49,15 +49,14 @@ html.dark {
     --color-gray-5: #bbc3ce;
     --color-gray-6: #e8eef8;
 
-    --color-accent-low: #ced6f3;
-    --color-accent: #515eca;
-    --color-accent-high: #262d5c;
+    --color-accent-low: #dbeafe;
+    --color-accent: #2563eb;
+    --color-accent-high: #1e3a5f;
 
     --color-hairline: rgba(0, 0, 0, 0.1);
     
-    --page-background:
-        radial-gradient(circle at 12% 16%, rgba(81, 94, 202, 0.14), transparent 46%),
-        linear-gradient(90deg, #f3f7fc 0%, #dfe8f4 52%, #cbd9ec 100%);
+    --page-background: #f0f4fe;
         
     --hero-image-frame-color: var(--color-accent-high);
+    --card-bg: #eef3fa;
 }
