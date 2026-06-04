@@ -24,6 +24,40 @@ const description = "Student and infrastructure enthusiast documenting my journe
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet" />
+    <style>
+      .exploring-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid var(--color-gray-5);
+        background: var(--card-bg);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+        margin-bottom: 0.25rem;
+      }
+      .ep-prompt {
+        color: var(--color-accent);
+        font-weight: 700;
+      }
+      .ep-label {
+        color: var(--color-gray-3);
+      }
+      .ep-word {
+        color: var(--color-accent-high, var(--color-accent));
+      }
+      .ep-cursor {
+        color: var(--color-accent);
+        animation: ep-blink 0.8s step-end infinite;
+      }
+      @keyframes ep-blink {
+        50% { opacity: 0; }
+      }
+      :root[data-theme='light'] .ep-word {
+        color: var(--color-accent);
+      }
+    </style>
   </head>
   <body class="bg-black text-white">
 	<NetworkBackground />
@@ -31,6 +65,12 @@ const description = "Student and infrastructure enthusiast documenting my journe
     <main id="main-content">
       <header class="hero-section" data-reveal="up">
         <div class="hero-content">
+          <div class="exploring-pill">
+            <span class="ep-prompt">&gt;</span>
+            <span class="ep-label">exploring</span>
+            <span class="ep-word" id="tw-word"></span>
+            <span class="ep-cursor" id="tw-cursor">_</span>
+          </div>
           <h1 class="hero-title">Hi, I'm <span class="hero-name">Pablo Rosi</span></h1>
           <p class="hero-tagline">{description}</p>
           <div class="hero-actions">
@@ -116,7 +156,7 @@ const description = "Student and infrastructure enthusiast documenting my journe
               <h3>Infrastructure & Hosting</h3>
               <span class="skill-card-label">Platform</span>
             </div>
-            <p>Self-hosting workflows focused on containers, reverse proxies, and reliable remote services.</p>
+            <p>Designing reliable self-hosted infrastructure.</p>
             <ul class="skill-list">
               <li>Docker and VPS management</li>
               <li>Nginx reverse proxy</li>
@@ -278,6 +318,55 @@ const description = "Student and infrastructure enthusiast documenting my journe
       } else {
         reveal();
       }
+    </script>
+
+    <script is:inline>
+      (function() {
+        var words = ['networking', 'Linux', 'infrastructure', 'security'];
+        var el = document.getElementById('tw-word');
+        var cursor = document.getElementById('tw-cursor');
+        if (!el) return;
+
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          el.textContent = words[0];
+          return;
+        }
+
+        var wordIndex = 0;
+        var charIndex = 0;
+        var isDeleting = false;
+
+        function type() {
+          var currentWord = words[wordIndex];
+
+          if (isDeleting) {
+            el.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+          } else {
+            el.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+          }
+
+          if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true;
+            setTimeout(type, 2200);
+            return;
+          }
+
+          if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(type, 300);
+            return;
+          }
+
+          var speed = isDeleting ? 35 : 85;
+          setTimeout(type, speed);
+        }
+
+        setTimeout(type, 800);
+      })();
     </script>
 
   </body>
