@@ -65,3 +65,9 @@
     transform: none;
   }
 }
+
+@keyframes ep-blink {
+  50% {
+    opacity: 0;
+  }
+}
