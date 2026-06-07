@@ -10,7 +10,10 @@ import Photo from '../assets/Photo.jpg';
 import '../styles/main.css';
 
 const title = "Pablo Rosi";
-const description = "Computer Science student and infrastructure enthusiast documenting my journey in networking and Linux.";
+const role = "Computer Science Student";
+const description = "Bridging the gap between academic theory and production-grade architecture.";
+const descriptionFocus = "Focused on scalable systems, security, and automation.";
+const metaDescription = "Computer Science student bridging academic theory and production-grade architecture. Focused on scalable systems, security, and automation.";
 ---
 
 
@@ -20,7 +23,7 @@ const description = "Computer Science student and infrastructure enthusiast docu
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet" />
@@ -31,7 +34,9 @@ const description = "Computer Science student and infrastructure enthusiast docu
     <main id="main-content">
       <Hero
         name={title}
+        role={role}
         description={description}
+        descriptionFocus={descriptionFocus}
         photo={Photo}
         docsUrl="https://docs.pablorosi.dev"
         social={{

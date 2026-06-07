@@ -6,7 +6,9 @@ import HeroTechMarquee from './HeroTechMarquee.astro';
 interface Props {
 	name: string;
 	greeting?: string;
+	role?: string;
 	description: string;
+	descriptionFocus?: string;
 	photo: ImageMetadata;
 	docsUrl: string;
 	social: {
@@ -19,7 +21,9 @@ interface Props {
 const {
 	name,
 	greeting = 'HI THERE',
+	role = 'Computer Science Student',
 	description,
+	descriptionFocus,
 	photo,
 	docsUrl,
 	social,
@@ -27,37 +31,46 @@ const {
 ---
 
 <header
-	class="relative mx-auto flex w-full max-w-[1120px] flex-col justify-start px-8 pt-4 pb-6 before:pointer-events-none before:absolute before:right-0 before:bottom-0 before:h-64 before:w-96 before:translate-x-1/4 before:rounded-full before:bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-accent)_12%,transparent)_0%,transparent_70%)] max-[720px]:items-center max-[720px]:px-5 max-[720px]:pt-3 max-[720px]:pb-5 max-[720px]:text-center max-[720px]:before:hidden"
+	class="relative mx-auto flex w-full max-w-[1120px] flex-col justify-start px-8 pt-12 pb-10 max-[720px]:items-center max-[720px]:px-5 max-[720px]:pt-10 max-[720px]:pb-8 max-[720px]:text-center"
 	data-reveal="up"
 >
 	<div class="relative z-[1] w-full text-left max-[720px]:text-center">
-		<div class="mb-6 flex w-full items-center gap-5 max-[720px]:flex-col max-[720px]:gap-3">
+		<div class="mb-8 flex w-full items-center gap-6 max-[720px]:flex-col max-[720px]:gap-3">
 			<Picture
 				src={photo}
 				alt={name}
 				loading="eager"
 				fetchpriority="high"
-				width={160}
-				height={160}
-				sizes="80px"
+				width={240}
+				height={240}
+				sizes="120px"
 				formats={['avif', 'webp']}
-				class="block h-20 w-20 shrink-0 rounded-full object-cover shadow-[0_0_0_3px_color-mix(in_srgb,var(--hero-image-frame-color)_55%,transparent),0_0_0_6px_color-mix(in_srgb,var(--color-gray-6)_70%,transparent),0_8px_24px_rgba(0,0,0,0.35)] max-[720px]:order-first"
+				class="block h-[120px] w-[120px] shrink-0 rounded-full object-cover shadow-[0_0_0_3px_color-mix(in_srgb,var(--hero-image-frame-color)_55%,transparent),0_0_0_6px_color-mix(in_srgb,var(--color-gray-6)_70%,transparent),0_8px_24px_rgba(0,0,0,0.35)] max-[720px]:order-first"
 			/>
 			<div class="min-w-0 flex-1 max-[720px]:flex-none">
 				<p class="mb-2 font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.2em] text-[var(--color-accent)] uppercase">
 					{greeting}
 				</p>
-				<h1 class="m-0 text-[clamp(2.5rem,5vw,3.75rem)] leading-[1.08] font-bold tracking-[-0.03em] text-[var(--color-white)] max-[480px]:text-[clamp(2rem,8vw,2.6rem)]">
+				<h1 class="hero-name m-0 text-[clamp(2.75rem,5.5vw,4.25rem)] leading-[1.08] font-bold tracking-[-0.03em] max-[480px]:text-[clamp(2.25rem,8vw,2.85rem)]">
 					{name}
 				</h1>
+				<p class="mb-0 mt-2 text-sm font-medium text-[var(--color-gray-2)] md:text-base">
+					{role}
+				</p>
 			</div>
 		</div>
 
-		<p class="mb-6 mt-0 max-w-2xl text-[clamp(1.05rem,2.5vw,1.2rem)] leading-relaxed text-[var(--color-gray-3)] max-[720px]:mx-auto">
+		<p class="mb-2 mt-0 max-w-2xl text-base leading-relaxed text-[var(--color-gray-2)] md:text-lg max-[720px]:mx-auto">
 			{description}
 		</p>
+		{descriptionFocus && (
+			<p class="mb-8 mt-0 max-w-2xl text-sm leading-relaxed text-[var(--color-gray-3)] md:text-base max-[720px]:mx-auto">
+				{descriptionFocus}
+			</p>
+		)}
+		{!descriptionFocus && <div class="mb-8" />}
 
-		<div class="mb-6 flex w-full flex-wrap items-center gap-x-6 gap-y-4 max-[720px]:justify-center">
+		<div class="mb-0 flex w-full flex-wrap items-center gap-x-6 gap-y-4 max-[720px]:justify-center">
 			<div class="flex items-center gap-4">
 				<a
 					href={social.github}
@@ -109,3 +122,18 @@ const {
 		<HeroTechMarquee />
 	</div>
 </header>
+
+<style>
+	.hero-name {
+		display: inline-block;
+		background: linear-gradient(90deg, var(--color-white), var(--color-accent-high) 65%, var(--color-white));
+		background-size: 200% 100%;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	:root[data-theme='light'] .hero-name {
+		background: linear-gradient(90deg, var(--color-gray-1), var(--color-accent-high) 65%, var(--color-gray-2));
+	}
+</style>
