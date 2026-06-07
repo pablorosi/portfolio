@@ -1,0 +1,73 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+	href: string;
+	label: string;
+	ariaLabel?: string;
+	external?: boolean;
+	block?: boolean;
+}
+
+const {
+	href,
+	label,
+	ariaLabel,
+	external = false,
+	block = false,
+	class: className,
+	...rest
+} = Astro.props;
+---
+
+<a
+	href={href}
+	class:list={['term-btn', block && 'term-btn--block', className]}
+	aria-label={ariaLabel}
+	target={external ? '_blank' : undefined}
+	rel={external ? 'noopener noreferrer' : undefined}
+	{...rest}
+>
+	{label}
+</a>
+
+<style>
+	.term-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.625rem 1.5rem;
+		border: 2px solid var(--color-accent);
+		border-radius: 2px;
+		background: transparent;
+		color: var(--color-accent);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.95rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background-color 120ms ease,
+			color 120ms ease;
+	}
+
+	.term-btn:hover,
+	.term-btn:focus-visible {
+		background: var(--color-accent);
+		color: var(--color-black);
+	}
+
+	.term-btn:focus-visible {
+		outline: 2px solid var(--color-accent-high);
+		outline-offset: 2px;
+	}
+
+	.term-btn--block {
+		width: 100%;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.term-btn {
+			transition: none;
+		}
+	}
+</style>

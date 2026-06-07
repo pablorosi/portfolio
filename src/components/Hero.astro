@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import HeroTechMarquee from './HeroTechMarquee.astro';
+import TermButton from './terminal/TermButton.astro';
 
 interface Props {
 	name: string;
@@ -109,14 +110,13 @@ const {
 				</a>
 			</div>
 
-			<a
+			<TermButton
 				href={docsUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-high)] px-8 py-3 text-base font-semibold text-[var(--color-black)] no-underline hover:brightness-[1.04] max-[480px]:px-[1.6rem] max-[480px]:py-[0.85rem] max-[480px]:text-[0.95rem]"
-			>
-				View my docs <span aria-hidden="true">&rarr;</span>
-			</a>
+				label=">_ view_docs"
+				ariaLabel="View my docs"
+				external
+				class="max-[480px]:px-5 max-[480px]:py-2 max-[480px]:text-sm"
+			/>
 		</div>
 
 		<HeroTechMarquee />

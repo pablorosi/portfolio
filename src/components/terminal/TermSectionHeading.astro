@@ -1,0 +1,30 @@
+---
+interface Props {
+	slug: string;
+	title?: string;
+	class?: string;
+}
+
+const { slug, title, class: className } = Astro.props;
+const readableTitle = title ?? slug.replace(/_/g, ' ');
+---
+
+<h2 class:list={['term-section', className]} data-reveal="up">
+	<span class="term-section-prefix" aria-hidden="true">&gt;_</span>
+	<span class="term-section-slug">{slug}</span>
+	<span class="sr-only">{readableTitle}</span>
+</h2>
+
+<style>
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+</style>

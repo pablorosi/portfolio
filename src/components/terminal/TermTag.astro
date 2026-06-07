@@ -1,0 +1,15 @@
+---
+interface Props {
+	label: string;
+	accent?: string;
+}
+
+const { label, accent } = Astro.props;
+---
+
+<span
+	class="term-tag"
+	style={accent ? `--skill-accent: ${accent}` : undefined}
+>
+	{label}
+</span>
