@@ -205,6 +205,9 @@
 
   let currentDir = 'root';
   let meltdownInProgress = false;
+  const commandHistory: string[] = [];
+  let historyIndex = 0;
+  let savedDraft = '';
   const input = document.getElementById('terminal-input') as HTMLInputElement;
   const history = document.getElementById('terminal-history');
   const windowNode = document.getElementById('terminal-window');
@@ -288,10 +291,47 @@
   }
 
   input?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+
+      if (historyIndex === commandHistory.length) {
+        savedDraft = input.value;
+      }
+
+      if (historyIndex > 0) {
+        historyIndex--;
+        input.value = commandHistory[historyIndex];
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+
+      if (historyIndex < commandHistory.length - 1) {
+        historyIndex++;
+        input.value = commandHistory[historyIndex];
+      } else if (historyIndex === commandHistory.length - 1) {
+        historyIndex = commandHistory.length;
+        input.value = savedDraft;
+      }
+      return;
+    }
+
     if (e.key === 'Enter') {
       const fullCommand = input.value.trim();
       input.value = '';
-      if (!fullCommand) return;
+      if (!fullCommand) {
+        historyIndex = commandHistory.length;
+        savedDraft = '';
+        return;
+      }
+
+      commandHistory.push(fullCommand);
+      historyIndex = commandHistory.length;
+      savedDraft = '';
 
       if (meltdownInProgress) {
         printTextLine('[LOCKED] command ignored while system meltdown is active...', 'error');
