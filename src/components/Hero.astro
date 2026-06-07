@@ -32,11 +32,11 @@ const {
 ---
 
 <header
-	class="relative mx-auto flex w-full max-w-[1120px] flex-col justify-start px-8 pt-12 pb-10 max-[720px]:items-center max-[720px]:px-5 max-[720px]:pt-10 max-[720px]:pb-8 max-[720px]:text-center"
+	class="relative mx-auto flex w-full max-w-[1120px] flex-col justify-start px-8 pt-12 pb-10 max-[720px]:px-5 max-[720px]:pt-10 max-[720px]:pb-8"
 	data-reveal="up"
 >
-	<div class="relative z-[1] w-full text-left max-[720px]:text-center">
-		<div class="mb-8 flex w-full items-center gap-6 max-[720px]:flex-col max-[720px]:gap-3">
+	<div class="relative z-[1] w-full text-left">
+		<div class="mb-8 flex w-full items-center gap-6 max-[720px]:gap-4">
 			<Picture
 				src={photo}
 				alt={name}
@@ -44,34 +44,34 @@ const {
 				fetchpriority="high"
 				width={240}
 				height={240}
-				sizes="120px"
+				sizes="(max-width: 720px) 96px, 120px"
 				formats={['avif', 'webp']}
-				class="block h-[120px] w-[120px] shrink-0 rounded-full object-cover shadow-[0_0_0_3px_color-mix(in_srgb,var(--hero-image-frame-color)_55%,transparent),0_0_0_6px_color-mix(in_srgb,var(--color-gray-6)_70%,transparent),0_8px_24px_rgba(0,0,0,0.35)] max-[720px]:order-first"
+				class="block h-[120px] w-[120px] shrink-0 rounded-full object-cover shadow-[0_0_0_3px_color-mix(in_srgb,var(--hero-image-frame-color)_55%,transparent),0_0_0_6px_color-mix(in_srgb,var(--color-gray-6)_70%,transparent),0_8px_24px_rgba(0,0,0,0.35)] max-[720px]:h-[96px] max-[720px]:w-[96px]"
 			/>
-			<div class="min-w-0 flex-1 max-[720px]:flex-none">
-				<p class="mb-2 font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.2em] text-[var(--color-accent)] uppercase">
+			<div class="min-w-0 flex-1">
+				<p class="mb-2 font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.2em] text-[var(--color-accent)] uppercase max-[720px]:mb-1.5 max-[720px]:text-[0.65rem] max-[720px]:tracking-[0.15em]">
 					{greeting}
 				</p>
-				<h1 class="hero-name m-0 text-[clamp(2.75rem,5.5vw,4.25rem)] leading-[1.08] font-bold tracking-[-0.03em] max-[480px]:text-[clamp(2.25rem,8vw,2.85rem)]">
+				<h1 class="hero-name m-0 text-[clamp(2.75rem,5.5vw,4.25rem)] leading-[1.08] font-bold tracking-[-0.03em] max-[720px]:text-[clamp(2.65rem,9vw,3.25rem)] max-[720px]:leading-[1.06]">
 					{name}
 				</h1>
-				<p class="mb-0 mt-2 text-sm font-medium text-[var(--color-gray-2)] md:text-base">
+				<p class="mb-0 mt-2 text-sm font-medium text-[var(--color-gray-2)] md:text-base max-[720px]:mt-1.5 max-[720px]:text-xs">
 					{role}
 				</p>
 			</div>
 		</div>
 
-		<p class="mb-2 mt-0 max-w-2xl text-base leading-relaxed text-[var(--color-gray-2)] md:text-lg max-[720px]:mx-auto">
+		<p class="mb-2 mt-0 max-w-2xl text-base leading-relaxed text-[var(--color-gray-2)] md:text-lg max-[720px]:text-sm">
 			{description}
 		</p>
 		{descriptionFocus && (
-			<p class="mb-8 mt-0 max-w-2xl text-sm leading-relaxed text-[var(--color-gray-3)] md:text-base max-[720px]:mx-auto">
+			<p class="mb-8 mt-0 max-w-2xl text-sm leading-relaxed text-[var(--color-gray-3)] md:text-base max-[720px]:text-xs">
 				{descriptionFocus}
 			</p>
 		)}
 		{!descriptionFocus && <div class="mb-8" />}
 
-		<div class="mb-0 flex w-full flex-wrap items-center gap-x-6 gap-y-4 max-[720px]:justify-center">
+		<div class="mb-0 flex w-full flex-wrap items-center gap-x-6 gap-y-4">
 			<div class="flex items-center gap-4">
 				<a
 					href={social.github}
@@ -126,14 +126,16 @@ const {
 <style>
 	.hero-name {
 		display: inline-block;
-		background: linear-gradient(90deg, var(--color-white), var(--color-accent-high) 65%, var(--color-white));
-		background-size: 200% 100%;
+		background: linear-gradient(90deg, var(--color-white), var(--color-accent) 45%, var(--color-white));
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;
 	}
 
 	:root[data-theme='light'] .hero-name {
-		background: linear-gradient(90deg, var(--color-gray-1), var(--color-accent-high) 65%, var(--color-gray-2));
+		background: linear-gradient(90deg, var(--color-gray-1), var(--color-accent) 45%, var(--color-gray-1));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
 	}
 </style>
