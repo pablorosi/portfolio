@@ -139,11 +139,20 @@ import Terminal from './Terminal.astro';
   const gui = document.getElementById('gui-view');
   const cli = document.getElementById('cli-view');
 
+  function focusTerminalInput() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const input = document.getElementById('terminal-input') as HTMLInputElement | null;
+        input?.focus({ preventScroll: false });
+      });
+    });
+  }
+
   function applyMode(isCli: boolean) {
     if (isCli) {
       gui?.classList.replace('active', 'hidden');
       cli?.classList.replace('hidden', 'active');
-      const terminalInput = document.getElementById('terminal-input');
+      focusTerminalInput();
     } else {
       cli?.classList.replace('active', 'hidden');
       gui?.classList.replace('hidden', 'active');

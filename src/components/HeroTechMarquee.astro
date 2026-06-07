@@ -1,0 +1,51 @@
+---
+import { HERO_STACK } from '../lib/hero-stack';
+
+const items = [...HERO_STACK, ...HERO_STACK];
+---
+
+<div class="hero-marquee mt-8 w-full max-[720px]:mt-6" aria-hidden="true">
+	<div class="hero-marquee-track font-['JetBrains_Mono',monospace] text-base font-semibold tracking-wide whitespace-nowrap max-[720px]:text-sm">
+		{
+			items.map((item, index) => (
+				<>
+					<span style={`color: ${item.color}`}>{item.label}</span>
+					{index < items.length - 1 && (
+						<span class="px-4 text-[var(--color-gray-4)]">//</span>
+					)}
+				</>
+			))
+		}
+	</div>
+</div>
+
+<style>
+	.hero-marquee {
+		overflow: hidden;
+		-webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+		mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+	}
+
+	.hero-marquee-track {
+		display: flex;
+		width: max-content;
+		animation: marquee 45s linear infinite;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-marquee {
+			overflow: visible;
+			-webkit-mask-image: none;
+			mask-image: none;
+		}
+
+		.hero-marquee-track {
+			flex-wrap: wrap;
+			justify-content: center;
+			width: auto;
+			white-space: normal;
+			animation: none;
+			gap: 0.35rem 0;
+		}
+	}
+</style>

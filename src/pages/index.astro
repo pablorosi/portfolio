@@ -4,14 +4,16 @@ import Terminal from '../components/Terminal.astro';
 import InterfaceSwitch from '../components/InterfaceSwitch.astro';
 import TopBar from '../components/TopBar.astro';
 import NetworkBackground from '../components/NetworkBackground.astro';
-// 1. Import the Image component from Astro
+import Hero from '../components/Hero.astro';
 import Photo from '../assets/Photo.jpg';
-import { Picture } from 'astro:assets';
 // Import global CSS
 import '../styles/main.css';
 
 const title = "Pablo Rosi";
-const description = "Computer Science student and infrastructure enthusiast documenting my journey in networking and Linux.";
+const role = "Computer Science Student";
+const description = "Bridging the gap between academic theory and production-grade architecture.";
+const descriptionFocus = "Focused on scalable systems, security, and automation.";
+const metaDescription = "Computer Science student bridging academic theory and production-grade architecture. Focused on scalable systems, security, and automation.";
 ---
 
 
@@ -21,7 +23,7 @@ const description = "Computer Science student and infrastructure enthusiast docu
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet" />
@@ -30,80 +32,42 @@ const description = "Computer Science student and infrastructure enthusiast docu
 	<NetworkBackground />
 	<TopBar />
     <main id="main-content">
-      <header
-        class="relative mx-auto flex min-h-[calc(85dvh-55px)] max-w-[1120px] flex-row items-center justify-between gap-16 px-8 max-[980px]:flex-col max-[980px]:gap-8 max-[721px]:max-[1024px]:px-8 max-[721px]:max-[1024px]:py-9 max-[721px]:max-[1024px]:pb-6 max-[720px]:min-h-0 max-[720px]:flex-col max-[720px]:items-center max-[720px]:justify-center max-[720px]:gap-5 max-[720px]:px-5 max-[720px]:py-8 max-[720px]:pb-5 max-[720px]:text-center"
-        data-reveal="up"
-      >
-        <div class="relative flex-1 text-left max-[980px]:pl-0 max-[980px]:text-center max-[720px]:pl-0 max-[720px]:text-center">
-          <div class="mb-1 inline-flex items-center gap-[0.35rem] rounded-full border border-[var(--color-gray-5)] bg-[var(--card-bg)] px-[0.8rem] py-[0.3rem] font-['JetBrains_Mono',monospace] text-[0.8rem]">
-            <span class="font-bold text-[var(--color-accent)]">&gt;</span>
-            <span class="text-[var(--color-gray-3)]">exploring</span>
-            <span class="text-[var(--color-accent-high,var(--color-accent))] [[data-theme=light]_&]:text-[var(--color-accent)]" id="tw-word"></span>
-            <span class="animate-[ep-blink_0.8s_step-end_infinite] text-[var(--color-accent)]" id="tw-cursor">_</span>
-          </div>
-          <h1 class="mb-6 mt-6 text-[clamp(2.5rem,5vw,4rem)] leading-[1.1] tracking-[-0.03em] whitespace-nowrap max-[980px]:whitespace-normal max-[480px]:text-[clamp(2rem,8vw,2.6rem)]">
-            Hi, I'm <span class="hero-name">Pablo Rosi</span>
-          </h1>
-          <p class="mb-8 mt-0 max-w-lg text-[clamp(1.05rem,2.5vw,1.2rem)] text-[var(--color-gray-3)]">{description}</p>
-          <div class="flex flex-wrap gap-4 max-[980px]:justify-center max-[720px]:justify-center">
-            <a
-              href="https://docs.pablorosi.dev"
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-high)] px-9 py-4 text-base font-semibold text-[var(--color-black)] no-underline hover:brightness-[1.04] max-[480px]:px-[1.6rem] max-[480px]:py-[0.85rem] max-[480px]:text-[0.95rem]"
-            >
-              View my docs <span aria-hidden="true">&rarr;</span>
-            </a>
-            <a
-              href="mailto:me@pablorosi.com"
-              class="inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-[var(--color-white)] no-underline"
-            >
-              Let's Connect
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 3h6v6" />
-                <path d="M10 14L21 3" />
-                <path d="M21 14v7H3V3h7" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="grid w-fit max-w-full shrink-0 place-items-center p-3 max-[980px]:order-first max-[980px]:mx-auto max-[720px]:justify-center max-[720px]:p-2 [&_picture]:block [&_picture]:max-w-full">
-          <Picture
-            src={Photo}
-            alt="Pablo Rosi"
-            loading="eager"
-            fetchpriority="high"
-            width={640}
-            height={640}
-            sizes="(max-width: 720px) min(280px, 52vw), (max-width: 1024px) min(300px, 36vw), min(280px, 22vw)"
-            formats={['avif', 'webp']}
-            class="block max-w-full origin-center scale-100 rounded-full object-cover shadow-[0_0_0_6px_color-mix(in_srgb,var(--hero-image-frame-color)_55%,transparent),0_0_0_12px_color-mix(in_srgb,var(--color-gray-6)_70%,transparent),0_20px_40px_rgba(0,0,0,0.3)] w-[var(--hero-image-size)] h-[var(--hero-image-size)] max-[721px]:max-[1024px]:h-[clamp(220px,36vw,300px)] max-[721px]:max-[1024px]:w-[clamp(220px,36vw,300px)] max-[720px]:h-[clamp(180px,52vw,280px)] max-[720px]:w-[clamp(180px,52vw,280px)]"
-          />
-        </div>
-      </header>
+      <Hero
+        name={title}
+        role={role}
+        description={description}
+        descriptionFocus={descriptionFocus}
+        photo={Photo}
+        docsUrl="https://docs.pablorosi.dev"
+        social={{
+          github: 'https://github.com/pablorosi',
+          linkedin: 'https://linkedin.com/in/pablorosi',
+          email: 'mailto:me@pablorosi.com',
+        }}
+      />
 
 	<InterfaceSwitch class="main-interface">
 
       <section class="mx-auto mt-20 max-w-[1120px] scroll-mt-20 px-8 first-of-type:mt-8 max-[720px]:my-12 max-[720px]:px-5" data-reveal="up">
-        <h2 class="mb-6 flex items-center gap-3 pb-2 text-[2rem] projects" data-reveal="up">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-white [[data-theme=light]_&]:text-black lucide lucide-cpu"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+        <h2 class="section-heading mb-6 flex items-center gap-3 pb-2 text-[var(--color-white)] projects" data-reveal="up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-[var(--color-white)] lucide lucide-cpu"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
           Technical Projects
         </h2>
 
-        <div class="mt-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 max-[720px]:grid-cols-1">
+        <div class="content-grid mt-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 max-[720px]:grid-cols-1">
           <a
             href="https://docs.pablorosi.dev/cloud-infrastructure/"
             target="_blank" 
             rel="noopener noreferrer"
-            class="flex flex-col items-start rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 text-inherit no-underline shadow-[0_12px_24px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--card-bg))] hover:shadow-[0_18px_34px_rgba(0,0,0,0.45)] max-[480px]:p-5"
+            class="content-card flex flex-col items-start rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 text-inherit no-underline shadow-[0_12px_24px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--card-bg))] hover:shadow-[0_18px_34px_rgba(0,0,0,0.45)]"
             data-reveal="up"
             data-reveal-delay="100"
           >
-            <h3 class="mb-2 text-xl">Secure Cloud Infrastructure & P2P Routing</h3>
-            <p class="mb-4 grow text-sm text-[var(--color-gray-3)]">Secure routing, observability, and CI/CD deployment strategies for cloud services..</p>
+            <h3 class="card-title mb-2">Secure Cloud Infrastructure & P2P Routing</h3>
+            <p class="card-body mb-4 grow text-[var(--color-gray-3)]">Secure routing, observability, and CI/CD deployment strategies for cloud services..</p>
             <div class="flex flex-wrap gap-2">
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#3478eb]">Platform</span>
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#ea6b12]">Isolation</span>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#3478eb]">Platform</span>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#ea6b12]">Isolation</span>
             </div>
           </a>
 
@@ -111,39 +75,39 @@ const description = "Computer Science student and infrastructure enthusiast docu
             href="https://docs.pablorosi.dev/enterprise-homelab/"
             target="_blank" 
             rel="noopener noreferrer"
-            class="flex flex-col items-start rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 text-inherit no-underline shadow-[0_12px_24px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--card-bg))] hover:shadow-[0_18px_34px_rgba(0,0,0,0.45)] max-[480px]:p-5"
+            class="content-card flex flex-col items-start rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 text-inherit no-underline shadow-[0_12px_24px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--card-bg))] hover:shadow-[0_18px_34px_rgba(0,0,0,0.45)]"
             data-reveal="up"
             data-reveal-delay="200"
           >
-            <h3 class="mb-2 text-xl">Enterprise Local Datacenter</h3>
-            <p class="mb-4 grow text-sm text-[var(--color-gray-3)]">Building a realistic lab with Cisco switching, Proxmox virtualization, and EVE-NG emulation.</p>
+            <h3 class="card-title mb-2">Enterprise Local Datacenter</h3>
+            <p class="card-body mb-4 grow text-[var(--color-gray-3)]">Building a realistic lab with Cisco switching, Proxmox virtualization, and EVE-NG emulation.</p>
             <div class="flex flex-wrap gap-2">
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#2a3788]">Core Ops</span>
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#0dad73]">Routing</span>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#2a3788]">Core Ops</span>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase [--skill-accent:#0dad73]">Routing</span>
             </div>
           </a>
         </div>
       </section>
 
       <section class="mx-auto mt-20 max-w-[1120px] scroll-mt-20 px-8 first-of-type:mt-8 max-[720px]:my-12 max-[720px]:px-5" data-reveal="up">
-        <h2 class="mb-6 flex items-center gap-3 pb-2 text-[2rem]" data-reveal="up">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-white [[data-theme=light]_&]:text-black lucide lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+        <h2 class="section-heading mb-6 flex items-center gap-3 pb-2 text-[var(--color-white)]" data-reveal="up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-[var(--color-white)] lucide lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
           Skills & Expertise
         </h2>
-        <p class="mb-6 max-w-full text-[var(--color-gray-3)]" data-reveal="up" data-reveal-delay="50">Practical infrastructure and security skills built through homelab operations, remote hosting, and production-like self-hosted services.</p>
+        <p class="section-lead mb-6 max-w-full text-[var(--color-gray-3)]" data-reveal="up" data-reveal-delay="50">Practical infrastructure and security skills built through homelab operations, remote hosting, and production-like self-hosted services.</p>
 
-        <div class="grid grid-cols-2 gap-4 max-[720px]:grid-cols-1 min-[720px]:grid-cols-6 min-[720px]:auto-rows-min min-[720px]:content-start min-[720px]:items-start">
+        <div class="content-grid grid grid-cols-2 gap-4 max-[720px]:grid-cols-1 min-[720px]:grid-cols-6 min-[720px]:auto-rows-min min-[720px]:content-start min-[720px]:items-start">
           <article
-            class="relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#4754c2] min-[720px]:col-span-4 min-[720px]:col-start-1 min-[720px]:row-start-1"
+            class="skill-card relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#4754c2] min-[720px]:col-span-4 min-[720px]:col-start-1 min-[720px]:row-start-1"
             data-reveal="up"
             data-reveal-delay="100"
           >
             <div class="flex items-start justify-between gap-4 pt-[0.2rem]">
-              <h3 class="m-0 text-[1.05rem] tracking-[-0.02em]">Linux Administration</h3>
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Core Ops</span>
+              <h3 class="skill-card-title m-0">Linux Administration</h3>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Core Ops</span>
             </div>
-            <p class="m-0 leading-relaxed text-[var(--color-gray-3)]">Hands-on work with RHEL and Debian, service management, hardening, and permission control.</p>
-            <ul class="m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
+            <p class="skill-card-body m-0 text-[var(--color-gray-3)]">Hands-on work with RHEL and Debian, service management, hardening, and permission control.</p>
+            <ul class="skill-card-list m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
               <li>RHEL / Debian</li>
               <li>Systemd and users</li>
               <li>Hardening and maintenance</li>
@@ -151,16 +115,16 @@ const description = "Computer Science student and infrastructure enthusiast docu
           </article>
 
           <article
-            class="relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#3478eb] min-[720px]:col-span-2 min-[720px]:col-start-1 min-[720px]:row-start-2"
+            class="skill-card relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#3478eb] min-[720px]:col-span-2 min-[720px]:col-start-1 min-[720px]:row-start-2"
             data-reveal="up"
             data-reveal-delay="150"
           >
             <div class="flex items-start justify-between gap-4 pt-[0.2rem]">
-              <h3 class="m-0 text-[1.05rem] tracking-[-0.02em]">Infrastructure & Hosting</h3>
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Platform</span>
+              <h3 class="skill-card-title m-0">Infrastructure & Hosting</h3>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Platform</span>
             </div>
-            <p class="m-0 leading-relaxed text-[var(--color-gray-3)]">Designing reliable self-hosted infrastructure.</p>
-            <ul class="m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
+            <p class="skill-card-body m-0 text-[var(--color-gray-3)]">Designing reliable self-hosted infrastructure.</p>
+            <ul class="skill-card-list m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
               <li>Docker and VPS management</li>
               <li>Nginx reverse proxy</li>
               <li>TLS, SSL, and DNS</li>
@@ -168,16 +132,16 @@ const description = "Computer Science student and infrastructure enthusiast docu
           </article>
 
           <article
-            class="relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#0dad73] min-[720px]:col-span-4 min-[720px]:col-start-3 min-[720px]:row-start-2"
+            class="skill-card relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#0dad73] min-[720px]:col-span-4 min-[720px]:col-start-3 min-[720px]:row-start-2"
             data-reveal="up"
             data-reveal-delay="200"
           >
             <div class="flex items-start justify-between gap-4 pt-[0.2rem]">
-              <h3 class="m-0 text-[1.05rem] tracking-[-0.02em]">Networking</h3>
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Routing</span>
+              <h3 class="skill-card-title m-0">Networking</h3>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Routing</span>
             </div>
-            <p class="m-0 leading-relaxed text-[var(--color-gray-3)]">Infrastructure built around segmentation, switching, and addressing fundamentals.</p>
-            <ul class="m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
+            <p class="skill-card-body m-0 text-[var(--color-gray-3)]">Infrastructure built around segmentation, switching, and addressing fundamentals.</p>
+            <ul class="skill-card-list m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
               <li>Cisco IOS</li>
               <li>VLANs and LACP</li>
               <li>Subnetting and ACLs</li>
@@ -185,16 +149,16 @@ const description = "Computer Science student and infrastructure enthusiast docu
           </article>
 
           <article
-            class="relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#ea6b12] min-[720px]:col-span-2 min-[720px]:col-start-5 min-[720px]:row-start-1"
+            class="skill-card relative box-border flex min-h-56 flex-col justify-start gap-4 self-stretch overflow-hidden rounded-2xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-6 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:w-full before:bg-[var(--skill-accent,var(--color-accent))] before:content-[''] [--skill-accent:#ea6b12] min-[720px]:col-span-2 min-[720px]:col-start-5 min-[720px]:row-start-1"
             data-reveal="up"
             data-reveal-delay="250"
           >
             <div class="flex items-start justify-between gap-4 pt-[0.2rem]">
-              <h3 class="m-0 text-[1.05rem] tracking-[-0.02em]">Security & Routing</h3>
-              <span class="shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Isolation</span>
+              <h3 class="skill-card-title m-0">Security & Routing</h3>
+              <span class="skill-badge shrink-0 rounded-full border border-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_80%,#1a1a1a_20%)] bg-[color-mix(in_srgb,var(--skill-accent,var(--color-accent))_55%,#1a1a1a_45%)] px-[0.6rem] py-[0.3rem] text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase">Isolation</span>
             </div>
-            <p class="m-0 leading-relaxed text-[var(--color-gray-3)]">Traffic separation and VPN-based routing for a safer, more controlled homelab stack.</p>
-            <ul class="m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
+            <p class="skill-card-body m-0 text-[var(--color-gray-3)]">Traffic separation and VPN-based routing for a safer, more controlled homelab stack.</p>
+            <ul class="skill-card-list m-0 grid list-none gap-[0.55rem] p-0 [&_li]:relative [&_li]:pl-4 [&_li]:text-[var(--color-white)] [&_li]:before:absolute [&_li]:before:top-[0.6em] [&_li]:before:left-0 [&_li]:before:size-[0.45rem] [&_li]:before:rounded-full [&_li]:before:bg-[var(--skill-accent,var(--color-accent))] [&_li]:before:shadow-[0_0_0_3px_color-mix(in_srgb,var(--skill-accent,var(--color-accent))_18%,transparent)] [&_li]:before:content-['']">
               <li>Gluetun / WireGuard</li>
               <li>Network isolation</li>
               <li>Containerized routing</li>
@@ -204,24 +168,24 @@ const description = "Computer Science student and infrastructure enthusiast docu
       </section>
 
 <section class="mx-auto mt-20 w-full max-w-[1120px] scroll-mt-20 px-8 first-of-type:mt-8 max-[720px]:my-12 max-[720px]:px-5" data-reveal="up">
-  <h2 class="mb-6 flex items-center gap-3 pb-2 text-[2rem]" data-reveal="up">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-white [[data-theme=light]_&]:text-black lucide lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+  <h2 class="section-heading mb-6 flex items-center gap-3 pb-2 text-[var(--color-white)]" data-reveal="up">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-[var(--color-white)] lucide lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
     Certifications
   </h2>
 
-  <p class="mb-5 text-[var(--color-gray-3)]" data-reveal="up" data-reveal-delay="50">Professional certification roadmap focused on networking and Linux systems administration.</p>
+  <p class="section-lead mb-5 text-[var(--color-gray-3)]" data-reveal="up" data-reveal-delay="50">Professional certification roadmap focused on networking and Linux systems administration.</p>
 
   <div class="relative py-4 max-[720px]:pl-6">
     <div class="absolute top-0 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-gray-5)] max-[720px]:left-0 max-[720px]:translate-x-0"></div>
 
     <article class="relative mb-10 flex items-start last:mb-0" data-reveal="left" data-reveal-delay="100">
       <div class="absolute top-2 left-1/2 z-[1] size-4 -translate-x-1/2 rounded-full bg-[var(--node-color,var(--color-accent))] shadow-[0_0_0_4px_color-mix(in_srgb,var(--node-color,var(--color-accent))_20%,transparent),0_0_12px_color-mix(in_srgb,var(--node-color,var(--color-accent))_30%,transparent)] max-[720px]:left-0 max-[720px]:-translate-x-1/2" style="--node-color: #3478eb"></div>
-      <div class="mr-auto w-[calc(50%-2rem)] rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-5 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] max-[720px]:!mr-0 max-[720px]:!ml-6 max-[720px]:w-[calc(100%-1.5rem)]">
+      <div class="content-card mr-auto w-[calc(50%-2rem)] rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-5 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] max-[720px]:!mr-0 max-[720px]:!ml-6 max-[720px]:w-[calc(100%-1.5rem)]">
         <div class="mb-[0.35rem] flex items-center justify-between gap-4">
-          <h3 class="m-0 text-xl tracking-[-0.02em] text-[var(--color-white)]">CCNA</h3>
-          <span class="rounded-full border-none bg-[#0d3a1f] px-[0.8rem] py-[0.3rem] text-[0.7rem] tracking-[0.05em] whitespace-nowrap text-white uppercase">In Progress</span>
+          <h3 class="card-title m-0 text-[var(--color-white)]">CCNA</h3>
+          <span class="cert-status rounded-full border-none bg-[#0d3a1f] px-[0.8rem] py-[0.3rem] text-[0.7rem] tracking-[0.05em] whitespace-nowrap text-white uppercase">In Progress</span>
         </div>
-        <p class="mb-4 mt-0 text-sm text-[var(--color-gray-3)]">Cisco Certified Network Associate</p>
+        <p class="card-body mb-4 mt-0 text-[var(--color-gray-3)]">Cisco Certified Network Associate</p>
         <div class="flex items-center gap-3">
           <div class="h-2 flex-1 overflow-hidden rounded-[20px] bg-[var(--color-gray-6)]">
             <div class="h-full rounded-[20px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-high)]" style="width: 70%"></div>
@@ -233,12 +197,12 @@ const description = "Computer Science student and infrastructure enthusiast docu
 
     <article class="relative mb-10 flex items-start last:mb-0" data-reveal="right" data-reveal-delay="200">
       <div class="absolute top-2 left-1/2 z-[1] size-4 -translate-x-1/2 rounded-full bg-[var(--node-color,var(--color-accent))] shadow-[0_0_0_4px_color-mix(in_srgb,var(--node-color,var(--color-accent))_20%,transparent),0_0_12px_color-mix(in_srgb,var(--node-color,var(--color-accent))_30%,transparent)] max-[720px]:left-0 max-[720px]:-translate-x-1/2" style="--node-color: #0dad73"></div>
-      <div class="ml-auto w-[calc(50%-2rem)] rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-5 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] max-[720px]:!mr-0 max-[720px]:!ml-6 max-[720px]:w-[calc(100%-1.5rem)]">
+      <div class="content-card ml-auto w-[calc(50%-2rem)] rounded-xl border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-5 transition-[border-color] duration-200 hover:border-[var(--color-gray-4)] max-[720px]:!mr-0 max-[720px]:!ml-6 max-[720px]:w-[calc(100%-1.5rem)]">
         <div class="mb-[0.35rem] flex items-center justify-between gap-4">
-          <h3 class="m-0 text-xl tracking-[-0.02em] text-[var(--color-white)]">RHCSA</h3>
-          <span class="rounded-full border-none bg-[#0d3a1f] px-[0.8rem] py-[0.3rem] text-[0.7rem] tracking-[0.05em] whitespace-nowrap text-white uppercase">In Progress</span>
+          <h3 class="card-title m-0 text-[var(--color-white)]">RHCSA</h3>
+          <span class="cert-status rounded-full border-none bg-[#0d3a1f] px-[0.8rem] py-[0.3rem] text-[0.7rem] tracking-[0.05em] whitespace-nowrap text-white uppercase">In Progress</span>
         </div>
-        <p class="mb-4 mt-0 text-sm text-[var(--color-gray-3)]">Red Hat Certified System Administrator</p>
+        <p class="card-body mb-4 mt-0 text-[var(--color-gray-3)]">Red Hat Certified System Administrator</p>
         <div class="flex items-center gap-3">
           <div class="h-2 flex-1 overflow-hidden rounded-[20px] bg-[var(--color-gray-6)]">
             <div class="h-full rounded-[20px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-high)]" style="width: 20%"></div>
@@ -251,14 +215,14 @@ const description = "Computer Science student and infrastructure enthusiast docu
 </section>
 
 	<section class="mx-auto mt-20 max-w-[1120px] scroll-mt-20 px-8 first-of-type:mt-8 max-[720px]:my-12 max-[720px]:px-5" data-reveal="up">
-        <h2 class="mb-6 flex items-center gap-3 pb-2 text-[2rem]" data-reveal="up">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-white [[data-theme=light]_&]:text-black lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        <h2 class="section-heading mb-6 flex items-center gap-3 pb-2 text-[var(--color-white)]" data-reveal="up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[1.8rem] w-auto text-[var(--color-white)] lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
           Get in Touch
         </h2>
-        <div class="mt-8 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 max-[720px]:grid-cols-1">
+        <div class="content-grid mt-8 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 max-[720px]:grid-cols-1">
           <a
             href="mailto:me@pablorosi.com"
-            class="flex items-center justify-center gap-3 rounded-lg border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-4 text-[var(--color-white)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_12%,var(--card-bg))] hover:text-[var(--color-accent)]"
+            class="contact-link flex items-center justify-center gap-3 rounded-lg border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-4 text-[var(--color-white)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_12%,var(--card-bg))] hover:text-[var(--color-accent)]"
             data-reveal="up"
             data-reveal-delay="100"
           >
@@ -270,7 +234,7 @@ const description = "Computer Science student and infrastructure enthusiast docu
           <a
             href="https://linkedin.com/in/pablorosi"
             target="_blank"
-            class="flex items-center justify-center gap-3 rounded-lg border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-4 text-[var(--color-white)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_12%,var(--card-bg))] hover:text-[var(--color-accent)]"
+            class="contact-link flex items-center justify-center gap-3 rounded-lg border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-4 text-[var(--color-white)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_12%,var(--card-bg))] hover:text-[var(--color-accent)]"
             data-reveal="up"
             data-reveal-delay="200"
           >
@@ -282,7 +246,7 @@ const description = "Computer Science student and infrastructure enthusiast docu
           <a
             href="https://github.com/pablorosi"
             target="_blank"
-            class="flex items-center justify-center gap-3 rounded-lg border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-4 text-[var(--color-white)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_12%,var(--card-bg))] hover:text-[var(--color-accent)]"
+            class="contact-link flex items-center justify-center gap-3 rounded-lg border border-[var(--color-gray-5)] bg-[var(--card-bg)] p-4 text-[var(--color-white)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_12%,var(--card-bg))] hover:text-[var(--color-accent)]"
             data-reveal="up"
             data-reveal-delay="300"
           >
@@ -350,78 +314,6 @@ const description = "Computer Science student and infrastructure enthusiast docu
       }
     </script>
 
-    <script is:inline>
-      (function() {
-        var words = ['networking', 'Linux', 'infrastructure', 'security'];
-        var el = document.getElementById('tw-word');
-        var cursor = document.getElementById('tw-cursor');
-        if (!el) return;
-
-        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) {
-          el.textContent = words[0];
-          return;
-        }
-
-        var wordIndex = 0;
-        var charIndex = 0;
-        var isDeleting = false;
-
-        function type() {
-          var currentWord = words[wordIndex];
-
-          if (isDeleting) {
-            el.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-          } else {
-            el.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-          }
-
-          if (!isDeleting && charIndex === currentWord.length) {
-            isDeleting = true;
-            setTimeout(type, 2200);
-            return;
-          }
-
-          if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            setTimeout(type, 300);
-            return;
-          }
-
-          var speed = isDeleting ? 35 : 85;
-          setTimeout(type, speed);
-        }
-
-        setTimeout(type, 800);
-      })();
-    </script>
-
   </body>
 
 </html>
-
-<style>
-  .hero-name {
-    display: inline-block;
-    background: linear-gradient(90deg, var(--color-white), var(--color-accent-high) 65%, var(--color-white));
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 26%, transparent);
-    transition: text-shadow 220ms ease;
-  }
-
-  :root[data-theme='light'] .hero-name {
-    background: linear-gradient(90deg, var(--color-gray-1), var(--color-accent-high) 65%, var(--color-gray-2));
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-name {
-      transition: none;
-    }
-  }
-</style>

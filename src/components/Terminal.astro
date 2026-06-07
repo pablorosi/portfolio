@@ -9,7 +9,7 @@
       <span class="terminal-btn minimize"></span>
       <span class="terminal-btn maximize"></span>
     </div>
-    <div class="terminal-title">admin@pablorosi: ~</div>
+    <div class="terminal-title">pablo@portfolio: ~</div>
   </div>
   
   <div class="terminal-window" id="terminal-window">
@@ -19,8 +19,8 @@
     </div>
     
     <div class="input-line">
-      <span class="prompt" id="current-path">admin@pablorosi:~$</span>
-      <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus />
+      <span class="prompt" id="current-path">pablo@portfolio:~$</span>
+      <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" />
     </div>
   </div>
 </div>
@@ -95,9 +95,41 @@
   .input-line { display: flex; align-items: center; margin-top: 0.5rem; }
   .prompt { color: #27c93f; margin-right: 0.5rem; white-space: nowrap; }
   #terminal-input { background: transparent; border: none; color: var(--terminal-input); font-family: inherit; font-size: inherit; flex-grow: 1; outline: none; }
+
+  .fetch-output {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin: 0.25rem 0 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.15;
+  }
+
+  .fetch-art pre {
+    margin: 0;
+    color: #27c93f;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.1;
+    white-space: pre;
+  }
+
+  .fetch-info {
+    min-width: 14rem;
+  }
+
+  @media (max-width: 600px) {
+    .fetch-output {
+      flex-direction: column;
+    }
+  }
 </style>
 
 <script>
+  import { renderNeofetch, WHOAMI } from '../lib/terminal/neofetch';
+
   // TypeScript Interfaces for the Virtual File System
   type FileEntry = {
     kind: 'html' | 'text' | 'link';
@@ -164,8 +196,18 @@
     },
   };
 
+  const PROMPT_USER = 'pablo';
+  const PROMPT_HOST = 'portfolio';
+
+  function formatPrompt(pathDisplay: string): string {
+    return `${PROMPT_USER}@${PROMPT_HOST}:${pathDisplay}$`;
+  }
+
   let currentDir = 'root';
   let meltdownInProgress = false;
+  const commandHistory: string[] = [];
+  let historyIndex = 0;
+  let savedDraft = '';
   const input = document.getElementById('terminal-input') as HTMLInputElement;
   const history = document.getElementById('terminal-history');
   const windowNode = document.getElementById('terminal-window');
@@ -249,10 +291,47 @@
   }
 
   input?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+
+      if (historyIndex === commandHistory.length) {
+        savedDraft = input.value;
+      }
+
+      if (historyIndex > 0) {
+        historyIndex--;
+        input.value = commandHistory[historyIndex];
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+
+      if (historyIndex < commandHistory.length - 1) {
+        historyIndex++;
+        input.value = commandHistory[historyIndex];
+      } else if (historyIndex === commandHistory.length - 1) {
+        historyIndex = commandHistory.length;
+        input.value = savedDraft;
+      }
+      return;
+    }
+
     if (e.key === 'Enter') {
       const fullCommand = input.value.trim();
       input.value = '';
-      if (!fullCommand) return;
+      if (!fullCommand) {
+        historyIndex = commandHistory.length;
+        savedDraft = '';
+        return;
+      }
+
+      commandHistory.push(fullCommand);
+      historyIndex = commandHistory.length;
+      savedDraft = '';
 
       if (meltdownInProgress) {
         printTextLine('[LOCKED] command ignored while system meltdown is active...', 'error');
@@ -261,7 +340,7 @@
       }
 
       const pathDisplay = currentDir === 'root' ? '~' : `~/${currentDir}`;
-      printCommandLine(`admin@pablorosi:${pathDisplay}$`, fullCommand);
+      printCommandLine(formatPrompt(pathDisplay), fullCommand);
 
       if (isMassDirectoryDeleteCommand(fullCommand)) {
         runFakeMeltdown();
@@ -280,7 +359,16 @@
           printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">cat [file]</span> <span style="color:#aaa;">Read the contents of a text file</span>');
           printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">./[script]</span> <span style="color:#aaa;">Execute a project script to view docs</span>');
           printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">clear</span> <span style="color:#aaa;">Clear the terminal screen</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">neofetch</span> <span style="color:#aaa;">Display system info (alias: fetch)</span>');
+          printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">whoami</span> <span style="color:#aaa;">Print current user</span>');
           printLine('<br>');
+          break;
+        case 'neofetch':
+        case 'fetch':
+          printLine(renderNeofetch());
+          break;
+        case 'whoami':
+          printTextLine(WHOAMI);
           break;
                 case 'ls':
                       if (normalizedTarget) {
@@ -307,10 +395,10 @@
         case 'cd':
           if (normalizedTarget === '..' || normalizedTarget === '~' || !normalizedTarget) {
             currentDir = 'root';
-            if (pathLabel) pathLabel.innerText = 'admin@pablorosi:~$';
+            if (pathLabel) pathLabel.innerText = formatPrompt('~');
           } else if (currentDir === 'root' && fileSystem.root[normalizedTarget] === 'DIR') {
             currentDir = normalizedTarget;
-            if (pathLabel) pathLabel.innerText = `admin@pablorosi:~/${currentDir}$`;
+            if (pathLabel) pathLabel.innerText = formatPrompt(`~/${currentDir}`);
           } else {
             printTextLine(`cd: ${target}: No such directory`, 'error');
           }
