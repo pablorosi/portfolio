@@ -1,58 +1,60 @@
-# 🚀 Personal Portfolio | Web Frontend
+# Pablo Rosi — Personal Portfolio
 
-Welcome to the source code of my personal web portfolio. This project serves as my digital business card and a high-performance showcase of my web development projects, skills, and creative work.
+Personal portfolio site for [pablorosi.dev](https://pablorosi.dev). Built as a static, performance-focused showcase of projects, skills, certifications, and contact information, with an optional interactive CLI mode.
 
-> **Live Site:** [pablorosi.dev](https://pablorosi.dev)
+## Key Highlights
 
-## 🛠️ Tech Stack
+**Two Interfaces** — Switch between a standard GUI layout and a functional terminal with commands (`help`, `ls`, `cd`, `neofetch`, `whoami`, command history, and more).
 
-This project is built with a focus on speed, accessibility, and modern developer experience:
+**Fast & Accessible:** — Built with Astro islands for minimal client-side JavaScript, optimized AVIF/WebP images via Sharp, and respectful of prefers-reduced-motion for the Canvas background animations.
 
-* **[Astro](https://astro.build/):** The web framework for building fast, content-driven websites with a "zero-JS by default" approach.
-* **[TypeScript](https://www.typescriptlang.org/):** Providing type-safety and robust code architecture throughout the project.
-* **[PNPM](https://pnpm.io/):** A fast, disk space-efficient package manager used for dependency management.
-* **CSS Modules:** Used for scoped, maintainable styling across components.
+**Automated Deployment:** - Merging to main triggers a GitHub Actions workflow that builds and pushes the site to a Hetzner VPS using Tailscale, SCP, and Docker Compose.
 
-## 📂 Project Structure
+## Tech Stack
 
-Following the modern Astro directory standards, the project is organized as follows:
+| Layer | Technology |
+| --- | --- |
+| Framework | [Astro 6](https://astro.build/) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com/), CSS custom properties |
+| Language | TypeScript |
+| Images | Astro Assets + Sharp |
+| SEO | `@astrojs/sitemap` |
+| Package manager | pnpm |
+| Runtime | Node.js ≥ 22.12 |
+
+## Project Structure
 
 ```text
 /
-├── .github/              # CI/CD workflows and GitHub configurations
-├── .vscode/              # Editor-specific settings and extensions
-├── node_modules/         # Project dependencies (managed by pnpm)
-├── public/               # Static assets (fonts, favicons) served at the root
+├── public/                 # Static assets (favicon, robots.txt)
 ├── src/
-│   ├── assets/           # Optimized images and media used by Astro
-│   ├── components/       # Reusable UI elements (Nav, Buttons, Cards)
-│   ├── layouts/          # Core page templates and wrappers
-│   ├── pages/            # File-based routing (Astro and Markdown pages)
-│   └── styles/           # Global CSS and design system tokens
-├── .gitignore            # Files and folders to be ignored by Git
-├── astro.config.mjs      # Main Astro framework configuration
-├── package.json          # Project metadata and script definitions
-├── pnpm-lock.yaml        # Deterministic dependency lockfile
-├── README.md             # Project documentation (this file)
-└── tsconfig.json         # TypeScript compiler configuration
-
+│   ├── assets/             # Source images processed by Astro
+│   ├── components/         # UI components (Hero, Terminal, TopBar, …)
+│   │   └── terminal/       # Terminal-specific UI primitives
+│   ├── layouts/            # Page layouts
+│   ├── lib/                # Shared logic (hero stack, neofetch output)
+│   ├── pages/              # Routes (index, 404)
+│   └── styles/             # Global CSS, variables, animations
+├── .github/workflows/      # CI/CD deployment pipeline
+├── astro.config.mjs
+├── docker-compose.yml
+└── package.json
 ```
 
-To run this project locally, ensure you have **Node.js** and **PNPM** installed:
+## Getting Started
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/tu-usuario/portfolio.git](https://github.com/tu-usuario/portfolio.git)
-    ```
-2.  **Install dependencies:**
-    ```bash
-    pnpm install
-    ```
-3.  **Launch the development server:**
-    ```bash
-    pnpm dev
-    ```
-4.  **Build for production:**
-    ```bash
-    pnpm build
-    ```
+### Prerequisites
+
+- Node.js ≥ 22.12
+- pnpm ≥ 10
+
+### Running Locally
+
+```bash
+git clone git@github.com:pablorosi/portfolio.git
+cd portfolio
+pnpm install
+pnpm dev
+```
+
+The dev server starts at `http://localhost:4321`.
