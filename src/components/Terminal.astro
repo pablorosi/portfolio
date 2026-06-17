@@ -156,7 +156,7 @@
         '<span style="color: #555;">--------------------------------------------------</span>',
         '<span style="color: #27c93f; font-weight: bold;">CCNA</span> <span style="color: #888;">(Cisco &middot; Target: 2026)</span>',
         'Status:   <span style="color: #bd93f9; border: 1px solid #bd93f9; padding: 0 4px; border-radius: 3px; font-size: 0.8rem;">In Progress</span>',
-        'Progress: <span style="color: #5da9f6;">[████████████░░░░░░░░]</span> ~60%',
+        'Progress: <span style="color: #5da9f6;">[██████████████░░░░░░]</span> ~70%',
         '<br>',
         '<span style="color: #27c93f; font-weight: bold;">RHCSA</span> <span style="color: #888;">(Red Hat &middot; Target: 2026)</span>',
         'Status:   <span style="color: #bd93f9; border: 1px solid #bd93f9; padding: 0 4px; border-radius: 3px; font-size: 0.8rem;">In Progress</span>',
@@ -185,9 +185,25 @@
       'contact': 'DIR'
     },
     projects: {
-      'vlan-automation.sh': { kind: 'link', value: '/docs/projects/vlan' },
-      'homelab-config.sh': { kind: 'link', value: '/docs/projects/homelab' },
-      'readme.md': { kind: 'text', value: 'Execute scripts using ./filename.sh' }
+      'cloud-infrastructure.sh': {
+        kind: 'link',
+        value: 'https://docs.pablorosi.dev/cloud-infrastructure/',
+      },
+      'enterprise-homelab.sh': {
+        kind: 'link',
+        value: 'https://docs.pablorosi.dev/enterprise-homelab/',
+      },
+      'readme.md': {
+        kind: 'text',
+        value: [
+          'Technical Projects',
+          '------------------',
+          './cloud-infrastructure.sh   Secure Cloud Infrastructure & P2P Routing',
+          './enterprise-homelab.sh       Enterprise Local Datacenter',
+          '',
+          'Run ./filename.sh inside projects/ to open documentation.',
+        ].join('\n'),
+      },
     },
     contact: {
       'Email.sh': { kind: 'link', value: 'mailto:hello@pablorosi.dev' },
@@ -215,6 +231,14 @@
 
   function scrollToBottom() {
     if (windowNode) windowNode.scrollTop = windowNode.scrollHeight;
+  }
+
+  function openTerminalLink(url: string, action: 'navigate' | 'open') {
+    if (url.startsWith('mailto:') || action === 'navigate') {
+      window.location.href = url;
+      return;
+    }
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
   
 // @warning: Only use this for internal/hardcoded safe HTML. Avoid using with untrusted content to prevent XSS vulnerabilities.
@@ -425,19 +449,19 @@
             const scriptName = cmd.replace('./', '');
             if (currentDir === 'projects' && fileSystem['projects'][scriptName]) {
               const entry = fileSystem['projects'][scriptName] as FileEntry;
-              printTextLine(`Running ${scriptName}... Redirecting to documentation.`);
+              printTextLine(`Running ${scriptName}... Opening documentation in a new tab.`);
               setTimeout(() => {
-                if (entry.kind === 'link') window.location.href = entry.value;
+                if (entry.kind === 'link') openTerminalLink(entry.value, 'open');
               }, 1000);
             } else if (currentDir === 'contact' && fileSystem['contact'][scriptName]) {
               const entry = fileSystem['contact'][scriptName] as FileEntry;
               const targetLink = entry.kind === 'link' ? entry.value : '';
               if (targetLink.startsWith('mailto:')) {
                 printTextLine(`Running ${scriptName}... Opening email client.`);
-                window.location.href = targetLink;
+                openTerminalLink(targetLink, 'navigate');
               } else {
                 printTextLine(`Running ${scriptName}... Opening link in a new tab.`);
-                window.open(targetLink, '_blank', 'noopener,noreferrer');
+                openTerminalLink(targetLink, 'open');
               }
             } else {
               printTextLine(`bash: ${cmd}: permission denied or file not found`, 'error');
