@@ -199,21 +199,3 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
   position: relative;
 }
-
-::view-transition-group(root) {
-  animation: none;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-new(root) {
-  clip-path: inset(0 0 100% 0);
-}
-
-::view-transition-image-pair(root) {
-  isolation: isolate;
-}
