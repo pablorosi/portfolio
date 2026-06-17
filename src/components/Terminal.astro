@@ -240,6 +240,24 @@
     }
     window.open(url, '_blank', 'noopener,noreferrer');
   }
+
+  function parseCommandInput(fullCommand: string): { cmd: string; args: string[] } {
+    const parts = fullCommand.trim().split(/\s+/).filter(Boolean);
+    const [cmd = '', ...args] = parts;
+    return { cmd, args };
+  }
+
+  function printExtraOperandError(command: string, operand: string) {
+    printTextLine(`${command}: extra operand '${operand}'`, 'error');
+  }
+
+  function printFileEntry(fileName: string, entry: FileEntry) {
+    if (entry.kind === 'html') {
+      printLine(entry.value);
+      return;
+    }
+    printTextLine(entry.value);
+  }
   
 // @warning: Only use this for internal/hardcoded safe HTML. Avoid using with untrusted content to prevent XSS vulnerabilities.
   function printLine(html: string) {
@@ -371,12 +389,17 @@
         return;
       }
 
-      const [cmd, ...args] = fullCommand.split(' ');
+      const { cmd, args } = parseCommandInput(fullCommand);
       const target = args[0];
       const normalizedTarget = target?.replace(/\/+$/g, '');
+      const cmdLower = cmd.toLowerCase();
 
-      switch (cmd.toLowerCase()) {
+      switch (cmdLower) {
         case 'help':
+          if (args.length > 0) {
+            printExtraOperandError('help', args[0]);
+            break;
+          }
           printLine('<br><span class="highlight">Available commands:</span>');
           printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">ls</span> <span style="color:#aaa;">List directory contents</span>');
           printLine('<span style="display:inline-block; width:100px; color:#5da9f6; font-weight:bold;">cd [dir]</span> <span style="color:#aaa;">Change the current directory</span>');
@@ -389,9 +412,17 @@
           break;
         case 'neofetch':
         case 'fetch':
+          if (args.length > 0) {
+            printExtraOperandError(cmdLower, args[0]);
+            break;
+          }
           printLine(renderNeofetch());
           break;
         case 'whoami':
+          if (args.length > 0) {
+            printExtraOperandError('whoami', args[0]);
+            break;
+          }
           printTextLine(WHOAMI);
           break;
                 case 'ls':
@@ -417,6 +448,10 @@
                       }
                       break;
         case 'cd':
+          if (args.length > 1) {
+            printTextLine('cd: too many arguments', 'error');
+            break;
+          }
           if (normalizedTarget === '..' || normalizedTarget === '~' || !normalizedTarget) {
             currentDir = 'root';
             if (pathLabel) pathLabel.innerText = formatPrompt('~');
@@ -428,25 +463,35 @@
           }
           break;
         case 'cat':
-          if (fileSystem[currentDir][target] && fileSystem[currentDir][target] !== 'DIR') {
-            const entry = fileSystem[currentDir][target] as FileEntry;
-            if (entry.kind === 'html') {
-              printLine(entry.value);
-            } else {
-              printTextLine(entry.value);
+          if (args.length === 0) {
+            printTextLine('cat: missing file operand', 'error');
+            break;
+          }
+          for (const fileName of args) {
+            const entry = fileSystem[currentDir][fileName];
+            if (!entry || entry === 'DIR') {
+              printTextLine(`cat: ${fileName}: No such file`, 'error');
+              continue;
             }
-          } else {
-            printTextLine(`cat: ${target}: No such file`, 'error');
+            printFileEntry(fileName, entry as FileEntry);
           }
           break;
         case 'clear':
+          if (args.length > 0) {
+            printExtraOperandError('clear', args[0]);
+            break;
+          }
           if (history) history.innerHTML = '';
           scrollToBottom();
           break;
         default:
           // Handle Execution Logic (./script.sh)
           if (cmd.startsWith('./')) {
-            const scriptName = cmd.replace('./', '');
+            if (args.length > 0) {
+              printExtraOperandError(cmd, args[0]);
+              break;
+            }
+            const scriptName = cmd.slice(2);
             if (currentDir === 'projects' && fileSystem['projects'][scriptName]) {
               const entry = fileSystem['projects'][scriptName] as FileEntry;
               printTextLine(`Running ${scriptName}... Opening documentation in a new tab.`);
