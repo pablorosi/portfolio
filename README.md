@@ -6,9 +6,9 @@ Personal portfolio site for [pablorosi.dev](https://pablorosi.dev). Built as a s
 
 **Two Interfaces** — Switch between a standard GUI layout and a functional terminal with commands (`help`, `ls`, `cd`, `neofetch`, `whoami`, command history, and more).
 
-**Fast & Accessible:** — Built with Astro islands for minimal client-side JavaScript, optimized AVIF/WebP images via Sharp, and respectful of prefers-reduced-motion for the Canvas background animations.
+**Fast & Accessible** — Built with Astro islands for minimal client-side JavaScript, optimized AVIF/WebP images via Sharp, and respectful of `prefers-reduced-motion` for the canvas background animations.
 
-**Automated Deployment:** - Merging to main triggers a GitHub Actions workflow that builds and pushes the site to a Hetzner VPS using Tailscale, SCP, and Docker Compose.
+**Static deployment** — Hosted on Cloudflare Pages; no server or container required.
 
 ## Tech Stack
 
@@ -21,6 +21,7 @@ Personal portfolio site for [pablorosi.dev](https://pablorosi.dev). Built as a s
 | SEO | `@astrojs/sitemap` |
 | Package manager | pnpm |
 | Runtime | Node.js ≥ 22.12 |
+| Hosting | [Cloudflare Pages](https://pages.cloudflare.com/) |
 
 ## Project Structure
 
@@ -35,9 +36,7 @@ Personal portfolio site for [pablorosi.dev](https://pablorosi.dev). Built as a s
 │   ├── lib/                # Shared logic (hero stack, neofetch output)
 │   ├── pages/              # Routes (index, 404)
 │   └── styles/             # Global CSS, variables, animations
-├── .github/workflows/      # CI/CD deployment pipeline
 ├── astro.config.mjs
-├── docker-compose.yml
 └── package.json
 ```
 
@@ -58,3 +57,38 @@ pnpm dev
 ```
 
 The dev server starts at `http://localhost:4321`.
+
+### Production Build
+
+```bash
+pnpm build
+pnpm preview
+```
+
+## Deployment (Cloudflare Pages)
+
+Connect this repository in the Cloudflare Pages dashboard:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `pnpm run build` |
+| Build output directory | `dist` |
+| Node.js version | `22` |
+| Package manager | pnpm (auto-detected from `pnpm-lock.yaml`) |
+
+Cloudflare builds and serves the site on every push to `main`. No GitHub Actions workflow is required.
+
+### Custom domain
+
+1. In Pages → your project → **Custom domains**, add `pablorosi.dev` (and `www` if needed).
+2. Confirm DNS records as instructed by Cloudflare.
+3. After verifying the site on Pages, stop the old VPS container (`astro-site`) if it is still running.
+
+## Related
+
+- **Documentation:** [docs.pablorosi.dev](https://docs.pablorosi.dev)
+- **Author:** [Pablo Rosi](https://pablorosi.dev)
+
+## License
+
+Private project. All rights reserved.
