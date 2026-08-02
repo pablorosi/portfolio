@@ -12,6 +12,6 @@ export const HERO_STACK: HeroStackItem[] = [
 	{ label: 'Nginx', color: '#0dad73' },
 	{ label: 'Linux / RHEL', color: '#4754c2' },
 	{ label: 'CCNA', color: '#3478eb' },
-	{ label: 'RHCSA', color: '#0dad73' },
+	{ label: 'AZ-104', color: '#0078D4' },
 	{ label: 'BGP / Subnetting', color: '#ea6b12' },
 ];
